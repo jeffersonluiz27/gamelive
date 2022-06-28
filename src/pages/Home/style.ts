@@ -1,3 +1,1 @@
-import Home from '.';
-
-export default Home;
+import styled, { css } from 'styled-components';

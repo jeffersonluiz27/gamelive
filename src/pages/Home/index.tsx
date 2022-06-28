@@ -1,17 +1,10 @@
-import React from 'react';
-import './style';
+import * as S from './style';
 
 const Home = () => {
 	return (
-		<section>
-			<main>
-				<section>
-					<div>
-						<h1>Game Live</h1>
-					</div>
-				</section>
-			</main>
-		</section>
+		<>
+			<p>Colocar aqui componente menu e lista de jogos</p>
+		</>
 	);
 };
 
