@@ -7,8 +7,10 @@ export const colors = {
 
 	shadowColor: '#6e9e6666',
 
-	baseForm: '#2d303e',
-	baseLine: '#f2f2f2',
+	baseForm1: '#9c9791',
+	baseForm2: '#ffffff',
+	baseInput: '#f2f2f2',
+	textInput: '#2d303e',
 
 	textColor: '#ffffff',
 	textLighter: '#e0e6e9',
@@ -21,5 +23,4 @@ export const colors = {
 
 	color2: '#fdb205',
 	color3: '#c1c1c1',
-	color4: '#9c9791',
 };
