@@ -7,25 +7,6 @@ export const Singup = styled.section`
 		background-position: center;
 		width: 100vw;
 		height: 100vh;
-
-		div {
-			display: flex;
-			width: 100%;
-		}
-		div a {
-			align-self: center;
-		}
-
-		#backImg {
-			align-self: center;
-			margin-left: 46px;
-		}
-		#divLogo {
-			display: flex;
-			align-self: center;
-			justify-content: center;
-			width: 90%;
-		}
 	`}
 `;
 
