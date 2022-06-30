@@ -5,11 +5,6 @@ export const BoxLogoText = styled.h1`
 		${theme.mixins.logoStyle}
 		text-transform: uppercase;
 		display: flex;
-		position: absolute;
-		top: 3px;
 		color: #fff;
 	`}
-	@media only screen and (max-width: 1366px) {
-		position: relative;
-	}
 `;

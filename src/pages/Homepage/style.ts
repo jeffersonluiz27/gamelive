@@ -9,3 +9,10 @@ export const Home = styled.section`
 		height: 100vh;
 	`}
 `;
+
+export const HomeContent = styled.main`
+	${({ theme }) => css`
+		width: 100%;
+		display: flex;
+	`}
+`;

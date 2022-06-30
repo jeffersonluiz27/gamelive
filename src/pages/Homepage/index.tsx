@@ -1,10 +1,14 @@
+import Menu from 'components/Menu';
+import { navigationItems } from 'data/navigation';
+import { RoutePath } from 'types/routes';
 import * as S from './style';
 
 const Homepage = () => {
 	return (
 		<>
 			<S.Home>
-				<p>Colocar aqui componente menu e lista de jogos</p>
+				<Menu active={RoutePath.HOME} navItems={navigationItems} />
+				<S.HomeContent></S.HomeContent>
 			</S.Home>
 		</>
 	);
