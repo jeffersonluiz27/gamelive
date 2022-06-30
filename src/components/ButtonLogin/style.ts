@@ -5,5 +5,6 @@ export const ButtonLogin = styled.button`
 		${theme.mixins.buttonDefault}
 		${theme.mixins.buttonPurple}
 		align-self: center;
+		cursor: pointer;
 	`}
 `;
