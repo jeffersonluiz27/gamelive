@@ -26,7 +26,12 @@ const input = () => css`
 `;
 
 const buttonPurple = () => css`
-	background: ${colors.buton1};
+	background: ${colors.butonPurple};
+	color: ${colors.textColor};
+`;
+
+const buttonRed = () => css`
+	background: ${colors.butonRed};
 	color: ${colors.textColor};
 `;
 
@@ -55,6 +60,7 @@ export const mixins = {
 	loginStyle,
 	input,
 	buttonPurple,
+	buttonRed,
 	buttonDefault,
 	buttonChooseImage,
 };

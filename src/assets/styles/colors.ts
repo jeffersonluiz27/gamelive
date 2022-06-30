@@ -18,8 +18,8 @@ export const colors = {
 	textNeutral: '#889898',
 	textDark: '#3b5162',
 
-	buton1: '#836ed7',
-	buton2: '#f30445',
+	butonPurple: '#836ed7',
+	butonRed: '#f30445',
 
 	color2: '#fdb205',
 	color3: '#c1c1c1',
