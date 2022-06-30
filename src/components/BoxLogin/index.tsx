@@ -1,6 +1,7 @@
 import * as S from './style';
 import logo from 'assets/img/logo.png';
 import ButtonLogin from 'components/ButtonLogin';
+import { Link } from 'react-router-dom';
 
 const BoxLogin = () => {
 	return (
@@ -15,7 +16,7 @@ const BoxLogin = () => {
 				<input type="email" placeholder="Coloque seu email..." />
 				<input type="password" placeholder="Coloque sua senha..." />
 				<p>
-					Não tem uma conta? <a href="#">Crie uma!</a>
+					Não tem uma conta? <Link to="/registar">Crie uma!</Link>
 				</p>
 				<ButtonLogin />
 			</S.BoxLoginForm>
