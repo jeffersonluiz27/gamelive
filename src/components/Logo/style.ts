@@ -8,6 +8,6 @@ export const BoxLogoText = styled.h1`
 		color: #fff;
 		align-items: center;
 		justify-content: center;
-		height: 10%;
+		height: 96px;
 	`}
 `;
