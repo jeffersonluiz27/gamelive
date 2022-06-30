@@ -2,10 +2,15 @@ import { css } from 'styled-components';
 import { constants } from './constants';
 import { colors } from './colors';
 
+
 const logoStyle = () => css`
 	font-family: ${constants.logoFontFamily};
 	font-size: ${constants.logoFontSize};
 	line-height: ${constants.logoLineHeight};
+`;
+
+const loginStyle = () => css`
+	font-family: ${constants.bodyFontFamily};
 `;
 
 const input = () => css`
@@ -20,12 +25,25 @@ const input = () => css`
 	margin-bottom: 30px;
 `;
 
-const button1 = () => css`
+const buttonPurple = () => css`
+	background: ${colors.buton1};
+	color: ${colors.textColor};
+`;
+
+const buttonDefault = () => css`
 	width: 142px;
 	height: 45px;
 	text-transform: uppercase;
-	background: ${colors.buton1};
-	color: ${colors.textColor};
+	font-size: 22px;
+	border-radius: 8px;
+	font-weight: 400;
+	line-height: 26px;
+`;
+
+const buttonChooseImage = () => css`
+	width: 142px;
+	height: 45px;
+	text-transform: uppercase;
 	font-size: 22px;
 	border-radius: 8px;
 	font-weight: 400;
@@ -34,6 +52,9 @@ const button1 = () => css`
 
 export const mixins = {
 	logoStyle,
+	loginStyle,
 	input,
-	button1,
+	buttonPurple,
+	buttonDefault,
+	buttonChooseImage,
 };
