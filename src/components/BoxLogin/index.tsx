@@ -16,7 +16,7 @@ const BoxLogin = () => {
 				<input type="email" placeholder="Coloque seu email..." />
 				<input type="password" placeholder="Coloque sua senha..." />
 				<p>
-					Não tem uma conta? <Link to="/registar">Crie uma!</Link>
+					Não tem uma conta? <Link to="/singup">Crie uma!</Link>
 				</p>
 				<ButtonLogin />
 			</S.BoxLoginForm>

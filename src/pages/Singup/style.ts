@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const Login = styled.section`
+export const Singup = styled.section`
 	${({ theme }) => css`
 		background-color: ${theme.colors.baseBg1};
 		background-size: cover;
@@ -10,7 +10,7 @@ export const Login = styled.section`
 	`}
 `;
 
-export const LoginContent = styled.main`
+export const SingupContent = styled.main`
 	${({ theme }) => css`
 		${theme.mixins.overlay};
 		width: 100%;

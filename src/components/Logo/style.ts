@@ -6,5 +6,8 @@ export const BoxLogoText = styled.h1`
 		text-transform: uppercase;
 		display: flex;
 		color: #fff;
+		align-items: center;
+		justify-content: center;
+		height: 10%;
 	`}
 `;

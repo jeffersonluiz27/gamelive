@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
 
-export const BoxLogin = styled.section`
+export const BoxSingup = styled.section`
 	${({ theme }) => css`
 		${theme.mixins.loginStyle};
 		background: ${theme.colors.baseForm2};
 		color: ${theme.colors.textInput};
 		width: 28%;
-		height: 427px;
+		height: 518px;
 		padding: 20px 20px 35px 20px;
 		margin: 20px;
 		border-radius: 8px;
@@ -17,7 +17,7 @@ export const BoxLogin = styled.section`
 	`}
 `;
 
-export const BoxLoginLogo = styled.div`
+export const BoxSingupLogo = styled.div`
 	${() => css`
 		display: flex;
 		justify-content: space-around;
@@ -25,13 +25,13 @@ export const BoxLoginLogo = styled.div`
 	`}
 `;
 
-export const BoxLoginLogoImage = styled.img`
+export const BoxSingupLogoImage = styled.img`
 	${() => css`
 		width: 15%;
 	`}
 `;
 
-export const BoxLoginForm = styled.form`
+export const BoxSingupForm = styled.form`
 	${({ theme }) => css`
 		display: flex;
 		flex-direction: column;
@@ -49,4 +49,3 @@ export const BoxLoginForm = styled.form`
 		}
 	`}
 `;
-

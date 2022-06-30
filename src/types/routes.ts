@@ -4,4 +4,5 @@ export enum RoutePath {
 	LOGIN = '/login',
 	NEWGAME = '/newgame',
 	USEREDIT = '/useredit',
+	SINGUP = '/singup',
 }

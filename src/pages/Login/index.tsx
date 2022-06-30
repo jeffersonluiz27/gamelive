@@ -5,8 +5,8 @@ import Logo from 'components/Logo';
 const Login = () => {
 	return (
 		<S.Login>
+			<Logo />
 			<S.LoginContent>
-				<Logo />
 				<BoxLogin />
 			</S.LoginContent>
 		</S.Login>
