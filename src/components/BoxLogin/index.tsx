@@ -1,12 +1,13 @@
 import * as S from './style';
-
+import logo from 'assets/img/logo.png';
+import ButtonLogin from 'components/ButtonLogin';
 
 const BoxLogin = () => {
 	return (
 		<S.BoxLogin>
 			<S.BoxLoginLogo>
 				<S.BoxLoginLogoImage
-					src={require('assets/img/logo.png')}
+					src={logo}
 					alt="Image do logo com um desenho de um controle de video game"
 				/>
 			</S.BoxLoginLogo>
@@ -16,7 +17,7 @@ const BoxLogin = () => {
 				<p>
 					Não tem uma conta? <a href="#">Crie uma!</a>
 				</p>
-				<S.BoxLoginButton>Entrar</S.BoxLoginButton>
+				<ButtonLogin />
 			</S.BoxLoginForm>
 		</S.BoxLogin>
 	);
