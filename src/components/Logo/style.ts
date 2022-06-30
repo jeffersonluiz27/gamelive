@@ -9,4 +9,7 @@ export const BoxLogoText = styled.h1`
 		top: 3px;
 		color: #fff;
 	`}
+	@media only screen and (max-width: 1366px) {
+		position: relative;
+	}
 `;
