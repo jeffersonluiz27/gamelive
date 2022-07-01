@@ -6,6 +6,7 @@ import { ReactComponent as Logout } from 'assets/icons/logout.svg';
 import { RoutePath } from 'types/routes';
 import { NavItem } from './types';
 import { DateTime } from 'luxon';
+import { useNavigate } from 'react-router-dom';
 
 interface MenuProps {
 	navItems: NavItem[];
@@ -18,6 +19,8 @@ const Menu = ({ navItems, onNavigate, onLogout }: MenuProps) => {
 		...DateTime.TIME_24_SIMPLE,
 	});
 
+	const navigate = useNavigate();
+
 	return (
 		<S.Menu>
 			<S.MenuLeft>
@@ -27,7 +30,9 @@ const Menu = ({ navItems, onNavigate, onLogout }: MenuProps) => {
 					<br />
 					<span>20562</span>
 				</div>
-				<Back />
+				<S.MenuItemButton onClick={() => navigate(-1)}>
+					<Back />
+				</S.MenuItemButton>
 			</S.MenuLeft>
 			<S.MenuRight>
 				<nav>
