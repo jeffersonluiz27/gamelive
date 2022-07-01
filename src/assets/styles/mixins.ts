@@ -54,6 +54,19 @@ const buttonChooseImage = () => css`
 	line-height: 26px;
 `;
 
+const buttonIcon = (active = false) => css`
+	height: 46px;
+	width: 46px;
+	border-radius: 8px;
+	border: none;
+	cursor: pointer;
+	color: #fff;
+`;
+
+const overlay = () => css`
+	background: rgb(0, 0, 0, 0.6);
+`;
+
 export const mixins = {
 	logoStyle,
 	loginStyle,
@@ -62,4 +75,6 @@ export const mixins = {
 	buttonRed,
 	buttonDefault,
 	buttonChooseImage,
+	buttonIcon,
+	overlay,
 };

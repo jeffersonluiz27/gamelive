@@ -1,20 +1,21 @@
 import * as S from './style';
-import Back from 'assets/icons/returnArrow.svg';
 import Elipse from 'assets/img/hankElipse.png';
-import NewGame from 'assets/icons/newGame.svg';
-import UserEdit from 'assets/icons/userEdit.svg';
 import MiniLogo from 'assets/img/logo2.png';
+import { ReactComponent as Back } from 'assets/icons/returnArrow.svg';
+import { ReactComponent as Logout } from 'assets/icons/logout.svg';
+
 import { RoutePath } from 'types/routes';
 import { NavItem } from './types';
 import { DateTime } from 'luxon';
-import { Link } from 'react-router-dom';
 
 interface MenuProps {
 	active: RoutePath;
 	navItems: NavItem[];
+	onNavigate: (data: RoutePath) => void;
+	onLogout: () => void;
 }
 
-const Menu = ({ active, navItems }: MenuProps) => {
+const Menu = ({ active, navItems, onNavigate, onLogout }: MenuProps) => {
 	const dateDescription = DateTime.now().toLocaleString({
 		...DateTime.TIME_24_SIMPLE,
 	});
@@ -28,14 +29,27 @@ const Menu = ({ active, navItems }: MenuProps) => {
 					<br />
 					<span>20562</span>
 				</div>
-				<img src={Back} alt="" width="50" />
+				<Back />
 			</S.MenuLeft>
 			<S.MenuRight>
-				<img src={UserEdit} alt="" width="42" />
-				<Link to="/newgame">
-					<img src={NewGame} alt="" width="55" />
-				</Link>
-				<img src={MiniLogo} alt="" width="80" />
+				<nav>
+					{navItems.map((item, index) => (
+						<S.MenuItem key={`MenuItem-${index}`} active={item.path === active}>
+							<S.MenuItemButton
+								active={item.path === active}
+								onClick={() => onNavigate(item.path)}
+							>
+								{item.icon}
+							</S.MenuItemButton>
+						</S.MenuItem>
+					))}
+				</nav>
+				<S.MenuItemLogout onClick={onLogout}>
+					<Logout />
+				</S.MenuItemLogout>
+				<S.MenuLogo>
+					<img src={MiniLogo} alt="Logo" />
+				</S.MenuLogo>
 				{dateDescription}
 			</S.MenuRight>
 		</S.Menu>

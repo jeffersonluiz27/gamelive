@@ -11,8 +11,7 @@ export const Login = styled.section`
 `;
 
 export const LoginContent = styled.main`
-	${({ theme }) => css`
-		${theme.mixins.overlay};
+	${() => css`
 		width: 100%;
 		height: 70%;
 		display: flex;

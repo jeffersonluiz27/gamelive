@@ -11,8 +11,7 @@ export const NewGame = styled.section`
 `;
 
 export const NewGameContent = styled.main`
-	${({ theme }) => css`
-		${theme.mixins.overlay};
+	${() => css`
 		width: 100%;
 		display: flex;
 		flex-direction: column;
