@@ -1,7 +1,14 @@
+import React, { ButtonHTMLAttributes } from 'react';
 import * as S from './style';
 
-const ButtonLogin = () => {
-	return <S.ButtonLogin>Entrar</S.ButtonLogin>;
+type ButtonType = ButtonHTMLAttributes<HTMLButtonElement>;
+
+type ButtonLargeProps = {
+	value: string;
+} & ButtonType;
+
+const ButtonLogin = ({ value, ...props }: ButtonLargeProps) => {
+	return <S.ButtonLogin {...props}>{value}</S.ButtonLogin>;
 };
 
 export default ButtonLogin;
