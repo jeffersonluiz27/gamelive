@@ -3,19 +3,17 @@ import Elipse from 'assets/img/hankElipse.png';
 import MiniLogo from 'assets/img/logo2.png';
 import { ReactComponent as Back } from 'assets/icons/returnArrow.svg';
 import { ReactComponent as Logout } from 'assets/icons/logout.svg';
-
 import { RoutePath } from 'types/routes';
 import { NavItem } from './types';
 import { DateTime } from 'luxon';
 
 interface MenuProps {
-	active: RoutePath;
 	navItems: NavItem[];
 	onNavigate: (data: RoutePath) => void;
 	onLogout: () => void;
 }
 
-const Menu = ({ active, navItems, onNavigate, onLogout }: MenuProps) => {
+const Menu = ({ navItems, onNavigate, onLogout }: MenuProps) => {
 	const dateDescription = DateTime.now().toLocaleString({
 		...DateTime.TIME_24_SIMPLE,
 	});
@@ -34,11 +32,8 @@ const Menu = ({ active, navItems, onNavigate, onLogout }: MenuProps) => {
 			<S.MenuRight>
 				<nav>
 					{navItems.map((item, index) => (
-						<S.MenuItem key={`MenuItem-${index}`} active={item.path === active}>
-							<S.MenuItemButton
-								active={item.path === active}
-								onClick={() => onNavigate(item.path)}
-							>
+						<S.MenuItem key={`MenuItem-${index}`}>
+							<S.MenuItemButton onClick={() => onNavigate(item.path)}>
 								{item.icon}
 							</S.MenuItemButton>
 						</S.MenuItem>

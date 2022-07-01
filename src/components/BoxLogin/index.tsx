@@ -1,6 +1,6 @@
 import * as S from './style';
 import logo from 'assets/img/logo.png';
-import ButtonLogin from 'components/ButtonLogin';
+import ButtonLogin from 'components/ButtonPurple';
 import { HTMLAttributes, useState } from 'react';
 import { Link } from 'react-router-dom';
 

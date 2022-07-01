@@ -10,7 +10,6 @@ const Homepage = () => {
 	return (
 		<S.Home>
 			<Menu
-				active={RoutePath.HOME}
 				navItems={navigationItems}
 				onNavigate={handleNavigation}
 				onLogout={() => navigate(RoutePath.LOGIN)}

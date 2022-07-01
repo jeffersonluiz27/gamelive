@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const ButtonCriar = styled.button`
+export const ButtonRed = styled.button`
 	${({ theme }) => css`
 		${theme.mixins.buttonDefault}
 		${theme.mixins.buttonRed}

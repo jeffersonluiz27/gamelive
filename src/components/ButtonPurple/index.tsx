@@ -7,8 +7,8 @@ type ButtonLargeProps = {
 	value: string;
 } & ButtonType;
 
-const ButtonLogin = ({ value, ...props }: ButtonLargeProps) => {
-	return <S.ButtonLogin {...props}>{value}</S.ButtonLogin>;
+const ButtonPurple = ({ value, ...props }: ButtonLargeProps) => {
+	return <S.ButtonPurple {...props}>{value}</S.ButtonPurple>;
 };
 
-export default ButtonLogin;
+export default ButtonPurple;

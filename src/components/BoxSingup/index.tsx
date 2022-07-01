@@ -1,6 +1,6 @@
 import * as S from './style';
 import logo from 'assets/img/logo.png';
-import ButtonCriar from 'components/ButtonCriar';
+import ButtonCriar from 'components/ButtonPurple';
 
 const BoxSingup = () => {
 	return (
@@ -16,7 +16,7 @@ const BoxSingup = () => {
 				<input type="email" placeholder="Coloque seu email..." />
 				<input type="password" placeholder="Coloque sua senha..." />
 				<input type="text" placeholder="Coloque seu CPF..." />
-				<ButtonCriar />
+				<ButtonCriar value="Criar" type="button" />
 			</S.BoxSingupForm>
 		</S.BoxSingup>
 	);

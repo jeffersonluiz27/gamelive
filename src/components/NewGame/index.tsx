@@ -1,8 +1,8 @@
 import * as S from './style';
 import Interrogacao from 'assets/icons/interrogacao.svg';
-import ButtonCriar from 'components/ButtonCriar';
-import ButtonUpdate from 'components/ButtonUpdate';
-import ButtonDelete from 'components/ButtonDelete';
+import ButtonCriar from 'components/ButtonPurple';
+import ButtonUpdate from 'components/ButtonPurple';
+import ButtonDelete from 'components/ButtonRed';
 
 const BoxNewGame = () => {
 	return (
@@ -34,7 +34,7 @@ const BoxNewGame = () => {
 							<input type="link" placeholder="Gameplay Url..." />
 						</S.BoxNewGameDiv>
 						<textarea placeholder="Descrição..."></textarea>
-						<ButtonCriar />
+						<ButtonCriar value="Criar" type="button" />
 					</S.BoxNewGameForm>
 				</S.BoxNewGame>
 			</S.NewGameLeft>
@@ -43,7 +43,7 @@ const BoxNewGame = () => {
 				<S.BoxNewGenre>
 					<S.BoxNewGenreForm>
 						<input type="text" placeholder="Nome do genero..." />
-						<ButtonCriar />
+						<ButtonCriar value="Criar" type="button" />
 					</S.BoxNewGenreForm>
 				</S.BoxNewGenre>
 				<h2>Atualizar Genero</h2>
@@ -55,8 +55,8 @@ const BoxNewGame = () => {
 							</optgroup>
 						</select>
 						<S.BoxUpdateGenreDiv>
-							<ButtonDelete />
-							<ButtonUpdate />
+							<ButtonDelete value="Deletar" type="button" />
+							<ButtonUpdate value="Atualizar" type="button" />
 						</S.BoxUpdateGenreDiv>
 					</S.BoxUpdateGenreForm>
 				</S.BoxUpdateGenre>
