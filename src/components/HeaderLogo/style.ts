@@ -9,6 +9,7 @@ export const HeaderLogo = styled.div`
 	div {
 		display: flex;
 		width: 90%;
+		align-items: center;
 	}
 `;
 

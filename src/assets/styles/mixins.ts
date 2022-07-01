@@ -22,7 +22,6 @@ const input = () => css`
 	font-size: 18px;
 	padding-left: 10px;
 	border: solid 1px #ddd;
-	margin-bottom: 26px;
 `;
 
 const buttonPurple = () => css`

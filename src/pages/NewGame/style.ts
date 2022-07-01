@@ -14,10 +14,8 @@ export const NewGameContent = styled.main`
 	${({ theme }) => css`
 		${theme.mixins.overlay};
 		width: 100%;
-		height: 70%;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-around;
 		align-items: center;
 
 		h2 {

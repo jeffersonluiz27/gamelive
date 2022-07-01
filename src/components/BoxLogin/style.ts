@@ -41,6 +41,7 @@ export const BoxLoginForm = styled.form`
 			${theme.mixins.input};
 			align-self: center;
 			width: 70%;
+			margin-bottom: 26px;
 		}
 
 		p {
