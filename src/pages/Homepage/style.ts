@@ -14,5 +14,15 @@ export const HomeContent = styled.main`
 	${({ theme }) => css`
 		width: 100%;
 		display: flex;
+		justify-content: center;
+		grid-row: auto;
+		flex-wrap: wrap;
+	`}
+`;
+
+export const HomeGameList = styled.div`
+	${() => css`
+		margin-top: 25px;
+		padding-bottom: 25px;
 	`}
 `;

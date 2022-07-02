@@ -14,6 +14,7 @@ export const colors = {
 	textLight: '#abbbc2',
 	textNeutral: '#889898',
 	textDark: '#3b5162',
+	textTitle: '#eaeaea',
 	butonPurple: '#836ed7',
 	butonRed: '#f30445',
 	buttonGold: '#fdb205',
