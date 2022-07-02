@@ -1,17 +1,14 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import ButtonEnter from 'components/ButtonPurple';
 import * as S from './style';
 
 const Wellcome = () => {
-	const navigate = useNavigate();
-
-	function goToLogin() {
-		navigate('/login');
-	}
-
 	return (
 		<S.Wellcome>
 			<h1>Pagina Publica de boas vindas e link para login</h1>
-			<button onClick={goToLogin}>Login</button>
+			<Link to={'/login'}>
+				<ButtonEnter value="Sing In" type="button" />
+			</Link>
 		</S.Wellcome>
 	);
 };
