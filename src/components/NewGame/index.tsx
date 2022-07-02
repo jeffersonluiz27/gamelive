@@ -1,10 +1,15 @@
 import * as S from './style';
 import Interrogacao from 'assets/icons/interrogacao.svg';
 import ButtonCriar from 'components/ButtonPurple';
-import ButtonUpdate from 'components/ButtonPurple';
-import ButtonDelete from 'components/ButtonRed';
+import { useMemo, useState } from 'react';
+import ManageGenre from 'components/ManageGenre';
 
 const BoxNewGame = () => {
+	const [thumbnail, setThumbnail] = useState<FileList | null>(null);
+	const preview = useMemo(() => {
+		return thumbnail ? URL.createObjectURL(thumbnail[0]) : null;
+	}, [thumbnail]);
+
 	return (
 		<S.NewGame>
 			<S.NewGameLeft>
@@ -13,9 +18,22 @@ const BoxNewGame = () => {
 					<S.BoxNewGameForm>
 						<S.BoxNewGameImgArea>
 							<S.BoxNewGameImg>
-								<img src={Interrogacao} alt="" />
+								<label
+									id="thumbnail"
+									style={{ backgroundImage: `url(${preview})` }}
+									className={thumbnail ? 'has-thumbnail' : ''}
+								>
+									<input
+										type="file"
+										name="thumbnail"
+										onChange={(event) => setThumbnail(event.target.files)}
+									/>
+									<img
+										src={Interrogacao}
+										alt="Logo que representa uma interrogação"
+									/>
+								</label>
 							</S.BoxNewGameImg>
-							<button> botão aqui</button>
 						</S.BoxNewGameImgArea>
 						<S.BoxNewGameDiv>
 							<input type="text" placeholder="Nome do jogo..." />
@@ -39,27 +57,7 @@ const BoxNewGame = () => {
 				</S.BoxNewGame>
 			</S.NewGameLeft>
 			<S.NewGameRigth>
-				<h2>Cadastrar Genero</h2>
-				<S.BoxNewGenre>
-					<S.BoxNewGenreForm>
-						<input type="text" placeholder="Nome do genero..." />
-						<ButtonCriar value="Criar" type="button" />
-					</S.BoxNewGenreForm>
-				</S.BoxNewGenre>
-				<h2>Atualizar Genero</h2>
-				<S.BoxUpdateGenre>
-					<S.BoxUpdateGenreForm>
-						<select>
-							<optgroup label="Genero">
-								<option value="default"></option>
-							</optgroup>
-						</select>
-						<S.BoxUpdateGenreDiv>
-							<ButtonDelete value="Deletar" type="button" />
-							<ButtonUpdate value="Atualizar" type="button" />
-						</S.BoxUpdateGenreDiv>
-					</S.BoxUpdateGenreForm>
-				</S.BoxUpdateGenre>
+				<ManageGenre />
 			</S.NewGameRigth>
 		</S.NewGame>
 	);

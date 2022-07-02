@@ -45,13 +45,11 @@ const buttonDefault = () => css`
 `;
 
 const buttonChooseImage = () => css`
-	width: 142px;
-	height: 45px;
-	text-transform: uppercase;
-	font-size: 22px;
-	border-radius: 8px;
+	width: 108.47px;
+	height: 34.38px;
+	font-size: 10px;
 	font-weight: 400;
-	line-height: 26px;
+	line-height: 12px;
 `;
 
 
