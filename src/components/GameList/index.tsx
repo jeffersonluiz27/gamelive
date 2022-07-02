@@ -1,6 +1,7 @@
 import * as S from './style';
 import cover from 'assets/img/valorant.png';
 import fav from 'assets/icons/fav2.png';
+import { Link } from 'react-router-dom';
 
 const GameList = () => {
 	return (
@@ -9,7 +10,9 @@ const GameList = () => {
 				<h2>Favoritos</h2>
 				<S.GameListFavoritos>
 					<S.Card>
-						<S.CardImg src={cover} alt="" />
+						<Link to={'/manageGame'}>
+							<S.CardImg src={cover} alt="" />
+						</Link>
 						<section>
 							<S.CardTitle>Valorant</S.CardTitle>
 							<S.CardBotton>
