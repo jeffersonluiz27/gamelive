@@ -5,7 +5,7 @@ export const Home = styled.section`
 		background-color: ${theme.colors.baseBg1};
 		background-size: cover;
 		background-position: center;
-		width: 100vw;
+		width: 100%;
 		height: 100vh;
 	`}
 `;
@@ -22,7 +22,10 @@ export const HomeContent = styled.main`
 
 export const HomeGameList = styled.div`
 	${() => css`
+		display: flex;
+		width: 100%;
 		margin-top: 25px;
 		padding-bottom: 25px;
+		margin-left: 5%;
 	`}
 `;
