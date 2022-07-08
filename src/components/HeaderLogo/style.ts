@@ -4,12 +4,13 @@ export const HeaderLogo = styled.div`
 	display: flex;
 	width: 100%;
 	box-sizing: border-box;
+	align-items: center;
 	a {
 		align-self: center;
 	}
 	div {
 		display: flex;
-		width: 90%;
+		width: 100%;
 		align-items: center;
 		box-sizing: border-box;
 	}
@@ -23,7 +24,6 @@ export const HeaderLogoImg = styled.div`
 		height: 50px;
 	}
 `;
-
 
 export const HeaderLogoDiv = styled.div`
 	display: flex;
@@ -40,5 +40,6 @@ export const HeaderLogoButton = styled.button`
 		border: none;
 		cursor: pointer;
 		color: #fff;
+		position: absolute;
 	`}
 `;
