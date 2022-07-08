@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Card = () => {
 	return (
 		<S.Card>
-			<Link to={'/manageGame'}>
+			<Link to={'/gamedetail'}>
 				<S.CardImg src={cover} alt="" />
 			</Link>
 			<section>

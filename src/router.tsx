@@ -1,3 +1,4 @@
+import GameDetail from 'pages/GameDetail';
 import Homepage from 'pages/Homepage';
 import Login from 'pages/Login';
 import ManageGame from 'pages/ManageGame';
@@ -17,6 +18,7 @@ const Router = () => {
 			<Route path={RoutePath.USEREDIT} element={''} />
 			<Route path={RoutePath.SINGUP} element={<Singup />} />
 			<Route path={RoutePath.MANAGEGAME} element={<ManageGame />} />
+			<Route path={RoutePath.GAMEDETAIL} element={<GameDetail />} />
 		</Routes>
 	);
 };
