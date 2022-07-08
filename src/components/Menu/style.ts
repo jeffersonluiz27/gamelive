@@ -95,5 +95,10 @@ export const MenuItemButton = styled.button`
 		border: none;
 		cursor: pointer;
 		color: #fff;
+
+		svg {
+			width: 50px;
+			height: 50px;
+		}
 	`}
 `;

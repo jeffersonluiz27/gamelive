@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const Card = styled.div`
-	${({ theme }) => css`
+	${() => css`
 		background: #171b22;
 		border-radius: 25px;
 		display: flex;
@@ -13,6 +13,15 @@ export const Card = styled.div`
 		width: 100%;
 		min-height: 429px;
 		margin-left: 2rem;
+		margin-bottom: 3rem;
+		transition: 0.4s all;
+		box-shadow: rgba(110, 158, 102, 0.3) 0px 3px 5px;
+
+		:hover {
+			box-shadow: rgba(110, 158, 102) 0px 3px 9px;
+			transform: scale(1.009);
+		}
+
 		section {
 			display: flex;
 			flex-direction: column;
@@ -22,6 +31,8 @@ export const Card = styled.div`
 		}
 	`}
 `;
+
+
 
 export const CardTitle = styled.h2`
 	${({ theme }) => css`

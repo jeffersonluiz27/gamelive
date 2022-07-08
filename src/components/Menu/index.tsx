@@ -1,8 +1,8 @@
 import * as S from './style';
 import Elipse from 'assets/img/hankElipse.png';
 import MiniLogo from 'assets/img/logo2.png';
-import { ReactComponent as Back } from 'assets/icons/returnArrow.svg';
-import { ReactComponent as Logout } from 'assets/icons/logout.svg';
+import { IoIosArrowDropleft as Back } from 'react-icons/io';
+import { HiOutlineLogout as Logout } from 'react-icons/hi';
 import { RoutePath } from 'types/routes';
 import { NavItem } from './types';
 import { DateTime } from 'luxon';

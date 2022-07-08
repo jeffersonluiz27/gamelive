@@ -15,10 +15,15 @@ export const HeaderLogo = styled.div`
 	}
 `;
 
-export const HeaderLogoImg = styled.img`
+export const HeaderLogoImg = styled.div`
 	align-self: center;
 	margin-left: 34px;
+	svg {
+		width: 50px;
+		height: 50px;
+	}
 `;
+
 
 export const HeaderLogoDiv = styled.div`
 	display: flex;

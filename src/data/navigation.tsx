@@ -1,5 +1,5 @@
 import { NavItem } from '../components/Menu/types';
-import { ReactComponent as UserEdit } from '../assets/icons/userEdit.svg';
+import { FaUserEdit as UserEdit } from 'react-icons/fa';
 import { ReactComponent as NewGame } from '../assets/icons/newGame.svg';
 import { RoutePath } from '../types/routes';
 

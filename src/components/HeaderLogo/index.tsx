@@ -1,6 +1,6 @@
 import Logo from 'components/Logo';
 import { useNavigate } from 'react-router-dom';
-import Back from 'assets/icons/returnArrow.svg';
+import { IoIosArrowDropleft as Back } from 'react-icons/io';
 import * as S from './style';
 
 const HeaderLogo = () => {
@@ -9,7 +9,9 @@ const HeaderLogo = () => {
 	return (
 		<S.HeaderLogo>
 			<S.HeaderLogoButton onClick={() => navigate(-1)}>
-				<S.HeaderLogoImg src={Back} alt="" />
+				<S.HeaderLogoImg>
+					<Back />
+				</S.HeaderLogoImg>
 			</S.HeaderLogoButton>
 			<S.HeaderLogoDiv>
 				<Logo />
