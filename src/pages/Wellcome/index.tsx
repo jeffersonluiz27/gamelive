@@ -23,7 +23,7 @@ const Wellcome = () => {
 					<br/>
 					Projeto criado por Jefferson Silva como projeto final do modulo 5 do curso de programação da Blue Edtech.
 					<br/>
-					Caso queira ver a documentação da API <a href='https://api-game-live.herokuapp.com/api' target="_Blank">Clique Aqui</a>
+					Caso queira ver a documentação da API <a href='https://api-game-live.herokuapp.com/api' target="_Blank" rel="noreferrer">Clique Aqui</a>
 					<br/>
 					Clique no botão abaixo para ir para a tela de login
 					
