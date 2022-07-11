@@ -41,7 +41,7 @@ const BoxLogin = (props: any) => {
 		}catch(err){
 			swall({
 				title: 'Erro!',
-				text: `Usuario ou senha Invalidos`,
+				text: `Usuario ou Senha Invalidos`,
 				icon: 'error',
 				timer: 7000,
 			});
