@@ -29,19 +29,23 @@ const BoxLogin = (props: any) => {
 
 	const loginUser = async (event: React.SyntheticEvent) => {
 		event.preventDefault();
-		const response = await loginService.login(values);
-		const jwt = response.data.token;
+		try{
+			const response = await loginService.login(values);
+			const jwt = response.data.token;
 
-		if (jwt) {
-			localStorage.setItem('jwtLocalStorage', jwt);
+			if (jwt) {
+				localStorage.setItem('jwtLocalStorage', jwt);
+				navigate(RoutePath.HOME);
+			}
+			console.log(response.data);
+		}catch(err){
 			swall({
-				title: 'Seja bem vindo',
-				icon: 'success',
-				timer: 3000,
+				title: 'Erro!',
+				text: `Usuario ou senha Invalidos`,
+				icon: 'error',
+				timer: 7000,
 			});
-			navigate(RoutePath.HOME);
 		}
-		console.log(response.data);
 	};
 
 	return (

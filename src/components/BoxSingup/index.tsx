@@ -38,7 +38,7 @@ const BoxSingup = () => {
 	const registerUser = async (event: React.SyntheticEvent) => {
 		event.preventDefault();
 		const response = await registerService.registerValues(values);
-		const jwt = response.data.token;
+		const jwt = response.data.id;
 
 		if (jwt) {
 			localStorage.setItem('jwt', jwt);
