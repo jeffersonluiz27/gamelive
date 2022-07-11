@@ -6,11 +6,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { loginService } from 'services/authService';
 import { RoutePath } from 'types/routes';
 import swal from 'sweetalert';
+import { userLoginObj } from 'types/api/User';
 
-interface userLoginObj {
-	email: string;
-	password: string;
-}
 
 const BoxLogin = (props: any) => {
 	const [values, setValues] = useState({
