@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginService } from 'services/authService';
 import { RoutePath } from 'types/routes';
-import swall from 'sweetalert';
+import swal from 'sweetalert';
 
 interface userLoginObj {
 	email: string;
@@ -39,7 +39,7 @@ const BoxLogin = (props: any) => {
 			}
 			console.log(response.data);
 		}catch(err){
-			swall({
+			swal({
 				title: 'Erro!',
 				text: `Usuario ou Senha Invalidos`,
 				icon: 'error',
