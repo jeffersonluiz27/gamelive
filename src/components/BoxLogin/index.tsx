@@ -1,23 +1,51 @@
 import * as S from './style';
 import logo from 'assets/img/logo.png';
 import ButtonLogin from 'components/ButtonPurple';
-import { HTMLAttributes, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginService } from 'services/authService';
+import { RoutePath } from 'types/routes';
+import swall from 'sweetalert';
 
-type BoxLoginType = HTMLAttributes<HTMLDivElement>;
+interface userLoginObj {
+	email: string;
+	password: string;
+}
 
-export type BoxLoginProps = {
-	onSubmitData: (data: { nickname: string; password: string }) => void;
-	errorMessage: string;
-} & BoxLoginType;
+const BoxLogin = (props: any) => {
+	const [values, setValues] = useState({
+		email: '',
+		password: '',
+	});
 
-const BoxLogin = ({ onSubmitData, errorMessage }: BoxLoginProps) => {
-	const [nickname, setNickname] = useState('');
-	const [password, setPassword] = useState('');
+	let navigate = useNavigate();
 
-	const handleSubmit = (): void => {
-		const data = { nickname, password };
-		onSubmitData(data);
+	const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setValues((values: userLoginObj) => ({
+			...values,
+			[event.target.name]: event.target.value,
+		}));
+	};
+
+	const loginUser = async (event: React.SyntheticEvent) => {
+		event.preventDefault();
+		try{
+			const response = await loginService.login(values);
+			const jwt = response.data.token;
+
+			if (jwt) {
+				localStorage.setItem('jwtLocalStorage', jwt);
+				navigate(RoutePath.HOME);
+			}
+			console.log(response.data);
+		}catch(err){
+			swall({
+				title: 'Erro!',
+				text: `Usuario ou senha Invalidos`,
+				icon: 'error',
+				timer: 7000,
+			});
+		}
 	};
 
 	return (
@@ -28,27 +56,28 @@ const BoxLogin = ({ onSubmitData, errorMessage }: BoxLoginProps) => {
 					alt="Image do logo com um desenho de um controle de video game"
 				/>
 			</S.BoxLoginLogo>
-			<S.BoxLoginForm>
+			<S.BoxLoginForm onSubmit={loginUser} className="form-login">
 				<input
 					type="email"
+					id="email"
+					name="email"
 					placeholder="Coloque seu email..."
-					value={nickname}
-					onChange={({ target }) => setNickname(target.value)}
+					/* value={} */
+					onChange={handleSubmit}
 				/>
 				<input
 					type="password"
+					id="password"
+					name="password"
 					placeholder="Coloque sua senha..."
-					value={password}
-					onChange={({ target }) => setPassword(target.value)}
+					/* value={} */
+					onChange={handleSubmit}
 				/>
 				<p>
 					Não tem uma conta? <Link to="/singup">Crie uma!</Link>
 				</p>
-				<ButtonLogin value="Entrar" type="button" onClick={handleSubmit} />
+				<ButtonLogin value="Entrar" type="submit" />
 			</S.BoxLoginForm>
-			{Boolean(errorMessage.length) && (
-				<S.BoxLoginError>{errorMessage}</S.BoxLoginError>
-			)}
 		</S.BoxLogin>
 	);
 };
