@@ -7,9 +7,6 @@ const GameList = () => {
 			<h2>Favoritos</h2>
 			<S.GameListFavoritos>
 				<Card />
-				<Card />
-				<Card />
-				<Card />
 			</S.GameListFavoritos>
 			<h2>Generos</h2>
 			<S.GameListGenders>

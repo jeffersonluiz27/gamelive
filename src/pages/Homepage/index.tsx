@@ -28,11 +28,11 @@ const Homepage = () => {
         icon: 'error',
         timer: 7000,
       })
-      navigate('/login')
+      navigate(RoutePath.LOGIN)
     } else {
       const response = await findAllService.allGames();
 
-      if(response.status === 204) {
+      if(response === 204) {
         swall({
           title: 'Info',
           text: 'Não existe personagem cadastrado!',
@@ -41,7 +41,7 @@ const Homepage = () => {
         })
       }else {
         console.log('Personagens exibidos', response);
-        setGames(response.data.results);
+        /* setGames(response.data.results); */
       }
 
     }
