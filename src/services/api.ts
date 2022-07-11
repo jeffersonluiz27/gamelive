@@ -4,6 +4,8 @@ const api = axios.create({
 	baseURL: 'https://api-game-live.herokuapp.com',
 });
 
+
+
 api.interceptors.request.use((config: any) => {
 	try {
 		const token = localStorage.getItem('jwtLocalStorage');

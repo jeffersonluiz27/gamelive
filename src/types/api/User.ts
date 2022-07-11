@@ -11,3 +11,10 @@ export interface userObj {
 	confirmPassword: string;
 	isAdmin: boolean;
 }
+
+export interface userHomeObj{
+  id: string,
+  name: string,
+  email: string,
+  cpf: string,
+}
