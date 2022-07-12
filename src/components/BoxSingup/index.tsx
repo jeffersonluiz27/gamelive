@@ -6,15 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { registerService } from 'services/authService';
 import swal from 'sweetalert';
 import { RoutePath } from 'types/routes';
+import { userObj } from 'types/api/User';
 
-interface userObj {
-	name: string;
-	cpf: string;
-	email: string;
-	password: string;
-	confirmPassword: string;
-	isAdmin: boolean;
-}
 
 const BoxSingup = () => {
 	const [values, setValues] = useState({
