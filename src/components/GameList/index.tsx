@@ -5,16 +5,13 @@ import { findAllService } from 'services/gameServices';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'types/routes';
+import { gameObj } from 'types/api/Game';
 
-interface Games {
-	title: string;
-	coverImageUrl: string;
-	imdbScore: number;
-}
+
 
 const GameList = () => {
 	const navigate = useNavigate();
-	const [games, setGames] = useState<Games[]>([]);
+	const [games, setGames] = useState<gameObj[]>([]);
 
 	const jwt = localStorage.getItem('jwtLocalStorage');
 

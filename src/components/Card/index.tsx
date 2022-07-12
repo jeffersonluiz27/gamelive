@@ -2,13 +2,10 @@ import * as S from './style';
 import cover from 'assets/img/valorant.png';
 import fav from 'assets/icons/fav2.png';
 import { Link } from 'react-router-dom';
+import { gameObj } from 'types/api/Game';
 
 interface CardProps {
-	game: {
-		title: string;
-		coverImageUrl: string;
-		imdbScore: number;
-	};
+	game: gameObj,
 }
 
 const Card = ({ game }: CardProps) => {
