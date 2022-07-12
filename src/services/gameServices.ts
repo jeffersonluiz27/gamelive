@@ -1,16 +1,10 @@
 import api from './api';
 
-
-const jwt = localStorage.getItem('jwtLocalStorage')
-
 const findAllService = {
 	allGames: () =>
-		api.get('/game', {headers: {
-      Authorization: "Bearer " + jwt
-   }} 
-		)
+		api
+			.get('/game')
 			.then((response: any) => {
-				console.log(response)
 				return response;
 			})
 			.catch((error: any) => console.log(error)),
