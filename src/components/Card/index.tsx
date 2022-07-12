@@ -1,6 +1,6 @@
 import * as S from './style';
-import cover from 'assets/img/valorant.png';
-import fav from 'assets/icons/fav2.png';
+import {AiOutlineHeart as Heart} from 'react-icons/ai'
+import {AiFillStar as Star} from 'react-icons/ai'
 import { Link } from 'react-router-dom';
 import { gameObj } from 'types/api/Game';
 
@@ -17,8 +17,12 @@ const Card = ({ game }: CardProps) => {
 			<section>
 				<S.CardTitle>{game.title}</S.CardTitle>
 				<S.CardBotton>
-					<img src={fav} alt="" />
-					<p>{game.imdbScore} </p>
+					<Heart className='fav' />
+					<p className='imdb'> <p>IMDB</p> {
+						 [...Array(game.imdbScore)].map((e, i) =>(
+							<Star key={i} className='star'/>
+						 ))
+						} </p>
 				</S.CardBotton>
 			</section>
 		</S.Card>
