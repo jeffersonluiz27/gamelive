@@ -4,15 +4,13 @@ const api = axios.create({
 	baseURL: 'https://api-game-live.herokuapp.com',
 });
 
-
-
 api.interceptors.request.use((config: any) => {
 	try {
 		const token = localStorage.getItem('jwtLocalStorage');
 		if (token) {
-			config.headers.Authorization = `Bearrer ${token}`;
+			config.headers.Authorization = `Bearer ${token}`;
 		}
-		return config;
+		return config
 	} catch (error: any) {
 		console.log(error);
 	}

@@ -4,48 +4,12 @@ import { RoutePath } from 'types/routes';
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 import GameList from 'components/GameList';
-import swall from 'sweetalert';
-import {gameObj} from 'types/api/Game'
-import { findAllService } from 'services/gameServices';
-import { useEffect, useState } from 'react';
+
 
 const Homepage = () => {
 	const navigate = useNavigate();
 	const handleNavigation = (path: RoutePath) => navigate(path);
-	const [games, setGames] = useState<gameObj[]>([]);
-
-	const jwt = localStorage.getItem('jwtLocalStorage')
 	
-	useEffect(() => {
-    getAllGames();
-  }, []);
-
-	const getAllGames = async () => {
-    if(!jwt) {
-      swall({
-        title: 'ERRO!',
-        text: 'Faça o login antes de entrar na página inicial',
-        icon: 'error',
-        timer: 7000,
-      })
-      navigate('/login')
-    } else {
-      const response = await findAllService.allGames();
-
-      if(response.status === 204) {
-        swall({
-          title: 'Info',
-          text: 'Não existe personagem cadastrado!',
-          icon: 'info',
-          timer: 7000,
-        })
-      }else {
-        console.log('Personagens exibidos', response);
-        setGames(response.data.results);
-      }
-
-    }
-	}
 
 	return (
 		<S.Home>
