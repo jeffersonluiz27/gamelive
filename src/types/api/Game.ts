@@ -1,10 +1,12 @@
 export interface gameObj{
+  id?: string,
   title:	string,
   coverImageUrl:	string,
   imdbScore:	number,
 }
 
 export interface gameDescObj{
+  id?: string,
   title:	string,
   coverImageUrl:	string,
   imdbScore:	number,

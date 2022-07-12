@@ -11,18 +11,18 @@ interface CardProps {
 const Card = ({ game }: CardProps) => {
 	return (
 		<S.Card>
-			<Link to={'/gamedetail'}>
+			<Link to={`/gamedetail/${game.id}`}>
 				<S.CardImg src={game.coverImageUrl} alt="" />
 			</Link>
 			<section>
 				<S.CardTitle>{game.title}</S.CardTitle>
 				<S.CardBotton>
 					<Heart className='fav' />
-					<p className='imdb'> <p>IMDB</p> {
+					<div className='imdb'> <p>IMDB</p> {
 						 [...Array(game.imdbScore)].map((e, i) =>(
 							<Star key={i} className='star'/>
 						 ))
-						} </p>
+						} </div>
 				</S.CardBotton>
 			</section>
 		</S.Card>
