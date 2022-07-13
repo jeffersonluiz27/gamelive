@@ -1,3 +1,4 @@
+import theme from 'assets/styles/theme';
 import styled, { css } from 'styled-components';
 
 export const Card = styled.div`
@@ -28,7 +29,9 @@ export const Card = styled.div`
 			justify-content: space-around;
 			align-items: center;
 			gap: 10px;
+			width: 80%;
 		}
+
 	`}
 `;
 
@@ -38,10 +41,12 @@ export const CardTitle = styled.h2`
 	${({ theme }) => css`
 		${theme.colors.textTitle}
 		text-align: center;
-		max-width: 90%;
+		width: 90%;
 		margin: 0;
-		font-size: 29px;
+		font-size: 12px;
 		text-transform: uppercase;
+		display: flex;
+    justify-content: center;
 	`}
 `;
 
@@ -61,8 +66,27 @@ export const CardBotton = styled.div`
 	gap: 10px;
 	margin-bottom: 10px;
 	justify-content: space-between;
+	align-items: center;
 
-	img {
+	.imdb{
+		font-size: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+	}
+
+	.imdb p{
+		margin-right: 5px;
+	}
+
+	svg.fav {
 		cursor: pointer;
+		fill: ${theme.colors.butonRed};
+	}
+
+	svg.star {
+		fill: ${theme.colors.buttonGold};
+		font-size: 16px;
 	}
 `;
