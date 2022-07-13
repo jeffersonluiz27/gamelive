@@ -1,13 +1,11 @@
 import * as S from './style';
 import Card from 'components/Card';
 import swall from 'sweetalert';
-import { findAllService } from 'services/gameServices';
+import { findAllService } from 'services/findServices';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'types/routes';
 import { gameObj } from 'types/api/Game';
-
-
 
 const GameList = () => {
 	const navigate = useNavigate();
@@ -48,15 +46,14 @@ const GameList = () => {
 		<>
 			<S.GameList>
 				<h2>Favoritos</h2>
-				<S.GameListFavoritos>
-					{games.map((game, index) => (
-						<Card game={game} key={index} />
-					))}
-				</S.GameListFavoritos>
+				<S.GameListFavoritos></S.GameListFavoritos>
 				<h2>Generos</h2>
+				<h3>Ação</h3>
 				<S.GameListGenders>
-					<section>
-						<S.GenderCard>FPS</S.GenderCard>
+					<section id="genderSection">
+						{games.map((game, index) => (
+							<Card game={game} key={index} />
+						))}
 					</section>
 				</S.GameListGenders>
 			</S.GameList>

@@ -15,7 +15,8 @@ export const GameListFavoritos = styled.section`
 
 export const GameListGenders = styled.section`
 	display: flex;
-	section {
+	#genderSection {
+		display: flex;
 	}
 `;
 
