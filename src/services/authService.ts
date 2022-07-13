@@ -1,18 +1,5 @@
 import api from './api';
-
-interface userLoginObj {
-	email: string;
-	password: string;
-}
-
-interface userObj {
-	name: string;
-	cpf: string;
-	email: string;
-	password: string;
-	confirmPassword: string;
-	isAdmin: boolean;
-}
+import {userObj, userLoginObj} from '../types/api/User';
 
 const loginService = {
 	login: (values: userLoginObj) =>

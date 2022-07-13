@@ -5,15 +5,21 @@ import * as S from './style';
 import { useNavigate } from 'react-router-dom';
 import GameList from 'components/GameList';
 
+
 const Homepage = () => {
 	const navigate = useNavigate();
 	const handleNavigation = (path: RoutePath) => navigate(path);
+	
+
 	return (
 		<S.Home>
 			<Menu
 				navItems={navigationItems}
 				onNavigate={handleNavigation}
-				onLogout={() => navigate(RoutePath.LOGIN)}
+				onLogout={() => { 
+					localStorage.setItem('jwtLocalStorage', '')
+					navigate(RoutePath.LOGIN)
+				}}
 			/>
 			<S.HomeContent>
 				<S.HomeGameList>

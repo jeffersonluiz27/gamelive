@@ -1,19 +1,28 @@
 import * as S from './style';
-import cover from 'assets/img/valorant.png';
-import fav from 'assets/icons/fav2.png';
+import {AiOutlineHeart as Heart} from 'react-icons/ai'
+import {AiFillStar as Star} from 'react-icons/ai'
 import { Link } from 'react-router-dom';
+import { gameObj } from 'types/api/Game';
 
-const Card = () => {
+interface CardProps {
+	game: gameObj,
+}
+
+const Card = ({ game }: CardProps) => {
 	return (
 		<S.Card>
-			<Link to={'/gamedetail'}>
-				<S.CardImg src={cover} alt="" />
+			<Link to={`/gamedetail/${game.id}`}>
+				<S.CardImg src={game.coverImageUrl} alt="" />
 			</Link>
 			<section>
-				<S.CardTitle>Valorant</S.CardTitle>
+				<S.CardTitle>{game.title}</S.CardTitle>
 				<S.CardBotton>
-					<img src={fav} alt="" />
-					<p>Criar estrelas Score IMDB </p>
+					<Heart className='fav' />
+					<div className='imdb'> <p>IMDB</p> {
+						 [...Array(game.imdbScore)].map((e, i) =>(
+							<Star key={i} className='star'/>
+						 ))
+						} </div>
 				</S.CardBotton>
 			</section>
 		</S.Card>
