@@ -34,12 +34,12 @@ const GameList = () => {
 			if (response.status === 204) {
 				swall({
 					title: 'Info',
-					text: 'Não existe personagem cadastrado!',
+					text: 'Não existe game cadastrado!',
 					icon: 'info',
 					timer: 7000,
 				});
 			} else {
-				console.log('Personagens exibidos', response.data);
+				console.log('games exibidos', response.data);
 				setGames(response.data);
 			}
 		}
