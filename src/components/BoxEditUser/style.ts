@@ -22,6 +22,7 @@ export const BoxEditUserLogo = styled.div`
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
+		margin-bottom: 10px;
 	`}
 `;
 
@@ -35,14 +36,13 @@ export const BoxEditUserForm = styled.form`
 	${({ theme }) => css`
 		display: flex;
 		flex-direction: column;
-		gap: 15px;
+		gap: 24px;
 		justify-content: center;
 
 		input {
 			${theme.mixins.input};
 			align-self: center;
 			width: 70%;
-			margin-bottom: 26px;
 		}
 
 		p {
@@ -70,5 +70,28 @@ export const BoxEditUserError = styled.span`
 		text-align: center;
 		display: inline-block;
 		margin-top: 25px;
+	`}
+`;
+
+export const BoxEditUserSearch = styled.div`
+	${({ theme }) => css`
+		align-self: center;
+		display: flex;
+		align-items: center;
+		${theme.mixins.input()};
+		width: 70%;
+		gap: 10px;
+		border: solid 1px #ddd;
+
+		input {
+			background: transparent;
+			border: none;
+			height: 70%;
+			width: 80%;
+		}
+
+		input:focus {
+			outline: none;
+		}
 	`}
 `;
