@@ -18,18 +18,18 @@ body::-webkit-scrollbar{
 }
 
 body::-webkit-scrollbar-track{
-    box-shadow: inset 0 0 5px grey; 
-    border-radius: 10px;
+   border: none;
 }
 
 body::-webkit-scrollbar-thumb {
-  background: #6e9e66; 
+  background: transparent;
   border-radius: 10px;
+  border: #6f9e662a solid 0.8px;
   
 }
 
 body::-webkit-scrollbar-thumb:hover {
-  background: #6e9e6666; 
+  background: #6e9e66; 
 }
 
 #root{
