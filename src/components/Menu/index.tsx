@@ -50,7 +50,7 @@ const Menu = ({ navItems, onNavigate, onLogout }: MenuProps) => {
 				<S.MenuLogo>
 					<img src={MiniLogo} alt="Logo" />
 				</S.MenuLogo>
-				{dateDescription}
+				<div id="hora">{dateDescription}</div>
 			</S.MenuRight>
 		</S.Menu>
 	);
