@@ -33,6 +33,16 @@ export const MenuLeft = styled.div`
 		font-weight: 400;
 		line-height: 18px;
 	`}
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		width: 53px;
+		height: 53px;
+		border-radius: 50%;
+		cursor: pointer;
+	}
 `;
 
 export const MenuRight = styled.div`

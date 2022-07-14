@@ -13,6 +13,7 @@ const Profile = () => {
 					localStorage.setItem('jwtLocalStorage', '');
 					navigate(RoutePath.LOGIN);
 				}}
+				local={''}
 			/>
 			<S.ProfileContent>
 				<ProfileCards />
