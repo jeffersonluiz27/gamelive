@@ -29,12 +29,14 @@ const BoxLogin = (props: any) => {
 		try {
 			const response = await loginService.login(values);
 			const jwt = response.data.token;
+			const user = response.data.user.id;
 
 			if (jwt) {
 				localStorage.setItem('jwtLocalStorage', jwt);
+				localStorage.setItem('userIdStorage', user);
 				navigate(RoutePath.PROFILE);
 			}
-			console.log(response.data);
+			console.log(`Login`, response.data);
 		} catch (err) {
 			swal({
 				title: 'Erro!',

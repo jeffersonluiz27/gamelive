@@ -12,6 +12,7 @@ const ProfileCards = () => {
 	const navigate = useNavigate();
 	const [profiles, setProfiles] = useState<profileObj[]>([]);
 	const jwt = localStorage.getItem('jwtLocalStorage');
+	const LocalUseId = localStorage.getItem('userIdStorage');
 
 	useEffect(() => {
 		getAllProfiles();
@@ -42,10 +43,12 @@ const ProfileCards = () => {
 		}
 	};
 
+	let resulta = profiles.filter((e) => e.userId === LocalUseId);
+
 	return (
 		<>
 			<S.ProfileCards>
-				{profiles.map((profile, index) => (
+				{resulta.map((profile, index) => (
 					<S.ProfileCardsContent key={index}>
 						<Link to={`/home/${profile.id}`}>
 							<img src={profile.imageUrl} alt="" />
