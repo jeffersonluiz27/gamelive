@@ -21,3 +21,5 @@ export const navigationItemsUser: NavItem[] = [
 		path: RoutePath.MANAGEGAME,
 	},
 ];
+
+export const navigationItemsVazio: NavItem[] = [];

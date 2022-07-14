@@ -1,9 +1,9 @@
 import * as S from './style';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'types/routes';
 import Menu from 'components/Menu';
 import { navigationItemsUser } from 'data/navigation';
-import { NavItem } from '../../components/Menu/types';
+
 
 const GameDetail = () => {
 	const navigate = useNavigate();

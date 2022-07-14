@@ -11,7 +11,7 @@ export const GameDetail = styled.section`
 `;
 
 export const GameDetailContent = styled.main`
-	${({}) => css`
+	${() => css`
 		width: 100%;
 		height: 70%;
 		display: flex;
@@ -22,7 +22,7 @@ export const GameDetailContent = styled.main`
 `;
 
 export const GameDetailTop = styled.section`
-	${({ theme }) => css`
+	${() => css`
 		width: auto;
 		border: #fff solid 1px;
 		height: 10%;
@@ -30,7 +30,7 @@ export const GameDetailTop = styled.section`
 `;
 
 export const GameDetailTrailers = styled.section`
-	${({ theme }) => css`
+	${() => css`
 		width: auto;
 		height: 70%;
 		border: #fff solid 1px;
@@ -41,7 +41,7 @@ export const GameDetailTrailers = styled.section`
 `;
 
 export const GameDetailDesc = styled.section`
-	${({ theme }) => css`
+	${() => css`
 		display: flex;
 		width: auto;
 		height: 20%;

@@ -1,16 +1,17 @@
 import Logo from 'components/Logo';
-import { useNavigate } from 'react-router-dom';
-import { IoIosArrowDropleft as Back } from 'react-icons/io';
+import { HiOutlineLogout as Logout } from 'react-icons/hi';
 import * as S from './style';
 
-const HeaderLogo = () => {
-	const navigate = useNavigate();
+interface MenuProps {
+	onLogout: () => void;
+}
 
+const HeaderLogo = ({ onLogout }: MenuProps) => {
 	return (
 		<S.HeaderLogo>
-			<S.HeaderLogoButton onClick={() => navigate(-1)}>
+			<S.HeaderLogoButton onClick={onLogout}>
 				<S.HeaderLogoImg>
-					<Back />
+					<Logout />
 				</S.HeaderLogoImg>
 			</S.HeaderLogoButton>
 			<S.HeaderLogoDiv>

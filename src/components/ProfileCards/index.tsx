@@ -1,14 +1,12 @@
 import * as S from './style';
-import Elipse from 'assets/img/hank.png';
 import { FaRegEdit as Edit } from 'react-icons/fa';
 import { AiOutlinePlusCircle as Plus } from 'react-icons/ai';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { RoutePath } from 'types/routes';
 import { useEffect, useState } from 'react';
 import swall from 'sweetalert';
 import { findAllService } from 'services/findServices';
 import { profileObj } from 'types/api/Profile';
-import { homedir } from 'os';
 
 const ProfileCards = () => {
 	const navigate = useNavigate();
