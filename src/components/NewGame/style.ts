@@ -88,30 +88,7 @@ export const BoxNewGameImgArea = styled.div`
 `;
 
 export const BoxNewGameImg = styled.div`
-	#thumbnail {
-		margin-bottom: 20px;
-		background: #d9d9d9;
-		border: 1px dashed #ddd;
-		background-size: cover;
-		cursor: pointer;
-		width: 157px;
-		height: 157px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		border-radius: 5px;
-		margin-right: 16px;
-	}
-
-	#thumbnail input {
-		display: none;
-	}
-
-	#thumbnail.has-thumbnail {
-		border: none;
-	}
-
-	#thumbnail.has-thumbnail img {
-		display: none;
-	}
+	display: flex;
+	flex-direction: column;
+	width: 100%;
 `;

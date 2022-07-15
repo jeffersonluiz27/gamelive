@@ -7,12 +7,24 @@ import { useEffect, useState } from 'react';
 import swall from 'sweetalert';
 import { findAllService } from 'services/findServices';
 import { profileObj } from 'types/api/Profile';
+import ModalPerfil from 'components/ModalPerfil';
 
 const ProfileCards = () => {
 	const navigate = useNavigate();
 	const [profiles, setProfiles] = useState<profileObj[]>([]);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const jwt = localStorage.getItem('jwtLocalStorage');
 	const LocalUseId = localStorage.getItem('userIdStorage');
+
+	const openModal = () => {
+		setIsModalOpen(true);
+	};
+
+	function closeModal() {
+		setIsModalOpen(false);
+	}
+
+	const onCreate = () => {};
 
 	useEffect(() => {
 		getAllProfiles();
@@ -59,8 +71,18 @@ const ProfileCards = () => {
 				))}
 			</S.ProfileCards>
 			<S.ProfileCardsPlus>
-				<Plus />
+				<Plus onClick={openModal} />
 			</S.ProfileCardsPlus>
+			<ModalPerfil
+				isOpen={isModalOpen}
+				closeModal={closeModal}
+				type="createProfile"
+				title="Criar Perfil"
+				onChanges={onCreate}
+				btnName="Salvar"
+				id=""
+				userId={`${LocalUseId}`}
+			/>
 		</>
 	);
 };
