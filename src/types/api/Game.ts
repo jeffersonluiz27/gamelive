@@ -3,7 +3,11 @@ export interface gameObj {
 	title: string;
 	coverImageUrl: string;
 	imdbScore: number;
-	genres?: string;
+	description: string;
+	year: number;
+	trailerYouTubeUrl: string;
+	gameplayYouTubeUrl: string;
+	genres: string;
 }
 
 export interface gameHomeObj {
@@ -21,5 +25,5 @@ export interface gameDescObj {
 	year: number;
 	trailerYouTubeUrl: string;
 	gameplayYouTubeUrl: string;
-	genres: string[];
+	genres: string;
 }

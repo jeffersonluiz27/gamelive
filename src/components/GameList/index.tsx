@@ -19,17 +19,17 @@ const GameList = () => {
 	}, []);
 
 	const getAllGenres = async () => {
-		const response = await findAllService.allGender();
+		const response = await findAllService.allGenres();
 
 		console.log('generos exibidos', response.data);
 		setGeneros(response.data);
 	};
 
 	const getAllGamesFavoritos = async () => {
-		const response = await findByIdService.findHomeProfile(`${profileId}`);
+		const response = await findByIdService.findProfileById(`${profileId}`);
 
-		console.log('favoritos exibidos', response.data.favorites.games);
-		setFavoritos(response.data.favorites.games);
+		console.log('favoritos exibidos', response.data.games);
+		setFavoritos(response.data.games);
 	};
 
 	const getAllGames = async () => {
@@ -43,7 +43,7 @@ const GameList = () => {
 				timer: 7000,
 			});
 		} else {
-			console.log('games exibidos', response.data[0].genres[0].name);
+			console.log('games exibidos', response.data);
 			setGames(response.data);
 		}
 	};
@@ -54,20 +54,18 @@ const GameList = () => {
 				<h2>Favoritos</h2>
 				<S.GameListFavoritos>
 					{favoritos.map((favorito, index) => (
-						<Card game={favorito} key={index} />
+						<Card game={favorito} key={index + 4} />
 					))}
 				</S.GameListFavoritos>
 				<h2>Generos</h2>
 				{generos.map((genero, index) => (
 					<>
-						<h3 key={index}>{genero.name}</h3>
+						<h3 key={index + 2}>{genero.name}</h3>
 						<S.GameListGenders>
-							<section id="genderSection">
-								{games
-									.filter((e) => e.genres == genero.name)
-									.map((game, index) => (
-										<Card game={game} key={index} />
-									))}
+							<section className="genderSection">
+								{games.map((e, index) => (
+									<Card game={e} key={index + 3} />
+								))}
 							</section>
 						</S.GameListGenders>
 					</>
@@ -76,5 +74,5 @@ const GameList = () => {
 		</>
 	);
 };
-
+/* .filter((e) => e.genres === genero.name) */
 export default GameList;

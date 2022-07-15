@@ -15,7 +15,7 @@ const findAllService = {
 				return response;
 			})
 			.catch((error: any) => console.log(error)),
-	allGender: () =>
+	allGenres: () =>
 		api
 			.get('/genre')
 			.then((response: any) => {
