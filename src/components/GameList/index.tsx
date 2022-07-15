@@ -53,14 +53,14 @@ const GameList = () => {
 			<S.GameList>
 				<h2>Favoritos</h2>
 				<S.GameListFavoritos>
-					{favoritos.map((favorito, index) => (
-						<Card game={favorito} key={index + 4} />
+					{favoritos.map((favorito, i) => (
+						<Card game={favorito} key={i + 40} />
 					))}
 				</S.GameListFavoritos>
 				<h2>Generos</h2>
-				{generos.map((genero, index) => (
+				{generos.map((genero, ind) => (
 					<>
-						<h3 key={index + 2}>{genero.name}</h3>
+						<h3 key={ind + 80}>{genero.name}</h3>
 						<S.GameListGenders>
 							<section className="genderSection">
 								{games.map((e, index) => (
