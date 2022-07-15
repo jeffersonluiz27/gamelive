@@ -1,39 +1,23 @@
 import * as S from './style';
 import Card from 'components/Card';
 import swall from 'sweetalert';
-import { findAllService, findByIdService } from 'services/findServices';
+import { findByIdService } from 'services/findServices';
 import { useEffect, useState } from 'react';
 import { gameObj } from 'types/api/Game';
-import { genreObj } from 'types/api/Genres';
+import { homepageObj } from 'types/api/Homepage';
 
 const GameList = () => {
-	const [games, setGames] = useState<gameObj[]>([]);
 	const [favoritos, setFavoritos] = useState<gameObj[]>([]);
-	const [generos, setGeneros] = useState<genreObj[]>([]);
+	const [homepage, setHomepage] = useState<homepageObj[]>([]);
 	const profileId = localStorage.getItem('profileId');
 
 	useEffect(() => {
 		getAllGamesFavoritos();
-		getAllGames();
-		getAllGenres();
+		getAllGamesGenres();
 	}, []);
 
-	const getAllGenres = async () => {
-		const response = await findAllService.allGenres();
-
-		console.log('generos exibidos', response.data);
-		setGeneros(response.data);
-	};
-
-	const getAllGamesFavoritos = async () => {
-		const response = await findByIdService.findProfileById(`${profileId}`);
-
-		console.log('favoritos exibidos', response.data.games);
-		setFavoritos(response.data.games);
-	};
-
-	const getAllGames = async () => {
-		const response = await findAllService.allGames();
+	const getAllGamesGenres = async () => {
+		const response = await findByIdService.findHomeProfile(`${profileId}`);
 
 		if (response.status === 204) {
 			swall({
@@ -43,9 +27,16 @@ const GameList = () => {
 				timer: 7000,
 			});
 		} else {
-			console.log('games exibidos', response.data);
-			setGames(response.data);
+			console.log('games por genero exibidos', response.data.games);
+			setHomepage(response.data.games);
 		}
+	};
+
+	const getAllGamesFavoritos = async () => {
+		const response = await findByIdService.findHomeProfile(`${profileId}`);
+
+		console.log('favoritos exibidos', response.data.favorites.games);
+		setFavoritos(response.data.favorites.games);
 	};
 
 	return (
@@ -53,26 +44,27 @@ const GameList = () => {
 			<S.GameList>
 				<h2>Favoritos</h2>
 				<S.GameListFavoritos>
-					{favoritos.map((favorito, i) => (
-						<Card game={favorito} key={i + 40} />
+					{favoritos.map((favorito, index) => (
+						<Card game={favorito} key={index} />
 					))}
 				</S.GameListFavoritos>
 				<h2>Generos</h2>
-				{generos.map((genero, ind) => (
-					<>
-						<h3 key={ind + 80}>{genero.name}</h3>
+
+				{homepage.map((home, index) => (
+					<div key={index}>
+						<h3>{home.genre}</h3>
 						<S.GameListGenders>
 							<section className="genderSection">
-								{games.map((e, index) => (
-									<Card game={e} key={index + 3} />
+								{home.title.map((homegame: gameObj, index) => (
+									<Card game={homegame} key={index} />
 								))}
 							</section>
 						</S.GameListGenders>
-					</>
+					</div>
 				))}
 			</S.GameList>
 		</>
 	);
 };
-/* .filter((e) => e.genres === genero.name) */
+
 export default GameList;
