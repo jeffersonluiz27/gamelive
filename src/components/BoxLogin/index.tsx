@@ -61,16 +61,16 @@ const BoxLogin = (props: any) => {
 					id="email"
 					name="email"
 					placeholder="Coloque seu email..."
-					/* value={} */
 					onChange={handleSubmit}
+					required
 				/>
 				<input
 					type="password"
 					id="password"
 					name="password"
 					placeholder="Coloque sua senha..."
-					/* value={} */
 					onChange={handleSubmit}
+					required
 				/>
 				<p>
 					Não tem uma conta? <Link to={RoutePath.SINGUP}>Crie uma!</Link>
