@@ -88,12 +88,17 @@ export const BoxNewGameImgArea = styled.div`
 `;
 
 export const BoxNewGameImg = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+
 	#thumbnail {
 		margin-bottom: 20px;
 		background: #d9d9d9;
 		border: 1px dashed #ddd;
 		background-size: cover;
-		cursor: pointer;
 		width: 157px;
 		height: 157px;
 		display: flex;
@@ -103,15 +108,9 @@ export const BoxNewGameImg = styled.div`
 		margin-right: 16px;
 	}
 
-	#thumbnail input {
-		display: none;
-	}
-
-	#thumbnail.has-thumbnail {
-		border: none;
-	}
-
-	#thumbnail.has-thumbnail img {
-		display: none;
+	#thumbnail img {
+		width: 150px;
+		height: 150px;
+		object-fit: fill;
 	}
 `;

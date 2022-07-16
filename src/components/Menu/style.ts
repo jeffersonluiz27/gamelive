@@ -33,6 +33,16 @@ export const MenuLeft = styled.div`
 		font-weight: 400;
 		line-height: 18px;
 	`}
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		width: 53px;
+		height: 53px;
+		border-radius: 50%;
+		cursor: pointer;
+	}
 `;
 
 export const MenuRight = styled.div`
@@ -40,7 +50,7 @@ export const MenuRight = styled.div`
 		display: flex;
 		border-radius: 2.5rem 0rem 0rem 2.5rem;
 		height: 71px;
-		width: 380px;
+		max-width: 380px;
 		background-color: ${theme.colors.primaryColorOpacity};
 		margin: 28px 0;
 		font-size: 26px;
@@ -49,9 +59,14 @@ export const MenuRight = styled.div`
 		justify-content: space-around;
 		align-items: center;
 		box-sizing: border-box;
+		gap: 10px;
 
 		nav {
 			display: flex;
+		}
+
+		#hora {
+			margin-right: 10px;
 		}
 	`}
 `;

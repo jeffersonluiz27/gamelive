@@ -1,64 +1,67 @@
 import * as S from './style';
 import Card from 'components/Card';
 import swall from 'sweetalert';
-import { findAllService } from 'services/gameServices';
+import { findByIdService } from 'services/findServices';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { RoutePath } from 'types/routes';
 import { gameObj } from 'types/api/Game';
-
-
+import { homepageObj } from 'types/api/Homepage';
 
 const GameList = () => {
-	const navigate = useNavigate();
-	const [games, setGames] = useState<gameObj[]>([]);
-
-	const jwt = localStorage.getItem('jwtLocalStorage');
+	const [favoritos, setFavoritos] = useState<gameObj[]>([]);
+	const [homepage, setHomepage] = useState<homepageObj[]>([]);
+	const profileId = localStorage.getItem('profileId');
 
 	useEffect(() => {
-		getAllGames();
+		getAllGamesFavoritos();
+		getAllGamesGenres();
 	}, []);
 
-	const getAllGames = async () => {
-		if (!jwt) {
+	const getAllGamesGenres = async () => {
+		const response = await findByIdService.findHomeProfile(`${profileId}`);
+
+		if (response.status === 204) {
 			swall({
-				title: 'ERRO!',
-				text: 'Faça o login antes de entrar na página inicial',
-				icon: 'error',
+				title: 'Info',
+				text: 'Não existe game cadastrado!',
+				icon: 'info',
 				timer: 7000,
 			});
-			navigate(RoutePath.LOGIN);
 		} else {
-			const response = await findAllService.allGames();
-
-			if (response.status === 204) {
-				swall({
-					title: 'Info',
-					text: 'Não existe personagem cadastrado!',
-					icon: 'info',
-					timer: 7000,
-				});
-			} else {
-				console.log('Personagens exibidos', response.data);
-				setGames(response.data);
-			}
+			console.log('games por genero exibidos', response.data.games);
+			setHomepage(response.data.games);
 		}
 	};
+
+	const getAllGamesFavoritos = async () => {
+		const response = await findByIdService.findHomeProfile(`${profileId}`);
+
+		console.log('favoritos exibidos', response.data.favorites.games);
+		setFavoritos(response.data.favorites.games);
+	};
+
 	return (
 		<>
 			<S.GameList>
 				<h2>Favoritos</h2>
 				<S.GameListFavoritos>
-					{games.map((game, index) => (
-						<Card game={game} key={index} />
+					{favoritos.map((favorito, index) => (
+						<Card game={favorito} key={index} />
 					))}
 				</S.GameListFavoritos>
 				<h2>Generos</h2>
-				<S.GameListGenders>
-					<section>
-						<S.GenderCard>FPS</S.GenderCard>
-					</section>
-				</S.GameListGenders>
+
+				{homepage.map((home, index) => (
+					<div key={index}>
+						<h3>{home.genre}</h3>
+						<S.GameListGenders>
+							<section className="genderSection">
+								{home.title.map((homegame: gameObj, index) => (
+									<Card game={homegame} key={index} />
+								))}
+							</section>
+						</S.GameListGenders>
+					</div>
+				))}
 			</S.GameList>
 		</>
 	);

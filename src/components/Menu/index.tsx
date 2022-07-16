@@ -7,6 +7,8 @@ import { RoutePath } from 'types/routes';
 import { NavItem } from './types';
 import { DateTime } from 'luxon';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import swall from 'sweetalert';
 
 interface MenuProps {
 	navItems: NavItem[];
@@ -18,15 +20,33 @@ const Menu = ({ navItems, onNavigate, onLogout }: MenuProps) => {
 	const dateDescription = DateTime.now().toLocaleString({
 		...DateTime.TIME_24_SIMPLE,
 	});
-
 	const navigate = useNavigate();
+	const jwt = localStorage.getItem('jwtLocalStorage');
+	const imgP = `${localStorage.getItem('profileImage')}`;
+	const titleP = localStorage.getItem('profileTitle');
+
+	useEffect(() => {
+		UserAuth();
+	}, []);
+
+	const UserAuth = async () => {
+		if (!jwt) {
+			swall({
+				title: 'ERRO!',
+				text: 'Faça o login antes de entrar nesta pagina',
+				icon: 'error',
+				timer: 7000,
+			});
+			navigate(RoutePath.LOGIN);
+		}
+	};
 
 	return (
 		<S.Menu>
 			<S.MenuLeft>
-				<img src={Elipse} alt="" width="55" />
+				<img src={imgP} alt="" width="55" />
 				<div>
-					<span>HANK</span>
+					<span>{titleP}</span>
 					<br />
 					<span>20562</span>
 				</div>
@@ -50,7 +70,7 @@ const Menu = ({ navItems, onNavigate, onLogout }: MenuProps) => {
 				<S.MenuLogo>
 					<img src={MiniLogo} alt="Logo" />
 				</S.MenuLogo>
-				{dateDescription}
+				<div id="hora">{dateDescription}</div>
 			</S.MenuRight>
 		</S.Menu>
 	);

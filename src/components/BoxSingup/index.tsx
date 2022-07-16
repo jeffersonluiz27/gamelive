@@ -67,6 +67,7 @@ const BoxSingup = () => {
 					id="name"
 					placeholder="Coloque seu nome..."
 					onChange={handleChangeValues}
+					required
 				/>
 				<input
 					type="number"
@@ -74,6 +75,7 @@ const BoxSingup = () => {
 					id="cpf"
 					placeholder="Coloque seu CPF (Somente numeros)..."
 					onChange={handleChangeValues}
+					required
 				/>
 				<input
 					type="email"
@@ -81,6 +83,7 @@ const BoxSingup = () => {
 					id="email"
 					placeholder="Coloque seu email..."
 					onChange={handleChangeValues}
+					required
 				/>
 				<input
 					type="password"
@@ -88,6 +91,7 @@ const BoxSingup = () => {
 					id="password"
 					placeholder="Coloque sua senha..."
 					onChange={handleChangeValues}
+					required
 				/>
 				<input
 					type="password"
@@ -95,6 +99,7 @@ const BoxSingup = () => {
 					id="confirmPassword"
 					placeholder="Confirme sua senha..."
 					onChange={handleChangeValues}
+					required
 				/>
 				<ButtonCriar value="Criar" type="submit" />
 			</S.BoxSingupForm>

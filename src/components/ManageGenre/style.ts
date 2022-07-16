@@ -20,14 +20,12 @@ export const BoxNewGenreForm = styled.form`
 	${({ theme }) => css`
 		display: flex;
 		flex-direction: column;
-		gap: 15px;
+		gap: 25px;
 
 		input {
 			${theme.mixins.input};
 			align-self: center;
 			width: 60%;
-			margin-top: 20px;
-			margin-bottom: 18px;
 		}
 	`}
 `;
@@ -52,22 +50,18 @@ export const BoxUpdateGenreForm = styled.form`
 	${({ theme }) => css`
 		display: flex;
 		flex-direction: column;
-		gap: 15px;
+		gap: 25px;
 
 		input {
 			${theme.mixins.input};
 			align-self: center;
 			width: 60%;
-			margin-top: 20px;
-			margin-bottom: 18px;
 		}
 
 		select {
 			${theme.mixins.input};
 			align-self: center;
 			width: 60%;
-			margin-top: 20px;
-			margin-bottom: 18px;
 		}
 	`}
 `;

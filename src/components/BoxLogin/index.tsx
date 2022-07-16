@@ -26,16 +26,18 @@ const BoxLogin = (props: any) => {
 
 	const loginUser = async (event: React.SyntheticEvent) => {
 		event.preventDefault();
-		try{
+		try {
 			const response = await loginService.login(values);
 			const jwt = response.data.token;
+			const user = response.data.user.id;
 
 			if (jwt) {
 				localStorage.setItem('jwtLocalStorage', jwt);
-				navigate(RoutePath.HOME);
+				localStorage.setItem('userIdStorage', user);
+				navigate(RoutePath.PROFILE);
 			}
-			console.log(response.data);
-		}catch(err){
+			console.log(`Login`, response.data);
+		} catch (err) {
 			swal({
 				title: 'Erro!',
 				text: `Usuario ou Senha Invalidos`,
@@ -59,19 +61,19 @@ const BoxLogin = (props: any) => {
 					id="email"
 					name="email"
 					placeholder="Coloque seu email..."
-					/* value={} */
 					onChange={handleSubmit}
+					required
 				/>
 				<input
 					type="password"
 					id="password"
 					name="password"
 					placeholder="Coloque sua senha..."
-					/* value={} */
 					onChange={handleSubmit}
+					required
 				/>
 				<p>
-					Não tem uma conta? <Link to="/singup">Crie uma!</Link>
+					Não tem uma conta? <Link to={RoutePath.SINGUP}>Crie uma!</Link>
 				</p>
 				<ButtonLogin value="Entrar" type="submit" />
 			</S.BoxLoginForm>

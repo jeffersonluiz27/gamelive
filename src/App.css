@@ -10,7 +10,26 @@ html, body{
     height: 100%;
     width: 100%;
     background-color:#10141d; 
+    
+}
 
+body::-webkit-scrollbar{ 
+    width: 10px; 
+}
+
+body::-webkit-scrollbar-track{
+   border: none;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 10px;
+  border: #6f9e662a solid 0.8px;
+  
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #6e9e66; 
 }
 
 #root{
@@ -19,4 +38,43 @@ html, body{
     width: 100%;
     color: #fff;
     font-family: 'Roboto';
+}
+
+.overlay-react-modal {
+  background-color: rgba(0,0,0, 0.6);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-react-modal {
+  width: 100%;
+  max-width: 480px;
+  background-color: #FFF;
+  padding: 2rem;
+  position: relative;
+  border-radius: 0.3rem;
+}
+
+.close-modal-button {
+  background-color: transparent;
+  color: #000;
+  font-size: 1.6rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+  transition: .4s all;
+}
+
+.close-modal-button:hover {
+  color: #e51b22;
 }
