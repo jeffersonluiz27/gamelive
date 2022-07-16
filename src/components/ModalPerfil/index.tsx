@@ -5,6 +5,8 @@ import { profileObj } from 'types/api/Profile';
 import { BiX } from 'react-icons/bi';
 import { createService } from 'services/createService';
 import swal from 'sweetalert';
+import ButtonCriarProfile from 'components/ButtonPurple';
+import interrogacao from 'assets/icons/interrogacao.svg';
 
 Modal.setAppElement('#root');
 
@@ -68,10 +70,11 @@ const ModalPerfil = ({
 		}));
 	};
 
-	const createProfile = async () => {
+	const createProfile = async (event: React.SyntheticEvent) => {
+		event.preventDefault();
 		const response = await createService.createProfile(perfil);
 
-		if (response.status === 200) {
+		if (response.status === 201) {
 			exibeAlerta('Personagem criado com sucesso!', 'success', 'Sucesso!');
 			onChanges(response);
 			closeModal();
@@ -88,7 +91,7 @@ const ModalPerfil = ({
 	};
 
 	return (
-		<S.MadalPerfil>
+		<div>
 			<Modal
 				isOpen={isOpen}
 				onRequestClose={closeModal}
@@ -103,9 +106,33 @@ const ModalPerfil = ({
 					<BiX />
 				</button>
 
-				<h1>Titulo</h1>
+				<S.ModalPerfil>
+					<S.BoxLoginForm onSubmit={createProfile}>
+						<label id="thumbnail" className="thumbnail">
+							<img
+								src={interrogacao}
+								alt="Logo que representa uma interrogação"
+							/>
+						</label>
+						<input
+							type="link"
+							name="imageUrl"
+							id="imageUrl"
+							placeholder="Url da imagem... "
+							onChange={handleChangeValues}
+						/>
+						<input
+							type="text"
+							name="title"
+							id="title"
+							placeholder="Nome do perfil..."
+							onChange={handleChangeValues}
+						/>
+						<ButtonCriarProfile value="Criar" type="submit" />
+					</S.BoxLoginForm>
+				</S.ModalPerfil>
 			</Modal>
-		</S.MadalPerfil>
+		</div>
 	);
 };
 

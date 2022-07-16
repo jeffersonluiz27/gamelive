@@ -91,4 +91,26 @@ export const BoxNewGameImg = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+	justify-content: center;
+	align-items: center;
+
+	#thumbnail {
+		margin-bottom: 20px;
+		background: #d9d9d9;
+		border: 1px dashed #ddd;
+		background-size: cover;
+		width: 157px;
+		height: 157px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 5px;
+		margin-right: 16px;
+	}
+
+	#thumbnail img {
+		width: 150px;
+		height: 150px;
+		object-fit: fill;
+	}
 `;

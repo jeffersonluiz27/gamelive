@@ -7,6 +7,7 @@ import { findAllService } from 'services/findServices';
 import swal from 'sweetalert';
 import { gameDescObj } from 'types/api/Game';
 import { createService } from 'services/createService';
+import capa from 'assets/icons/interrogacao.svg';
 
 const BoxNewGame = () => {
 	const [listGenre, setListGenre] = useState<genreObj[]>([]);
@@ -106,11 +107,14 @@ const BoxNewGame = () => {
 					<S.BoxNewGameForm onSubmit={createGame}>
 						<S.BoxNewGameImgArea>
 							<S.BoxNewGameImg>
+								<label id="thumbnail" className="thumbnail">
+									<img src={capa} alt="Logo que representa uma interrogação" />
+								</label>
 								<input
 									type="link"
 									name="coverImageUrl"
 									id="coverImageUrl"
-									placeholder="Imagem da Capa..."
+									placeholder="Url Imagem da Capa..."
 									onChange={handleChangeValues}
 									required
 								/>
