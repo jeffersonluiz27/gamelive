@@ -5,19 +5,21 @@ import { findByIdService } from 'services/findServices';
 import { useEffect, useState } from 'react';
 import { gameObj } from 'types/api/Game';
 import { homepageObj } from 'types/api/Homepage';
+import { useLocation } from 'react-router';
 
-const GameList = () => {
+const GameList = (id: any) => {
 	const [favoritos, setFavoritos] = useState<gameObj[]>([]);
 	const [homepage, setHomepage] = useState<homepageObj[]>([]);
 	const profileId = localStorage.getItem('profileId');
+	const location = useLocation();
 
 	useEffect(() => {
 		getAllGamesFavoritos();
 		getAllGamesGenres();
-	}, []);
+	}, [location.key]);
 
 	const getAllGamesGenres = async () => {
-		const response = await findByIdService.findHomeProfile(`${profileId}`);
+		const response = await findByIdService.findHomeProfile(id.id);
 
 		if (response.status === 204) {
 			swall({
@@ -33,7 +35,7 @@ const GameList = () => {
 	};
 
 	const getAllGamesFavoritos = async () => {
-		const response = await findByIdService.findHomeProfile(`${profileId}`);
+		const response = await findByIdService.findHomeProfile(id.id);
 
 		console.log('favoritos exibidos', response.data.favorites.games);
 		setFavoritos(response.data.favorites.games);

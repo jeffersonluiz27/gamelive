@@ -5,12 +5,6 @@ export interface gameObj {
 	imdbScore: number;
 }
 
-export interface gameHomeObj {
-	id?: string;
-	title: string;
-	genre?: string;
-}
-
 export interface gameDescObj {
 	id?: string;
 	title: string;

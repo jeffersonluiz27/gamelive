@@ -24,7 +24,7 @@ const Homepage = () => {
 		setProfiles(response.data);
 	};
 
-	let prof = profiles.filter((e) => e.id == id);
+	let prof = profiles.filter((e) => e.id === id);
 
 	prof.map((p) => {
 		localStorage.setItem('profileImage', p.imageUrl);
@@ -44,7 +44,7 @@ const Homepage = () => {
 			/>
 			<S.HomeContent>
 				<S.HomeGameList>
-					<GameList />
+					<GameList id={`${id}`} />
 				</S.HomeGameList>
 			</S.HomeContent>
 		</S.Home>

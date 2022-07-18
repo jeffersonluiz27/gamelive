@@ -7,6 +7,8 @@ import { createService } from 'services/createService';
 import swal from 'sweetalert';
 import ButtonCriarProfile from 'components/ButtonPurple';
 import interrogacao from 'assets/icons/interrogacao.svg';
+import { findByIdService } from 'services/findServices';
+import { updateService } from 'services/updateService';
 
 Modal.setAppElement('#root');
 
@@ -53,8 +55,9 @@ const ModalPerfil = ({
 		});
 
 		// chamar a api ou fazer algo
-		/* type === 'editCharacter' && isOpen ? getCharacterById() : ''; */
-		type === 'createProfile'
+		type == 'editProfile' && isOpen ? getProfileById() : '';
+
+		type == 'createProfile'
 			? setPerfil({
 					title: '',
 					imageUrl: '',
@@ -70,14 +73,38 @@ const ModalPerfil = ({
 		}));
 	};
 
+	const getProfileById = async () => {
+		const response = await findByIdService.findProfileById(id);
+		setPerfil(response.data);
+	};
+
 	const createProfile = async (event: React.SyntheticEvent) => {
 		event.preventDefault();
 		const response = await createService.createProfile(perfil);
 
 		if (response.status === 201) {
-			exibeAlerta('Personagem criado com sucesso!', 'success', 'Sucesso!');
+			exibeAlerta('Perfil criado com sucesso!', 'success', 'Sucesso!');
 			onChanges(response);
 			closeModal();
+		}
+	};
+
+	const editProfile = async () => {
+		const response = await updateService.updateProfile(perfil, id);
+		exibeAlerta('Perfil Atualizado com sucesso!', 'success', 'Sucesso!');
+		onChanges(response);
+		closeModal();
+	};
+
+	const submitFunction = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		switch (type) {
+			case 'createProfile':
+				createProfile(event);
+				break;
+			case 'editProfile':
+				editProfile();
+				break;
 		}
 	};
 
@@ -105,9 +132,9 @@ const ModalPerfil = ({
 				>
 					<BiX />
 				</button>
-
+				<h2 className="modal-title">{formDetails.title}</h2>
 				<S.ModalPerfil>
-					<S.BoxLoginForm onSubmit={createProfile}>
+					<S.BoxLoginForm onSubmit={submitFunction}>
 						<label id="thumbnail" className="thumbnail">
 							<img
 								src={interrogacao}
@@ -120,6 +147,7 @@ const ModalPerfil = ({
 							id="imageUrl"
 							placeholder="Url da imagem... "
 							onChange={handleChangeValues}
+							defaultValue={perfil.title}
 						/>
 						<input
 							type="text"
@@ -127,13 +155,14 @@ const ModalPerfil = ({
 							id="title"
 							placeholder="Nome do perfil..."
 							onChange={handleChangeValues}
+							defaultValue={perfil.imageUrl}
 						/>
-						<ButtonCriarProfile value="Criar" type="submit" />
+						<ButtonCriarProfile value={formDetails.btnName} type="submit" />
 					</S.BoxLoginForm>
 				</S.ModalPerfil>
 			</Modal>
 		</div>
 	);
-};
+};;;
 
 export default ModalPerfil;

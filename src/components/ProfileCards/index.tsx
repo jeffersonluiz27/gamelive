@@ -9,12 +9,17 @@ import { findAllService } from 'services/findServices';
 import { profileObj } from 'types/api/Profile';
 import ModalPerfil from 'components/ModalPerfil';
 
+
 const ProfileCards = () => {
 	const navigate = useNavigate();
 	const [profiles, setProfiles] = useState<profileObj[]>([]);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const jwt = localStorage.getItem('jwtLocalStorage');
 	const LocalUseId = localStorage.getItem('userIdStorage');
+	const [type, setTime] = useState<string>('');
+	const [btnName, setBtnName] = useState<string>('');
+	const [profileId, setProfileId] = useState<string>('');
+	const [titlePerfil, setTitlePerfil] = useState<string>('');
 
 	const openModal = () => {
 		setIsModalOpen(true);
@@ -22,6 +27,22 @@ const ProfileCards = () => {
 
 	function closeModal() {
 		setIsModalOpen(false);
+	}
+
+	function createProfile() {
+		setTime('createProfile');
+		setProfileId('');
+		setTitlePerfil('Criar Perfil');
+		setBtnName('Criar');
+		openModal();
+	}
+
+	function editProfile(id: string): any {
+		setTime('editProfile');
+		setProfileId(`${id}`);
+		setTitlePerfil('Atualizar Perfil');
+		setBtnName('Atualizar');
+		openModal();
 	}
 
 	const onCreate = () => {};
@@ -66,21 +87,21 @@ const ProfileCards = () => {
 							<img src={profile.imageUrl} alt="" />
 						</Link>
 						<h3>{profile.title}</h3>
-						<Edit />
+						<Edit onClick={() => editProfile(`${profile.id}`)} />
 					</S.ProfileCardsContent>
 				))}
 			</S.ProfileCards>
 			<S.ProfileCardsPlus>
-				<Plus onClick={openModal} />
+				<Plus onClick={createProfile} />
 			</S.ProfileCardsPlus>
 			<ModalPerfil
 				isOpen={isModalOpen}
 				closeModal={closeModal}
-				type="createProfile"
-				title="Criar Perfil"
+				type={`${type}`}
+				title={titlePerfil}
 				onChanges={onCreate}
-				btnName="Salvar"
-				id=""
+				btnName={btnName}
+				id={profileId}
 				userId={`${LocalUseId}`}
 			/>
 		</>
