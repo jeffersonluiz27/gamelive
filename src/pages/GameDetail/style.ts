@@ -33,11 +33,19 @@ export const GameDetailTrailers = styled.section`
 	${() => css`
 		width: auto;
 		height: 70%;
-		border: #fff solid 1px;
 		display: flex;
 		flex-wrap: wrap;
 		box-sizing: border-box;
+		align-items: center;
+		justify-content: space-evenly;
 	`}
+
+	div.yt {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+	}
 `;
 
 export const GameDetailDesc = styled.section`

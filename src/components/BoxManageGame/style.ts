@@ -79,6 +79,12 @@ export const BoxManageGameImgArea = styled.div`
 `;
 
 export const BoxNManageGameImg = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+
 	#thumbnail {
 		margin-bottom: 20px;
 		background: #d9d9d9;
@@ -101,7 +107,7 @@ export const BoxNManageGameImg = styled.div`
 	#thumbnail img {
 		width: 157px;
 		height: 157px;
-		object-fit: cover;
+		object-fit: fill;
 	}
 
 	#thumbnail.has-thumbnail {

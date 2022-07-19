@@ -1,5 +1,4 @@
 import * as S from './style';
-import Elipse from 'assets/img/hankElipse.png';
 import MiniLogo from 'assets/img/logo2.png';
 import { IoIosArrowDropleft as Back } from 'react-icons/io';
 import { HiOutlineLogout as Logout } from 'react-icons/hi';

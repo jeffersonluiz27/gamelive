@@ -112,7 +112,10 @@ const BoxNewGame = () => {
 						<S.BoxNewGameImgArea>
 							<S.BoxNewGameImg>
 								<label id="thumbnail" className="thumbnail">
-									<img src={capa} alt="Logo que representa uma interrogação" />
+									<img
+										src={game.coverImageUrl ? game.coverImageUrl : capa}
+										alt="Logo que representa uma interrogação"
+									/>
 								</label>
 								<input
 									type="link"

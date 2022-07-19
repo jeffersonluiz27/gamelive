@@ -1,15 +1,9 @@
 import * as S from './style';
-import capa from 'assets/img/valorant.png';
+import capa from 'assets/icons/interrogacao.svg';
 import ButtonUpdate from 'components/ButtonPurple';
 import ButtonDelete from 'components/ButtonRed';
-import { useMemo, useState } from 'react';
 
 const BoxManageGame = () => {
-	const [thumbnail, setThumbnail] = useState<FileList | null>(null);
-	const preview = useMemo(() => {
-		return thumbnail ? URL.createObjectURL(thumbnail[0]) : null;
-	}, [thumbnail]);
-
 	return (
 		<S.ManageGame>
 			<h2>Editar Jogo</h2>
@@ -17,18 +11,19 @@ const BoxManageGame = () => {
 				<S.BoxManageGameForm>
 					<S.BoxManageGameImgArea>
 						<S.BoxNManageGameImg>
-							<label
-								id="thumbnail"
-								style={{ backgroundImage: `url(${preview})` }}
-								className={thumbnail ? 'has-thumbnail' : ''}
-							>
-								<input
-									type="file"
-									name="thumbnail"
-									onChange={(event) => setThumbnail(event.target.files)}
+							<label id="thumbnail" className="thumbnail">
+								<img
+									src={/* game.coverImageUrl ? game.coverImageUrl : */ capa}
+									alt="Logo que representa uma interrogação"
 								/>
-								<img src={capa} alt="Logo que representa uma interrogação" />
 							</label>
+							<input
+								type="link"
+								name="coverImageUrl"
+								id="coverImageUrl"
+								placeholder="Url Imagem da Capa..."
+								required
+							/>
 						</S.BoxNManageGameImg>
 					</S.BoxManageGameImgArea>
 					<S.BoxManageGameDiv>

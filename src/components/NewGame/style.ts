@@ -113,4 +113,15 @@ export const BoxNewGameImg = styled.div`
 		height: 150px;
 		object-fit: fill;
 	}
+	#thumbnail input {
+		display: none;
+	}
+
+	#thumbnail.has-thumbnail {
+		border: none;
+	}
+
+	#thumbnail.has-thumbnail img {
+		display: none;
+	}
 `;

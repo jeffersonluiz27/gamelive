@@ -57,6 +57,11 @@ const findByIdService = {
 			.get(`/genre/${id}`)
 			.then((response: any) => response)
 			.catch((error: any) => console.log(error)),
+	findGameById: (id: string) =>
+		api
+			.get(`/game/${id}`)
+			.then((response: any) => response)
+			.catch((error: any) => console.log(error)),
 };
 
 export { findAllService, findOneService, findByIdService };
