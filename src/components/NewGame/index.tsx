@@ -57,11 +57,12 @@ const BoxNewGame = () => {
 	const handleChangeOption2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setGame((values: gameDescObj) => ({
 			...values,
-			[event.target.name]: Number(event.target.value),
+			[event.target.name]: parseInt(event.target.value),
 		}));
 	};
 
 	const createGame = async (event: React.SyntheticEvent) => {
+		console.log(game);
 		event.preventDefault();
 		const response = await createService.createGame(game);
 
@@ -76,6 +77,9 @@ const BoxNewGame = () => {
 				'error',
 				'Já existe!'
 			);
+		}
+		if (response.status === 400) {
+			exibeAlerta('Algo deu errado!', 'error', 'Ishi!');
 		}
 	};
 
@@ -145,15 +149,17 @@ const BoxNewGame = () => {
 								id="imdbScore"
 							>
 								<optgroup label="IMDB Score">
-									<option value="default">1</option>
-									<option value="default">2</option>
-									<option value="default">3</option>
-									<option value="default">4</option>
-									<option value="default">5</option>
+									<option>Escolha</option>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
 								</optgroup>
 							</select>
 							<select onChange={handleChangeOption} name="genres" id="genres">
 								<optgroup label="Genero">
+									<option>Escolha</option>
 									{listGenre.map((genre, index) => (
 										<option value={genre.id} key={index}>
 											{genre.name}

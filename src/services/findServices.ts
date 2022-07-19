@@ -39,7 +39,6 @@ const findByIdService = {
 		api
 			.get(`/profile/${id}`)
 			.then((response: any) => response)
-			.then((response: any) => response)
 			.catch((error: any) => console.log(error)),
 	findUserById: (id: string | undefined) =>
 		api
@@ -52,6 +51,10 @@ const findByIdService = {
 		api
 			.get(`/homepage/${id}`)
 			.then((response: any) => response)
+			.catch((error: any) => console.log(error)),
+	findGenreById: (id: string) =>
+		api
+			.get(`/genre/${id}`)
 			.then((response: any) => response)
 			.catch((error: any) => console.log(error)),
 };

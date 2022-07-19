@@ -6,17 +6,25 @@ import { createService } from 'services/createService';
 import { useEffect, useState } from 'react';
 import { genreObj } from 'types/api/Genres';
 import swal from 'sweetalert';
-import { findAllService } from 'services/findServices';
+import { findAllService, findByIdService } from 'services/findServices';
+import { deleteService } from 'services/deleteService';
 
 const ManageGenre = () => {
 	const [genre, setGenre] = useState({
 		name: '',
 	});
 	const [listGenre, setListGenre] = useState<genreObj[]>([]);
-	const [state, setState] = useState({ value: '' });
+	const [refreshGeneros, setRefreshGeneros] = useState(false);
+	const [genreId, setGenreId] = useState({
+		id: '',
+		name: '',
+	});
 
 	const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setState({ value: event.target.value });
+		setGenreId((values: genreObj) => ({
+			...values,
+			id: event.target.value,
+		}));
 	};
 
 	const handleChangeValues = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,17 +59,43 @@ const ManageGenre = () => {
 			icon: icon,
 			timer: 7000,
 		});
+		updateGeneros(true);
 	};
 
 	useEffect(() => {
 		findAllGenres();
-	}, []);
+	}, [genre, refreshGeneros]);
+
+	const updateGeneros = (refreshProf: boolean) => {
+		setRefreshGeneros(refreshProf);
+		setTimeout(() => {
+			setRefreshGeneros(false);
+		}, 100);
+	};
 
 	const findAllGenres = async () => {
 		const response = await findAllService.allGenres();
 
 		setListGenre(response.data);
 		console.log('listando generos', response.data);
+	};
+
+	const deleteGenre = async () => {
+		const response = await deleteService.deleteGenre(genreId.id);
+		exibeAlerta('Genero apagado com sucesso!', 'success', 'sucesso');
+	};
+
+	const deleteModalOpen = () => {
+		swal({
+			title: 'Deseja apagar o genero ?',
+			icon: 'error',
+			buttons: ['Não', 'Sim'],
+		}).then((resp) => {
+			console.log(resp);
+			if (resp) {
+				deleteGenre();
+			}
+		});
 	};
 
 	return (
@@ -85,19 +119,25 @@ const ManageGenre = () => {
 				<S.BoxUpdateGenreForm>
 					<select onChange={handleChange}>
 						<optgroup label="Generos">
+							<option>Escolha</option>
 							{listGenre.map((genre, index) => (
-								<option key={index}>{genre.name}</option>
+								<option key={index} value={genre.id}>
+									{genre.name}
+								</option>
 							))}
 						</optgroup>
 					</select>
-
 					<input
 						type="text"
 						placeholder="Novo nome do genero..."
-						value={state.value}
+						defaultValue={genreId.id}
 					/>
 					<S.BoxUpdateGenreDiv>
-						<ButtonDelete value="Deletar" type="button" />
+						<ButtonDelete
+							value="Deletar"
+							type="button"
+							onClick={deleteModalOpen}
+						/>
 						<ButtonUpdate value="Atualizar" type="button" />
 					</S.BoxUpdateGenreDiv>
 				</S.BoxUpdateGenreForm>
