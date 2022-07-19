@@ -6,9 +6,14 @@ import { BiX } from 'react-icons/bi';
 import { createService } from 'services/createService';
 import swal from 'sweetalert';
 import ButtonCriarProfile from 'components/ButtonPurple';
+import ButtonDeleteProfile from 'components/ButtonRed';
 import interrogacao from 'assets/icons/interrogacao.svg';
 import { findByIdService } from 'services/findServices';
 import { updateService } from 'services/updateService';
+import { useNavigate } from 'react-router-dom';
+import { RoutePath } from 'types/routes';
+import { deleteService } from 'services/deleteService';
+import { BsFillTrashFill } from 'react-icons/bs';
 
 Modal.setAppElement('#root');
 
@@ -33,6 +38,7 @@ const ModalPerfil = ({
 	id,
 	userId,
 }: modalProps) => {
+	const navigate = useNavigate();
 	const [formDetails, setFormDetails] = useState({
 		id,
 		title,
@@ -43,7 +49,7 @@ const ModalPerfil = ({
 	const [perfil, setPerfil] = useState({
 		title: '',
 		imageUrl: '',
-		userId: '',
+		userId: userId,
 	});
 
 	useEffect(() => {
@@ -55,15 +61,17 @@ const ModalPerfil = ({
 		});
 
 		// chamar a api ou fazer algo
-		type == 'editProfile' && isOpen ? getProfileById() : '';
+		type === 'editProfile' && isOpen
+			? getProfileById()
+			: console.log('nao faz edit amigao');
 
-		type == 'createProfile'
+		type === 'createProfile'
 			? setPerfil({
 					title: '',
 					imageUrl: '',
 					userId: userId,
 			  })
-			: console.log('nao faz nada amigao');
+			: console.log('nao faz create amigao');
 	}, [isOpen]);
 
 	const handleChangeValues = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,8 +86,7 @@ const ModalPerfil = ({
 		setPerfil(response.data);
 	};
 
-	const createProfile = async (event: React.SyntheticEvent) => {
-		event.preventDefault();
+	const createProfile = async () => {
 		const response = await createService.createProfile(perfil);
 
 		if (response.status === 201) {
@@ -90,8 +97,33 @@ const ModalPerfil = ({
 	};
 
 	const editProfile = async () => {
-		const response = await updateService.updateProfile(perfil, id);
-		exibeAlerta('Perfil Atualizado com sucesso!', 'success', 'Sucesso!');
+		const response = await updateService.updateProfile(id, perfil);
+
+		console.log(response);
+
+		if (response.status === 200) {
+			exibeAlerta('Perfil Atualizado com sucesso!', 'success', 'Sucesso!');
+			onChanges(response);
+			closeModal();
+		}
+	};
+
+	const deleteModalOpen = () => {
+		swal({
+			title: 'Deseja apagar o perfil ?',
+			icon: 'error',
+			buttons: ['Não', 'Sim'],
+		}).then((resp) => {
+			console.log(resp);
+			if (resp) {
+				deleteProfile();
+			}
+		});
+	};
+
+	const deleteProfile = async () => {
+		const response = await deleteService.deleteProfile(id);
+		exibeAlerta('Perfil apagado com sucesso!', 'success', 'sucesso');
 		onChanges(response);
 		closeModal();
 	};
@@ -100,7 +132,7 @@ const ModalPerfil = ({
 		event.preventDefault();
 		switch (type) {
 			case 'createProfile':
-				createProfile(event);
+				createProfile();
 				break;
 			case 'editProfile':
 				editProfile();
@@ -137,7 +169,7 @@ const ModalPerfil = ({
 					<S.BoxLoginForm onSubmit={submitFunction}>
 						<label id="thumbnail" className="thumbnail">
 							<img
-								src={interrogacao}
+								src={perfil.imageUrl ? perfil.imageUrl : interrogacao}
 								alt="Logo que representa uma interrogação"
 							/>
 						</label>
@@ -147,7 +179,7 @@ const ModalPerfil = ({
 							id="imageUrl"
 							placeholder="Url da imagem... "
 							onChange={handleChangeValues}
-							defaultValue={perfil.title}
+							defaultValue={perfil.imageUrl}
 						/>
 						<input
 							type="text"
@@ -155,9 +187,16 @@ const ModalPerfil = ({
 							id="title"
 							placeholder="Nome do perfil..."
 							onChange={handleChangeValues}
-							defaultValue={perfil.imageUrl}
+							defaultValue={perfil.title}
 						/>
 						<ButtonCriarProfile value={formDetails.btnName} type="submit" />
+						{type === 'editProfile' ? (
+							<div onClick={deleteModalOpen}>
+								<ButtonDeleteProfile value="Deletar" type="button" />
+							</div>
+						) : (
+							''
+						)}
 					</S.BoxLoginForm>
 				</S.ModalPerfil>
 			</Modal>

@@ -1,5 +1,6 @@
 import HeaderLogo from 'components/HeaderLogo';
 import ProfileCards from 'components/ProfileCards';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'types/routes';
 import * as S from './style';

@@ -20,6 +20,7 @@ const ProfileCards = () => {
 	const [btnName, setBtnName] = useState<string>('');
 	const [profileId, setProfileId] = useState<string>('');
 	const [titlePerfil, setTitlePerfil] = useState<string>('');
+	const [refreshProfiles, setRefreshProfiles] = useState(false);
 
 	const openModal = () => {
 		setIsModalOpen(true);
@@ -45,11 +46,20 @@ const ProfileCards = () => {
 		openModal();
 	}
 
-	const onCreate = () => {};
+	const onEdit = () => {
+		updateProfiles(true);
+	};
 
 	useEffect(() => {
 		getAllProfiles();
-	}, []);
+	}, [refreshProfiles]);
+
+	const updateProfiles = (refreshProf: boolean) => {
+		setRefreshProfiles(refreshProf);
+		setTimeout(() => {
+			setRefreshProfiles(false);
+		}, 100);
+	};
 
 	const getAllProfiles = async () => {
 		if (!jwt) {
@@ -99,7 +109,7 @@ const ProfileCards = () => {
 				closeModal={closeModal}
 				type={`${type}`}
 				title={titlePerfil}
-				onChanges={onCreate}
+				onChanges={onEdit}
 				btnName={btnName}
 				id={profileId}
 				userId={`${LocalUseId}`}
