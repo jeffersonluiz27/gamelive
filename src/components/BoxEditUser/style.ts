@@ -93,5 +93,9 @@ export const BoxEditUserSearch = styled.div`
 		input:focus {
 			outline: none;
 		}
+
+		svg {
+			cursor: pointer;
+		}
 	`}
 `;

@@ -6,6 +6,9 @@ import ButtonDeletar from 'components/ButtonRed';
 import ButtonResetSenha from 'components/ButtonRed';
 
 const BoxEditUser = () => {
+
+	const getUser = () => {};
+	
 	return (
 		<S.BoxEditUser>
 			<S.BoxEditUserLogo>
@@ -16,7 +19,7 @@ const BoxEditUser = () => {
 			</S.BoxEditUserLogo>
 			<S.BoxEditUserForm>
 				<S.BoxEditUserSearch>
-					<Search />
+					<Search onClick={getUser} />
 					<input
 						type="text"
 						name="search"
