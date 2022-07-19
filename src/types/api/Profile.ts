@@ -6,3 +6,7 @@ export interface profileObj {
 	games?: string;
 	favoriteGameId?: string;
 }
+
+export interface profilefavoriteObj {
+	favoriteGameId: string;
+}

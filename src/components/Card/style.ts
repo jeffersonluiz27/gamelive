@@ -68,19 +68,23 @@ export const CardBotton = styled.div`
 	justify-content: space-between;
 	align-items: center;
 
-	.imdb{
+	.imdb {
 		font-size: 12px;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-
 	}
 
-	.imdb p{
+	.imdb p {
 		margin-right: 5px;
 	}
 
-	svg.fav {
+	svg.favOff {
+		cursor: pointer;
+		fill: ${theme.colors.baseBg2};
+	}
+
+	svg.favOn {
 		cursor: pointer;
 		fill: ${theme.colors.butonRed};
 	}

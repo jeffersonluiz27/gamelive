@@ -10,7 +10,6 @@ import ButtonDeleteProfile from 'components/ButtonRed';
 import interrogacao from 'assets/icons/interrogacao.svg';
 import { findByIdService } from 'services/findServices';
 import { updateService } from 'services/updateService';
-import { useNavigate } from 'react-router-dom';
 import { deleteService } from 'services/deleteService';
 
 Modal.setAppElement('#root');
@@ -36,7 +35,6 @@ const ModalPerfil = ({
 	id,
 	userId,
 }: modalProps) => {
-	const navigate = useNavigate();
 	const [formDetails, setFormDetails] = useState({
 		id,
 		title,
@@ -100,10 +98,7 @@ const ModalPerfil = ({
 			imageUrl: perfil.imageUrl,
 			userId: perfil.userId,
 		};
-		console.log(perfil, valores);
 		const response = await updateService.updateProfile(id, valores);
-
-		console.log(response);
 
 		if (response.status === 200) {
 			exibeAlerta('Perfil Atualizado com sucesso!', 'success', 'Sucesso!');

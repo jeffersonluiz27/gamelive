@@ -10,13 +10,24 @@ import { useLocation } from 'react-router';
 const GameList = (id: any) => {
 	const [favoritos, setFavoritos] = useState<gameObj[]>([]);
 	const [homepage, setHomepage] = useState<homepageObj[]>([]);
-	const profileId = localStorage.getItem('profileId');
+	const [homeRefresh, sethomeRefresh] = useState(false);
 	const location = useLocation();
 
 	useEffect(() => {
 		getAllGamesFavoritos();
 		getAllGamesGenres();
-	}, [location.key]);
+	}, [location.key, homeRefresh]);
+
+	const onFav = () => {
+		homeRf(true);
+	};
+
+	const homeRf = (refreshProf: boolean) => {
+		sethomeRefresh(refreshProf);
+		setTimeout(() => {
+			sethomeRefresh(false);
+		}, 100);
+	};
 
 	const getAllGamesGenres = async () => {
 		const response = await findByIdService.findHomeProfile(id.id);
@@ -47,7 +58,13 @@ const GameList = (id: any) => {
 				<h2>Favoritos</h2>
 				<S.GameListFavoritos>
 					{favoritos.map((favorito, index) => (
-						<Card game={favorito} key={index} />
+						<Card
+							game={favorito}
+							key={index}
+							id={id.id}
+							onChanges={onFav}
+							favIcon="favOn"
+						/>
 					))}
 				</S.GameListFavoritos>
 				<h2>Generos</h2>
@@ -58,7 +75,13 @@ const GameList = (id: any) => {
 						<S.GameListGenders>
 							<section className="genderSection">
 								{home.title.map((homegame: gameObj, index) => (
-									<Card game={homegame} key={index} />
+									<Card
+										game={homegame}
+										key={index}
+										id={id.id}
+										onChanges={onFav}
+										favIcon="favOff"
+									/>
 								))}
 							</section>
 						</S.GameListGenders>
