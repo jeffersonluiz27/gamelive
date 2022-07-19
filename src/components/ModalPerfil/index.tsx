@@ -11,9 +11,7 @@ import interrogacao from 'assets/icons/interrogacao.svg';
 import { findByIdService } from 'services/findServices';
 import { updateService } from 'services/updateService';
 import { useNavigate } from 'react-router-dom';
-import { RoutePath } from 'types/routes';
 import { deleteService } from 'services/deleteService';
-import { BsFillTrashFill } from 'react-icons/bs';
 
 Modal.setAppElement('#root');
 
@@ -97,7 +95,13 @@ const ModalPerfil = ({
 	};
 
 	const editProfile = async () => {
-		const response = await updateService.updateProfile(id, perfil);
+		const valores = {
+			title: perfil.title,
+			imageUrl: perfil.imageUrl,
+			userId: perfil.userId,
+		};
+		console.log(perfil, valores);
+		const response = await updateService.updateProfile(id, valores);
 
 		console.log(response);
 
@@ -202,6 +206,6 @@ const ModalPerfil = ({
 			</Modal>
 		</div>
 	);
-};;;
+};
 
 export default ModalPerfil;
