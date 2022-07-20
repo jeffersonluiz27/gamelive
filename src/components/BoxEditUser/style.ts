@@ -83,19 +83,19 @@ export const BoxEditUserSearch = styled.div`
 		gap: 10px;
 		border: solid 1px #ddd;
 
-		input {
+		select {
 			background: transparent;
 			border: none;
 			height: 70%;
-			width: 80%;
-		}
-
-		input:focus {
-			outline: none;
+			width: 100%;
 		}
 
 		svg {
 			cursor: pointer;
+			border-right: #10100f66 solid 0.2px;
+			width: 25px;
+			height: 25px;
+			padding-right: 5px;
 		}
 	`}
 `;

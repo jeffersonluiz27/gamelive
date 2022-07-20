@@ -16,6 +16,11 @@ const deleteService = {
 			.delete(`/game/${id}`)
 			.then((response: any) => response)
 			.catch((error: any) => console.log(error)),
+	deleteUser: (id: string) =>
+		api
+			.delete(`/user/${id}`)
+			.then((response: any) => response)
+			.catch((error: any) => console.log(error)),
 };
 
 export { deleteService };

@@ -22,6 +22,13 @@ const findAllService = {
 				return response;
 			})
 			.catch((error: any) => console.log(error)),
+	allUsers: () =>
+		api
+			.get('/user')
+			.then((response: any) => {
+				return response;
+			})
+			.catch((error: any) => console.log(error)),
 };
 
 const findOneService = {
