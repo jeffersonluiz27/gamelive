@@ -4,8 +4,6 @@ import {AiFillStar as Star} from 'react-icons/ai'
 import { Link } from 'react-router-dom';
 import { gameObj } from 'types/api/Game';
 import { updateService } from 'services/updateService';
-import { useEffect, useState } from 'react';
-import { findByIdService } from 'services/findServices';
 
 interface CardProps {
 	game: gameObj;

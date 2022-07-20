@@ -13,7 +13,6 @@ export const GameDetail = styled.section`
 export const GameDetailContent = styled.main`
 	${() => css`
 		width: 100%;
-		height: 70%;
 		display: flex;
 		grid-row: auto;
 		flex-direction: column;
@@ -23,15 +22,27 @@ export const GameDetailContent = styled.main`
 
 export const GameDetailTop = styled.section`
 	${({ theme }) => css`
-		width: auto;
+		width: 100%;
 		top: 0;
-		right: 45%;
-		left: 45%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		flex-direction: column;
 		position: absolute;
+
+		section {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+
+		section div.atrib {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 20px;
+		}
 
 		svg.star {
 			fill: ${theme.colors.buttonGold};
@@ -61,9 +72,28 @@ export const GameDetailTrailers = styled.section`
 	div.edit {
 		display: flex;
 		flex-direction: column;
+		justify-content: flex-end;
 		align-items: center;
-		justify-content: center;
-		gap: 10px;
+		width: auto;
+		box-sizing: border-box;
+	}
+	div.edit a {
+		padding: 5px;
+	}
+
+	div.edit a button {
+		background-color: #dddddd;
+		color: #000;
+		margin: 10px;
+	}
+
+	div.edit a button:hover {
+		background-color: #d2d2e3;
+	}
+
+	div.edit a {
+		position: absolute;
+		display: inline-block;
 	}
 `;
 
@@ -76,6 +106,7 @@ export const GameDetailDesc = styled.section`
 		text-align: center;
 		justify-content: center;
 		align-items: center;
+		margin-top: 10px;
 
 		article {
 			width: 50%;

@@ -30,6 +30,7 @@ const Homepage = () => {
 		localStorage.setItem('profileImage', p.imageUrl);
 		localStorage.setItem('profileTitle', p.title);
 		localStorage.setItem('profileId', `${p.id}`);
+		return console.log('profile setado no localStorage');
 	});
 
 	return (
