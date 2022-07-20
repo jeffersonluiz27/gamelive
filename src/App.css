@@ -53,6 +53,15 @@ body::-webkit-scrollbar-thumb:hover {
   align-items: center;
 }
 
+.content-react-modal-del{
+  width: 100%;
+  max-width: 580px;
+  background-color: #FFF;
+  padding: 2rem;
+  position: relative;
+  border-radius: 0.3rem;
+}
+
 .content-react-modal {
   width: 100%;
   max-width: 480px;

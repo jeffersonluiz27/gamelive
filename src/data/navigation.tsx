@@ -15,11 +15,4 @@ export const navigationItems: NavItem[] = [
 	},
 ];
 
-export const navigationItemsUser: NavItem[] = [
-	{
-		icon: <EditGame />,
-		path: RoutePath.MANAGEGAME,
-	},
-];
-
 export const navigationItemsVazio: NavItem[] = [];

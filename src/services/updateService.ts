@@ -1,3 +1,4 @@
+import { gameDescObj } from 'types/api/Game';
 import { profilefavoriteObj, profileObj } from 'types/api/Profile';
 import api from './api';
 
@@ -10,6 +11,11 @@ const updateService = {
 	updateFavorito: (id: string, values: profilefavoriteObj) =>
 		api
 			.patch(`/profile/favoriteGame/${id}`, values)
+			.then((response: any) => response)
+			.catch((error: any) => console.log(error)),
+	updateGame: (id: string, values: gameDescObj) =>
+		api
+			.patch(`/game/${id}`, values)
 			.then((response: any) => response)
 			.catch((error: any) => console.log(error)),
 };

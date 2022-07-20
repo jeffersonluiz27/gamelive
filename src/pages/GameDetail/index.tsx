@@ -2,17 +2,22 @@ import * as S from './style';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from 'types/routes';
 import Menu from 'components/Menu';
+import Modal from 'react-modal';
 import { navigationItemsVazio } from 'data/navigation';
 import { findByIdService } from 'services/findServices';
 import { useEffect, useState } from 'react';
 import { gameDetailObj } from 'types/api/Game';
 import { AiFillStar as Star } from 'react-icons/ai';
 import Editar from 'components/ButtonPurple';
+import ModalEditGame from 'components/ModalEditGame';
+
+Modal.setAppElement('#root');
 
 const GameDetail = () => {
 	const navigate = useNavigate();
 	const handleNavigation = (path: RoutePath) => navigate(path);
 	const [game, setGame] = useState<gameDetailObj>();
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const { id } = useParams();
 
 	useEffect(() => {
@@ -20,6 +25,14 @@ const GameDetail = () => {
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	const openModal = () => {
+		setIsModalOpen(true);
+	};
+
+	function closeModal() {
+		setIsModalOpen(false);
+	}
 
 	const getGameById = async () => {
 		const response = await findByIdService.findGameById(`${id}`);
@@ -67,9 +80,7 @@ const GameDetail = () => {
 					</div>
 					<div className="edit">
 						<img src={game?.coverImageUrl} alt="" width="300" />
-						<Link to={`/managegame/${game?.id}`}>
-							<Editar value="Editar" type="button" />
-						</Link>
+						<Editar value="Editar" type="button" onClick={openModal} />
 					</div>
 					<div className="yt">
 						<h3>GAMEPLAY</h3>
@@ -90,6 +101,12 @@ const GameDetail = () => {
 					<article>{game?.description}</article>
 				</S.GameDetailDesc>
 			</S.GameDetailContent>
+			<ModalEditGame
+				isOpen={isModalOpen}
+				closeModal={closeModal}
+				title={'Gerenciar Jogo'}
+				id={`${id}`}
+			/>
 		</S.GameDetail>
 	);
 };

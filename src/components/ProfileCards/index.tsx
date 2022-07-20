@@ -16,7 +16,7 @@ const ProfileCards = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const jwt = localStorage.getItem('jwtLocalStorage');
 	const LocalUseId = localStorage.getItem('userIdStorage');
-	const [type, setTime] = useState<string>('');
+	const [type, setType] = useState<string>('');
 	const [btnName, setBtnName] = useState<string>('');
 	const [profileId, setProfileId] = useState<string>('');
 	const [titlePerfil, setTitlePerfil] = useState<string>('');
@@ -31,7 +31,7 @@ const ProfileCards = () => {
 	}
 
 	function createProfile() {
-		setTime('createProfile');
+		setType('createProfile');
 		setProfileId('');
 		setTitlePerfil('Criar Perfil');
 		setBtnName('Criar');
@@ -39,7 +39,7 @@ const ProfileCards = () => {
 	}
 
 	function editProfile(id: string): any {
-		setTime('editProfile');
+		setType('editProfile');
 		setProfileId(`${id}`);
 		setTitlePerfil('Atualizar Perfil');
 		setBtnName('Atualizar');

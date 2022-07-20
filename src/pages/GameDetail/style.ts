@@ -77,23 +77,18 @@ export const GameDetailTrailers = styled.section`
 		width: auto;
 		box-sizing: border-box;
 	}
-	div.edit a {
+	div.edit {
 		padding: 5px;
 	}
 
-	div.edit a button {
+	div.edit button {
 		background-color: #dddddd;
 		color: #000;
 		margin: 10px;
 	}
 
-	div.edit a button:hover {
+	div.edit button:hover {
 		background-color: #d2d2e3;
-	}
-
-	div.edit a {
-		position: absolute;
-		display: inline-block;
 	}
 `;
 
