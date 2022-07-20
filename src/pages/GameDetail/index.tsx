@@ -17,6 +17,8 @@ const GameDetail = () => {
 
 	useEffect(() => {
 		getGameById();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const getGameById = async () => {
@@ -53,6 +55,7 @@ const GameDetail = () => {
 						<h3>TRAILER</h3>
 						<iframe
 							id="ytplayer1"
+							title="Youtube Trailer"
 							width="350"
 							height="280"
 							src={
@@ -72,7 +75,7 @@ const GameDetail = () => {
 						<h3>GAMEPLAY</h3>
 						<iframe
 							id="ytplayer2"
-							title="ytb2"
+							title="Youtube Gameplay"
 							width="350"
 							height="280"
 							src={
