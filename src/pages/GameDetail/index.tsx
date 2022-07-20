@@ -1,16 +1,17 @@
 import * as S from './style';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { RoutePath } from 'types/routes';
 import Menu from 'components/Menu';
 import { navigationItemsVazio } from 'data/navigation';
 import { findByIdService } from 'services/findServices';
 import { useEffect, useState } from 'react';
-import { gameDescObj } from 'types/api/Game';
+import { gameDescObj, gameDetailObj } from 'types/api/Game';
+import { AiFillStar as Star } from 'react-icons/ai';
 
 const GameDetail = () => {
 	const navigate = useNavigate();
 	const handleNavigation = (path: RoutePath) => navigate(path);
-	const [game, setGame] = useState<gameDescObj>();
+	const [game, setGame] = useState<gameDetailObj>();
 	const { id } = useParams();
 
 	useEffect(() => {
@@ -30,7 +31,20 @@ const GameDetail = () => {
 			/>
 
 			<S.GameDetailContent>
-				<S.GameDetailTop>Icones</S.GameDetailTop>
+				<S.GameDetailTop>
+					<div>
+						<h2>{game?.title}</h2>
+					</div>
+					<div>
+						<h3>{game?.genres[0].name}</h3>
+					</div>
+					<div>{game?.year}</div>
+					<div>
+						{[...Array(game?.imdbScore)].map((e, i) => (
+							<Star key={i} className="star" />
+						))}
+					</div>
+				</S.GameDetailTop>
 				<S.GameDetailTrailers>
 					<div className="yt">
 						<h3>TRAILER</h3>
@@ -45,7 +59,12 @@ const GameDetail = () => {
 							frameBorder="0"
 						/>
 					</div>
-					<div></div>
+					<div className="edit">
+						<img src={game?.coverImageUrl} width="350" />
+						<Link to={`/managegame/${game?.id}`}>
+							<button>Editar</button>
+						</Link>
+					</div>
 					<div className="yt">
 						<h3>GAMEPLAY</h3>
 						<iframe

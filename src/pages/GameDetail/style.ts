@@ -22,17 +22,28 @@ export const GameDetailContent = styled.main`
 `;
 
 export const GameDetailTop = styled.section`
-	${() => css`
+	${({ theme }) => css`
 		width: auto;
-		border: #fff solid 1px;
-		height: 10%;
+		top: 0;
+		right: 45%;
+		left: 45%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		position: absolute;
+
+		svg.star {
+			fill: ${theme.colors.buttonGold};
+			font-size: 16px;
+		}
 	`}
 `;
 
 export const GameDetailTrailers = styled.section`
 	${() => css`
 		width: auto;
-		height: 70%;
+		height: 80%;
 		display: flex;
 		flex-wrap: wrap;
 		box-sizing: border-box;
@@ -45,6 +56,14 @@ export const GameDetailTrailers = styled.section`
 		justify-content: center;
 		flex-direction: column;
 		align-items: center;
+	}
+
+	div.edit {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
 	}
 `;
 

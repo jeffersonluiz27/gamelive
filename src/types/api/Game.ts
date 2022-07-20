@@ -1,3 +1,5 @@
+import { genreObj } from './Genres';
+
 export interface gameObj {
 	id?: string;
 	title: string;
@@ -15,4 +17,16 @@ export interface gameDescObj {
 	trailerYouTubeUrl: string;
 	gameplayYouTubeUrl: string;
 	genres: string;
+}
+
+export interface gameDetailObj {
+	id?: string;
+	title: string;
+	coverImageUrl: string;
+	imdbScore: number;
+	description: string;
+	year: number;
+	trailerYouTubeUrl: string;
+	gameplayYouTubeUrl: string;
+	genres: genreObj[];
 }
