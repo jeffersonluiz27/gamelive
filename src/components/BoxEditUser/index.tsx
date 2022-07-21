@@ -80,16 +80,16 @@ const BoxEditUser = () => {
 	};
 
 	const deleteUser = async () => {
-		/* const response = await deleteService.deleteUser(`${userId.id}`);
-		console.log(response); */
-		if (true) {
+		const response = await deleteService.deleteUser(`${userId.id}`);
+		console.log(response);
+		/* if (true) {
 			exibeAlerta('Essa função ainda não funciona!', 'error', 'Ops!');
-		} else {
-			exibeAlerta('Usuario apagado com sucesso!', 'success', 'sucesso');
-			localStorage.setItem('jwtLocalStorage', '');
-			navigate(RoutePath.LOGIN);
-		}
-	};
+		} else { */
+		exibeAlerta('Usuario apagado com sucesso!', 'success', 'sucesso');
+		localStorage.setItem('jwtLocalStorage', '');
+		navigate(RoutePath.LOGIN);
+		/* } */
+	};;
 
 	const exibeAlerta = (text: string, icon: string, title: string) => {
 		swal({
