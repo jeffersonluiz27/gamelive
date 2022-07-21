@@ -1,22 +1,22 @@
 import * as S from './style';
+import swal from 'sweetalert';
 import ButtonCriar from 'components/ButtonPurple';
 import ButtonUpdate from 'components/ButtonPurple';
 import ButtonDelete from 'components/ButtonRed';
 import { createService } from 'services/createService';
 import { useEffect, useState } from 'react';
 import { genreObj } from 'types/api/Genres';
-import swal from 'sweetalert';
 import { findAllService, findByIdService } from 'services/findServices';
 import { deleteService } from 'services/deleteService';
 
 const ManageGenre = () => {
-	const [genre, setGenre] = useState({
-		name: '',
-	});
 	const [listGenre, setListGenre] = useState<genreObj[]>([]);
 	const [refreshGeneros, setRefreshGeneros] = useState(false);
 	const [genreId, setGenreId] = useState({
 		id: '',
+		name: '',
+	});
+	const [genre, setGenre] = useState({
 		name: '',
 	});
 

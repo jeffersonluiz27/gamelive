@@ -11,7 +11,7 @@ export const Singup = styled.section`
 `;
 
 export const SingupContent = styled.main`
-	${({ theme }) => css`
+	${() => css`
 		width: 100%;
 		height: 70%;
 		display: flex;

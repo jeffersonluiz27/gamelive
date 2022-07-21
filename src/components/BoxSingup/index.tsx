@@ -1,15 +1,16 @@
 import * as S from './style';
+import swal from 'sweetalert';
 import logo from 'assets/img/logo.png';
 import ButtonCriar from 'components/ButtonPurple';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerService } from 'services/authService';
-import swal from 'sweetalert';
 import { RoutePath } from 'types/routes';
 import { userObj } from 'types/api/User';
 
-
 const BoxSingup = () => {
+	let navigate = useNavigate();
+
 	const [values, setValues] = useState({
 		name: '',
 		cpf: '',
@@ -18,8 +19,6 @@ const BoxSingup = () => {
 		confirmPassword: '',
 		isAdmin: true,
 	});
-
-	let navigate = useNavigate();
 
 	const handleChangeValues = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setValues((values: userObj) => ({

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const NewGame = styled.section`
-	${({ theme }) => css`
+	${() => css`
 		width: 90%;
 		display: flex;
 		justify-content: center;

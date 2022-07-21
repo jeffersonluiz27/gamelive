@@ -18,6 +18,7 @@ const Card = ({ game, id, onChanges, favIcon }: CardProps) => {
 		const response = await updateService.updateFavorito(id, favGame);
 		onChanges(response);
 	};
+
 	return (
 		<S.Card>
 			<Link to={`/gamedetail/${game.id}`}>

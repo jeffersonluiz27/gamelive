@@ -1,24 +1,24 @@
 import * as S from './style';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { RoutePath } from 'types/routes';
 import Menu from 'components/Menu';
 import Modal from 'react-modal';
+import Editar from 'components/ButtonPurple';
+import ModalEditGame from 'components/ModalEditGame';
+import { useNavigate, useParams } from 'react-router-dom';
+import { RoutePath } from 'types/routes';
 import { navigationItemsVazio } from 'data/navigation';
 import { findByIdService } from 'services/findServices';
 import { useEffect, useState } from 'react';
 import { gameDetailObj } from 'types/api/Game';
 import { AiFillStar as Star } from 'react-icons/ai';
-import Editar from 'components/ButtonPurple';
-import ModalEditGame from 'components/ModalEditGame';
 
 Modal.setAppElement('#root');
 
 const GameDetail = () => {
 	const navigate = useNavigate();
+	const { id } = useParams();
 	const handleNavigation = (path: RoutePath) => navigate(path);
 	const [game, setGame] = useState<gameDetailObj>();
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const { id } = useParams();
 
 	useEffect(() => {
 		getGameById();

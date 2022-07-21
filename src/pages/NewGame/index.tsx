@@ -1,8 +1,8 @@
-import BoxNewGame from 'components/NewGame';
 import * as S from './style';
+import Menu from 'components/Menu';
+import BoxNewGame from 'components/NewGame';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'types/routes';
-import Menu from 'components/Menu';
 import { navigationItemsVazio } from 'data/navigation';
 
 const NewGame = () => {

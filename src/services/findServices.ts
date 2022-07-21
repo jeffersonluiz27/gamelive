@@ -31,16 +31,6 @@ const findAllService = {
 			.catch((error: any) => console.log(error)),
 };
 
-const findOneService = {
-	findUser: () =>
-		api
-			.get('/user')
-			.then((response: any) => {
-				return response;
-			})
-			.catch((error: any) => console.log(error)),
-};
-
 const findByIdService = {
 	findProfileById: (id: string) =>
 		api
@@ -71,4 +61,4 @@ const findByIdService = {
 			.catch((error: any) => console.log(error)),
 };
 
-export { findAllService, findOneService, findByIdService };
+export { findAllService, findByIdService };

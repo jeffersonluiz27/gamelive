@@ -1,4 +1,5 @@
 import * as S from './style';
+import swall from 'sweetalert';
 import MiniLogo from 'assets/img/logo2.png';
 import { IoIosArrowDropleft as Back } from 'react-icons/io';
 import { HiOutlineLogout as Logout } from 'react-icons/hi';
@@ -7,7 +8,6 @@ import { NavItem } from './types';
 import { DateTime } from 'luxon';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import swall from 'sweetalert';
 
 interface MenuProps {
 	navItems: NavItem[];
@@ -20,12 +20,12 @@ const Menu = ({ navItems, onNavigate, onLogout }: MenuProps) => {
 		...DateTime.TIME_24_SIMPLE,
 	});
 	const navigate = useNavigate();
+	let location = useLocation();
+	const { id } = useParams();
 	const jwt = localStorage.getItem('jwtLocalStorage');
 	const imgP = `${localStorage.getItem('profileImage')}`;
 	const titleP = localStorage.getItem('profileTitle');
-	let location = useLocation();
 	const profileId = localStorage.getItem('profileId');
-	const { id } = useParams();
 
 	const redirect = () => {
 		if (location.pathname === `/home/${id}`) {
@@ -36,7 +36,7 @@ const Menu = ({ navItems, onNavigate, onLogout }: MenuProps) => {
 			return navigate(`/home/${profileId}`);
 		} else if (location.pathname === `/gamedetail/${id}`) {
 			return navigate(`/home/${profileId}`);
-		} else if (location.pathname === `/managegame/${id}`) {
+		} else {
 			return navigate(-1);
 		}
 	};

@@ -11,7 +11,7 @@ export const Home = styled.section`
 `;
 
 export const HomeContent = styled.main`
-	${({ theme }) => css`
+	${() => css`
 		width: 100%;
 		display: flex;
 		justify-content: center;

@@ -11,7 +11,7 @@ export const UserEdit = styled.section`
 `;
 
 export const UserEditContent = styled.main`
-	${({ theme }) => css`
+	${() => css`
 		width: 100%;
 		height: 70%;
 		display: flex;

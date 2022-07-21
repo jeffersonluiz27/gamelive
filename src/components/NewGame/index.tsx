@@ -1,13 +1,14 @@
 import * as S from './style';
+import swal from 'sweetalert';
+import capa from 'assets/icons/interrogacao.svg';
 import ButtonCriar from 'components/ButtonPurple';
 import ManageGenre from 'components/ManageGenre';
 import { useEffect, useState } from 'react';
 import { genreObj } from 'types/api/Genres';
 import { findAllService } from 'services/findServices';
-import swal from 'sweetalert';
 import { gameDescObj } from 'types/api/Game';
 import { createService } from 'services/createService';
-import capa from 'assets/icons/interrogacao.svg';
+
 
 const BoxNewGame = () => {
 	const [listGenre, setListGenre] = useState<genreObj[]>([]);

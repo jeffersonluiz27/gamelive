@@ -1,19 +1,18 @@
+import * as S from './style';
 import Menu from 'components/Menu';
+import GameList from 'components/GameList';
 import { navigationItems } from 'data/navigation';
 import { RoutePath } from 'types/routes';
-import * as S from './style';
 import { useNavigate, useParams } from 'react-router-dom';
-import GameList from 'components/GameList';
 import { useEffect, useState } from 'react';
 import { profileObj } from 'types/api/Profile';
 import { findAllService } from 'services/findServices';
 
 const Homepage = () => {
 	const navigate = useNavigate();
-	const handleNavigation = (path: RoutePath) => navigate(path);
-
-	const [profiles, setProfiles] = useState<profileObj[]>([]);
 	const { id } = useParams();
+	const handleNavigation = (path: RoutePath) => navigate(path);
+	const [profiles, setProfiles] = useState<profileObj[]>([]);
 
 	useEffect(() => {
 		getAllProfiles();

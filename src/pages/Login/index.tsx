@@ -1,6 +1,7 @@
 import * as S from './style';
-import BoxLogin from 'components/BoxLogin';
 import Logo from 'components/Logo';
+import BoxLogin from 'components/BoxLogin';
+
 
 
 const Login = () => {

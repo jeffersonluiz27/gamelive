@@ -1,13 +1,13 @@
 import * as S from './style';
 import Modal from 'react-modal';
-import { useEffect, useState } from 'react';
-import { profileObj } from 'types/api/Profile';
-import { BiX } from 'react-icons/bi';
-import { createService } from 'services/createService';
 import swal from 'sweetalert';
 import ButtonCriarProfile from 'components/ButtonPurple';
 import ButtonDeleteProfile from 'components/ButtonRed';
 import interrogacao from 'assets/icons/interrogacao.svg';
+import { BiX } from 'react-icons/bi';
+import { useEffect, useState } from 'react';
+import { profileObj } from 'types/api/Profile';
+import { createService } from 'services/createService';
 import { findByIdService } from 'services/findServices';
 import { updateService } from 'services/updateService';
 import { deleteService } from 'services/deleteService';
@@ -68,6 +68,8 @@ const ModalPerfil = ({
 					userId: userId,
 			  })
 			: console.log('nao faz create amigao');
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isOpen]);
 
 	const handleChangeValues = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'types/routes';
 
 const BoxEditUser = () => {
+	const navigate = useNavigate();
+	const userIdStorage = localStorage.getItem('userIdStorage');
 	const [users, setUsers] = useState<userObj[]>([]);
 	const [userId, setUserId] = useState({
 		id: '',
@@ -24,8 +26,6 @@ const BoxEditUser = () => {
 		confirmPassword: '',
 		isAdmin: true,
 	});
-	const userIdStorage = localStorage.getItem('userIdStorage');
-	const navigate = useNavigate();
 
 	const handleChangeOption = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setUserId((values) => ({
@@ -56,10 +56,12 @@ const BoxEditUser = () => {
 	useEffect(() => {
 		getAllUser();
 		getUserById();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userId]);
 
 	const deleteModalOpen = () => {
-		if (userId.id != userIdStorage) {
+		if (userId.id !== userIdStorage) {
 			swal({
 				title: 'Ops! Você não pode apagar outros Usuarios !',
 				icon: 'error',
@@ -82,13 +84,9 @@ const BoxEditUser = () => {
 	const deleteUser = async () => {
 		const response = await deleteService.deleteUser(`${userId.id}`);
 		console.log(response);
-		/* if (true) {
-			exibeAlerta('Essa função ainda não funciona!', 'error', 'Ops!');
-		} else { */
 		exibeAlerta('Usuario apagado com sucesso!', 'success', 'sucesso');
 		localStorage.setItem('jwtLocalStorage', '');
 		navigate(RoutePath.LOGIN);
-		/* } */
 	};;
 
 	const exibeAlerta = (text: string, icon: string, title: string) => {

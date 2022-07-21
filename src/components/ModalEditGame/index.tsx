@@ -1,11 +1,11 @@
 import * as S from './style';
 import Modal from 'react-modal';
-import { BiX } from 'react-icons/bi';
 import swal from 'sweetalert';
 import capa from 'assets/icons/interrogacao.svg';
 import ButtonUpdate from 'components/ButtonPurple';
 import ButtonDelete from 'components/ButtonRed';
-import { useNavigate, useParams } from 'react-router-dom';
+import { BiX } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 import { findAllService, findByIdService } from 'services/findServices';
 import { useEffect, useState } from 'react';
 import { gameDescObj } from 'types/api/Game';
@@ -120,6 +120,7 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 
 	const deleteGame = async () => {
 		const response = await deleteService.deleteGame(`${id}`);
+		console.log(response);
 		exibeAlerta('Jogo apagado com sucesso!', 'success', 'sucesso');
 		closeModal();
 		navigate(`/home/${profileId}`);
@@ -261,7 +262,11 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 								type="button"
 								onClick={deleteModalOpen}
 							/>
-							<ButtonUpdate value="Atualizar" type="button" />
+							<ButtonUpdate
+								value="Atualizar"
+								type="button"
+								onClick={editGame}
+							/>
 						</S.BoxManageGameDivButton>
 					</S.BoxManageGameForm>
 				</S.ModalEditGame>

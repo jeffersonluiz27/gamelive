@@ -1,7 +1,7 @@
-import BoxSingup from 'components/BoxSingup';
 import * as S from './style';
-import { useNavigate } from 'react-router-dom';
+import BoxSingup from 'components/BoxSingup';
 import HeaderLogo from 'components/HeaderLogo';
+import { useNavigate } from 'react-router-dom';
 
 const Singup = () => {
 	const navigate = useNavigate();
