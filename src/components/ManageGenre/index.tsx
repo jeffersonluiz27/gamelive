@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { genreObj } from 'types/api/Genres';
 import { findAllService, findByIdService } from 'services/findServices';
 import { deleteService } from 'services/deleteService';
+import { updateService } from 'services/updateService';
 
 const ManageGenre = () => {
 	const [listGenre, setListGenre] = useState<genreObj[]>([]);
@@ -21,6 +22,7 @@ const ManageGenre = () => {
 	});
 
 	const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		console.log([event.target.options]);
 		setGenreId((values: genreObj) => ({
 			...values,
 			id: event.target.value,
@@ -64,6 +66,7 @@ const ManageGenre = () => {
 
 	useEffect(() => {
 		findAllGenres();
+		getGenreById();
 	}, [genre, refreshGeneros]);
 
 	const updateGeneros = (refreshProf: boolean) => {
@@ -78,6 +81,23 @@ const ManageGenre = () => {
 
 		setListGenre(response.data);
 		console.log('listando generos', response.data);
+	};
+
+	const getGenreById = async () => {
+		const response = await findByIdService.findGenreById(genreId.id);
+	};
+
+	const editGenre = async () => {
+		const valores = {
+			name: genreId.name,
+		};
+		console.log(genreId);
+		const response = await updateService.updateGenre(genreId.id, valores);
+		console.log(response);
+
+		if (response.status === 200) {
+			exibeAlerta('Genero Atualizado com sucesso!', 'success', 'Sucesso!');
+		}
 	};
 
 	const deleteGenre = async () => {
@@ -121,7 +141,7 @@ const ManageGenre = () => {
 						<optgroup label="Generos">
 							<option>Escolha</option>
 							{listGenre.map((genre, index) => (
-								<option key={index} value={genre.id}>
+								<option key={index} id={genre.id}>
 									{genre.name}
 								</option>
 							))}
@@ -130,6 +150,9 @@ const ManageGenre = () => {
 					<input
 						type="text"
 						placeholder="Novo nome do genero..."
+						name="name"
+						id="newName"
+						onChange={handleChangeValues}
 						defaultValue={genreId.id}
 					/>
 					<S.BoxUpdateGenreDiv>
@@ -138,7 +161,7 @@ const ManageGenre = () => {
 							type="button"
 							onClick={deleteModalOpen}
 						/>
-						<ButtonUpdate value="Atualizar" type="button" />
+						<ButtonUpdate value="Atualizar" type="button" onClick={editGenre} />
 					</S.BoxUpdateGenreDiv>
 				</S.BoxUpdateGenreForm>
 			</S.BoxUpdateGenre>

@@ -8,9 +8,10 @@ import { genreObj } from 'types/api/Genres';
 import { findAllService } from 'services/findServices';
 import { gameDescObj } from 'types/api/Game';
 import { createService } from 'services/createService';
-
+import { useNavigate } from 'react-router-dom';
 
 const BoxNewGame = () => {
+	const navigate = useNavigate();
 	const [listGenre, setListGenre] = useState<genreObj[]>([]);
 	const [game, setGame] = useState({
 		title: '',
@@ -71,6 +72,7 @@ const BoxNewGame = () => {
 
 		if (response.status === 201) {
 			exibeAlerta('Game criado com sucesso!', 'success', 'Sucesso!');
+			navigate(-1);
 		}
 		if (response.status === 422) {
 			exibeAlerta(
