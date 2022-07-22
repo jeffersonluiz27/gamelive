@@ -16,6 +16,7 @@ const BoxEditUser = () => {
 	const navigate = useNavigate();
 	const userIdStorage = localStorage.getItem('userIdStorage');
 	const [users, setUsers] = useState<userObj[]>([]);
+	const [refreshProfiles, setRefreshProfiles] = useState(false);
 	const [userId, setUserId] = useState({
 		id: '',
 	});
@@ -67,7 +68,7 @@ const BoxEditUser = () => {
 		getUserById();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [userId]);
+	}, [userId, refreshProfiles]);
 
 	const updateUser = async () => {
 		console.log(userId.id, user);
@@ -81,6 +82,7 @@ const BoxEditUser = () => {
 
 		if (response.status === 200) {
 			exibeAlerta('Genero Atualizado com sucesso!', 'success', 'Sucesso!');
+			updateUsers(true);
 		}
 	};
 
@@ -111,6 +113,13 @@ const BoxEditUser = () => {
 		exibeAlerta('Usuario apagado com sucesso!', 'success', 'sucesso');
 		localStorage.setItem('jwtLocalStorage', '');
 		navigate(RoutePath.LOGIN);
+	};
+
+	const updateUsers = (refreshProf: boolean) => {
+		setRefreshProfiles(refreshProf);
+		setTimeout(() => {
+			setRefreshProfiles(false);
+		}, 100);
 	};
 
 	const exibeAlerta = (text: string, icon: string, title: string) => {
