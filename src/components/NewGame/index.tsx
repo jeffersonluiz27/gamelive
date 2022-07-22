@@ -68,7 +68,7 @@ const BoxNewGame = () => {
 		event.preventDefault();
 		const response = await createService.createGame(game);
 
-		console.log('game criado', response);
+		console.log('Game criado', response);
 
 		if (response.status === 201) {
 			exibeAlerta('Game criado com sucesso!', 'success', 'Sucesso!');
@@ -96,15 +96,12 @@ const BoxNewGame = () => {
 	};
 
 	useEffect(() => {
+		const findAllGenres = async () => {
+			const response = await findAllService.allGenres();
+			setListGenre(response.data);
+		};
 		findAllGenres();
 	}, []);
-
-	const findAllGenres = async () => {
-		const response = await findAllService.allGenres();
-
-		setListGenre(response.data);
-		console.log('listando generos', response.data);
-	};
 
 	return (
 		<S.NewGame>

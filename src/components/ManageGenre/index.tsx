@@ -20,12 +20,15 @@ const ManageGenre = () => {
 	const [genre, setGenre] = useState({
 		name: '',
 	});
+	const [newGenre, setNewGenre] = useState({
+		name: '',
+	});
 
 	const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		console.log([event.target.options]);
 		setGenreId((values: genreObj) => ({
 			...values,
-			id: event.target.value,
+			id: event.target.selectedOptions[0].id,
+			name: event.target.value,
 		}));
 	};
 
@@ -36,11 +39,16 @@ const ManageGenre = () => {
 		}));
 	};
 
+	const handleChangeValues2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setNewGenre((values: genreObj) => ({
+			...values,
+			[event.target.name]: event.target.value,
+		}));
+	};
+
 	const createGenre = async (event: React.SyntheticEvent) => {
 		event.preventDefault();
 		const response = await createService.createGenre(genre);
-
-		console.log('genero criado', response);
 
 		if (response.status === 201) {
 			exibeAlerta('Genero criado com sucesso!', 'success', 'Sucesso!');
@@ -65,6 +73,10 @@ const ManageGenre = () => {
 	};
 
 	useEffect(() => {
+		const getGenreById = async () => {
+			const response = await findByIdService.findGenreById(genreId.id);
+			console.log('Genero Listado', response.data);
+		};
 		findAllGenres();
 		getGenreById();
 	}, [genre, refreshGeneros]);
@@ -80,20 +92,14 @@ const ManageGenre = () => {
 		const response = await findAllService.allGenres();
 
 		setListGenre(response.data);
-		console.log('listando generos', response.data);
-	};
-
-	const getGenreById = async () => {
-		const response = await findByIdService.findGenreById(genreId.id);
+		console.log('Lista Generos', response.data);
 	};
 
 	const editGenre = async () => {
 		const valores = {
-			name: genreId.name,
+			name: newGenre.name,
 		};
-		console.log(genreId);
 		const response = await updateService.updateGenre(genreId.id, valores);
-		console.log(response);
 
 		if (response.status === 200) {
 			exibeAlerta('Genero Atualizado com sucesso!', 'success', 'Sucesso!');
@@ -102,6 +108,8 @@ const ManageGenre = () => {
 
 	const deleteGenre = async () => {
 		const response = await deleteService.deleteGenre(genreId.id);
+		console.log(response);
+
 		exibeAlerta('Genero apagado com sucesso!', 'success', 'sucesso');
 	};
 
@@ -137,11 +145,11 @@ const ManageGenre = () => {
 			<h2>Atualizar Genero</h2>
 			<S.BoxUpdateGenre>
 				<S.BoxUpdateGenreForm>
-					<select onChange={handleChange}>
+					<select onChange={handleChange} id="genre">
 						<optgroup label="Generos">
 							<option>Escolha</option>
-							{listGenre.map((genre, index) => (
-								<option key={index} id={genre.id}>
+							{listGenre.map((genre) => (
+								<option key={genre.id} id={genre.id}>
 									{genre.name}
 								</option>
 							))}
@@ -152,8 +160,7 @@ const ManageGenre = () => {
 						placeholder="Novo nome do genero..."
 						name="name"
 						id="newName"
-						onChange={handleChangeValues}
-						defaultValue={genreId.id}
+						onChange={handleChangeValues2}
 					/>
 					<S.BoxUpdateGenreDiv>
 						<ButtonDelete
