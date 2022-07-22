@@ -19,3 +19,9 @@ export interface userHomeObj{
   email: string,
   cpf: string,
 }
+
+export interface userEditObj {
+	name: string;
+	email: string;
+	isAdmin: boolean;
+}

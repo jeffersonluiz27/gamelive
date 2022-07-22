@@ -5,11 +5,12 @@ import ButtonAtualizar from 'components/ButtonPurple';
 import ButtonDeletar from 'components/ButtonRed';
 import ButtonResetSenha from 'components/ButtonRed';
 import { useEffect, useState } from 'react';
-import { userObj } from 'types/api/User';
+import { userEditObj, userObj } from 'types/api/User';
 import { findAllService, findByIdService } from 'services/findServices';
 import { deleteService } from 'services/deleteService';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'types/routes';
+import { updateService } from 'services/updateService';
 
 const BoxEditUser = () => {
 	const navigate = useNavigate();
@@ -20,10 +21,7 @@ const BoxEditUser = () => {
 	});
 	const [user, setUser] = useState({
 		name: '',
-		cpf: '',
 		email: '',
-		password: '',
-		confirmPassword: '',
 		isAdmin: true,
 	});
 
@@ -34,21 +32,21 @@ const BoxEditUser = () => {
 		}));
 	};
 
-	const handleChangeValues = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setUser((values: userObj) => ({
-			...values,
-			[event.target.name]: event.target.value,
-		}));
-	};
-
 	const handleChangeOption2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		let isTrue = false;
 		if (event.target.value === 'true') {
 			isTrue = true;
 		}
-		setUserId((values) => ({
+		setUser((values: userEditObj) => ({
 			...values,
 			isAdmin: isTrue,
+		}));
+	};
+
+	const handleChangeValues = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setUser((values: userEditObj) => ({
+			...values,
+			[event.target.name]: event.target.value,
 		}));
 	};
 
@@ -70,6 +68,21 @@ const BoxEditUser = () => {
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userId]);
+
+	const updateUser = async () => {
+		console.log(userId.id, user);
+		const values = {
+			name: user.name,
+			email: user.email,
+			isAdmin: user.isAdmin,
+		};
+		const response = await updateService.updateUser2(userId.id, values);
+		console.log(response);
+
+		if (response.status === 200) {
+			exibeAlerta('Genero Atualizado com sucesso!', 'success', 'Sucesso!');
+		}
+	};
 
 	const deleteModalOpen = () => {
 		if (userId.id !== userIdStorage) {
@@ -148,12 +161,9 @@ const BoxEditUser = () => {
 				/>
 				<S.BoxEditUserSearch>
 					<select onChange={handleChangeOption2} name="isAdmin" id="isAdmin">
-						<option disabled={true} selected={true}>
-							É Administrador?
-						</option>
-						<optgroup>
-							<option value="true">Sim</option>
-							<option value="false">Não</option>
+						<optgroup label="Tipo">
+							<option value="true">Admin</option>
+							<option value="false">User</option>
 						</optgroup>
 					</select>
 				</S.BoxEditUserSearch>
@@ -164,7 +174,11 @@ const BoxEditUser = () => {
 						type="button"
 						onClick={deleteModalOpen}
 					/>
-					<ButtonAtualizar value="Atualizar" type="button" />
+					<ButtonAtualizar
+						value="Atualizar"
+						type="button"
+						onClick={updateUser}
+					/>
 				</div>
 			</S.BoxEditUserForm>
 		</S.BoxEditUser>
