@@ -28,5 +28,5 @@ export interface gameDetailObj {
 	year: number;
 	trailerYouTubeUrl: string;
 	gameplayYouTubeUrl: string;
-	genres: genreObj[];
+	genres: genreObj;
 }

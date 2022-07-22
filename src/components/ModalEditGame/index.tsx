@@ -88,7 +88,7 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 	const getGameById = async () => {
 		const response = await findByIdService.findGameById(`${id}`);
 		setGame(response.data);
-		setAtualGenre(response.data.genres[0]);
+		setAtualGenre(response.data.genres);
 	};
 
 	const findAllGenres = async () => {

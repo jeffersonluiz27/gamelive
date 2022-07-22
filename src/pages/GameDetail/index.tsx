@@ -53,7 +53,7 @@ const GameDetail = () => {
 							<h2>{game?.title}</h2>
 						</div>
 						<div className="atrib">
-							<h3>{game?.genres[0].name}</h3>
+							<h3>{game?.genres.name}</h3>
 							{game?.year}
 							<div>
 								{[...Array(game?.imdbScore)].map((e, i) => (
