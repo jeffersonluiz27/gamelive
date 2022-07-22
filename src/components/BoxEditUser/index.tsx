@@ -41,6 +41,17 @@ const BoxEditUser = () => {
 		}));
 	};
 
+	const handleChangeOption2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		let isTrue = false;
+		if (event.target.value === 'true') {
+			isTrue = true;
+		}
+		setUserId((values) => ({
+			...values,
+			isAdmin: isTrue,
+		}));
+	};
+
 	const getAllUser = async () => {
 		const response = await findAllService.allUsers();
 		setUsers(response.data);
@@ -87,7 +98,7 @@ const BoxEditUser = () => {
 		exibeAlerta('Usuario apagado com sucesso!', 'success', 'sucesso');
 		localStorage.setItem('jwtLocalStorage', '');
 		navigate(RoutePath.LOGIN);
-	};;
+	};
 
 	const exibeAlerta = (text: string, icon: string, title: string) => {
 		swal({
@@ -135,6 +146,17 @@ const BoxEditUser = () => {
 					onChange={handleChangeValues}
 					defaultValue={user.email}
 				/>
+				<S.BoxEditUserSearch>
+					<select onChange={handleChangeOption2} name="isAdmin" id="isAdmin">
+						<option disabled={true} selected={true}>
+							É Administrador?
+						</option>
+						<optgroup>
+							<option value="true">Sim</option>
+							<option value="false">Não</option>
+						</optgroup>
+					</select>
+				</S.BoxEditUserSearch>
 				<ButtonResetSenha value="Resetar Senha" type="button" id="resetSenha" />
 				<div id="buttons">
 					<ButtonDeletar

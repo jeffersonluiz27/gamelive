@@ -88,14 +88,9 @@ export const BoxEditUserSearch = styled.div`
 			border: none;
 			height: 70%;
 			width: 100%;
-		}
-
-		svg {
-			cursor: pointer;
-			border-right: #10100f66 solid 0.2px;
-			width: 25px;
-			height: 25px;
-			padding-right: 5px;
+			background-color: ${theme.colors.baseInput};
+			color: ${theme.colors.textInput};
+			font-size: 18px;
 		}
 	`}
 `;
