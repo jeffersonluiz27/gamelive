@@ -47,11 +47,6 @@ export const ProfileCardsPlus = styled.div`
 			height: 50px;
 			cursor: pointer;
 		}
-
-		.disabled {
-			pointer-events: none;
-			color: gray;
-		}
 	`}
 `;
 

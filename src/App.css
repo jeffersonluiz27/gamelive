@@ -87,3 +87,12 @@ body::-webkit-scrollbar-thumb:hover {
 .close-modal-button:hover {
   color: #e51b22;
 }
+
+.disabled {
+  pointer-events: none;
+  color: gray;
+}
+
+.disabledB{
+  display: none;
+}

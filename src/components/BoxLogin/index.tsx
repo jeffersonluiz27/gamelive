@@ -29,10 +29,12 @@ const BoxLogin = (props: any) => {
 			const response = await loginService.login(values);
 			const jwt = response.data.token;
 			const user = response.data.user.id;
+			const admin = response.data.user.isAdmin;
 
 			if (jwt) {
 				localStorage.setItem('jwtLocalStorage', jwt);
 				localStorage.setItem('userIdStorage', user);
+				localStorage.setItem('userAdminStorage', admin);
 				navigate(RoutePath.PROFILE);
 			}
 			console.log(`Login`, response.data);

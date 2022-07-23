@@ -1,6 +1,6 @@
 import * as S from './style';
 import logo from 'assets/img/logo.png';
-import swal from 'sweetalert';
+import swall from 'sweetalert';
 import ButtonAtualizar from 'components/ButtonPurple';
 import ButtonDeletar from 'components/ButtonRed';
 import ButtonResetSenha from 'components/ButtonRed';
@@ -11,6 +11,7 @@ import { deleteService } from 'services/deleteService';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'types/routes';
 import { updateService } from 'services/updateService';
+import { alertaDelete, alertaDeleteOtherUser } from 'utils/alertas';
 
 const BoxEditUser = () => {
 	const navigate = useNavigate();
@@ -88,17 +89,9 @@ const BoxEditUser = () => {
 
 	const deleteModalOpen = () => {
 		if (userId.id !== userIdStorage) {
-			swal({
-				title: 'Ops! Você não pode apagar outros Usuarios !',
-				icon: 'error',
-				buttons: ['Cancelar', 'OK'],
-			});
+			alertaDeleteOtherUser();
 		} else {
-			swal({
-				title: 'Deseja apagar o Usuario ? Você perderá todos os seus dados!',
-				icon: 'error',
-				buttons: ['Não', 'Sim'],
-			}).then((resp) => {
+			alertaDelete.deleteUser().then((resp) => {
 				console.log(resp);
 				if (resp) {
 					deleteUser();
@@ -123,7 +116,7 @@ const BoxEditUser = () => {
 	};
 
 	const exibeAlerta = (text: string, icon: string, title: string) => {
-		swal({
+		swall({
 			title: title,
 			text: text,
 			icon: icon,

@@ -15,11 +15,13 @@ Modal.setAppElement('#root');
 
 const GameDetail = () => {
 	const navigate = useNavigate();
-	const { id } = useParams();
+	let disabled = '';
 	const handleNavigation = (path: RoutePath) => navigate(path);
+	const { id } = useParams();
 	const [game, setGame] = useState<gameDetailObj>();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [refreshGames, setRefreshGames] = useState(false);
+	const admin = localStorage.getItem('userAdminStorage');
 
 	useEffect(() => {
 		getGameById();
@@ -48,12 +50,21 @@ const GameDetail = () => {
 		}, 100);
 	};
 
+	if (admin === 'false') {
+		disabled = 'disabledB';
+	}
+
 	return (
 		<S.GameDetail>
 			<Menu
 				navItems={navigationItemsVazio}
 				onNavigate={handleNavigation}
-				onLogout={() => navigate(RoutePath.LOGIN)}
+				onLogout={() => {
+					localStorage.removeItem('jwtLocalStorage');
+					localStorage.removeItem('userIdStorage');
+					localStorage.removeItem('profileId');
+					navigate(RoutePath.LOGIN);
+				}}
 			/>
 
 			<S.GameDetailContent>
@@ -90,7 +101,12 @@ const GameDetail = () => {
 					</div>
 					<div className="edit">
 						<img src={game?.coverImageUrl} alt="" width="300" />
-						<Editar value="Editar" type="button" onClick={openModal} />
+						<Editar
+							value="Editar"
+							type="button"
+							onClick={openModal}
+							className={disabled}
+						/>
 					</div>
 					<div className="yt">
 						<h3>GAMEPLAY</h3>

@@ -87,6 +87,10 @@ const ModalPerfil = ({
 	const createProfile = async () => {
 		const response = await createService.createProfile(perfil);
 
+		if (response.status === 400) {
+			exibeAlerta('Preencha corretamente!', 'error', 'Algo deu errado!');
+		}
+
 		if (response.status === 201) {
 			exibeAlerta('Perfil criado com sucesso!', 'success', 'Sucesso!');
 			onChanges(response);
@@ -181,6 +185,7 @@ const ModalPerfil = ({
 							placeholder="Url da imagem... "
 							onChange={handleChangeValues}
 							defaultValue={perfil.imageUrl}
+							required
 						/>
 						<input
 							type="text"
@@ -189,6 +194,7 @@ const ModalPerfil = ({
 							placeholder="Nome do perfil..."
 							onChange={handleChangeValues}
 							defaultValue={perfil.title}
+							required
 						/>
 						<ButtonCriarProfile value={formDetails.btnName} type="submit" />
 						{type === 'editProfile' ? (
