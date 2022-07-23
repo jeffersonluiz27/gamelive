@@ -49,4 +49,16 @@ export const BoxLoginForm = styled.form`
 			object-fit: fill;
 		}
 	`}
+
+	#thumbnail input {
+		display: none;
+	}
+
+	#thumbnail.has-thumbnail {
+		border: none;
+	}
+
+	#thumbnail.has-thumbnail img {
+		display: none;
+	}
 `;

@@ -1,22 +1,35 @@
 import * as S from './style';
+import swal from 'sweetalert';
 import ButtonCriar from 'components/ButtonPurple';
 import ButtonUpdate from 'components/ButtonPurple';
 import ButtonDelete from 'components/ButtonRed';
 import { createService } from 'services/createService';
 import { useEffect, useState } from 'react';
 import { genreObj } from 'types/api/Genres';
-import swal from 'sweetalert';
-import { findAllService } from 'services/findServices';
+import { findAllService, findByIdService } from 'services/findServices';
+import { deleteService } from 'services/deleteService';
+import { updateService } from 'services/updateService';
 
 const ManageGenre = () => {
+	const [listGenre, setListGenre] = useState<genreObj[]>([]);
+	const [refreshGeneros, setRefreshGeneros] = useState(false);
+	const [genreId, setGenreId] = useState({
+		id: '',
+		name: '',
+	});
 	const [genre, setGenre] = useState({
 		name: '',
 	});
-	const [listGenre, setListGenre] = useState<genreObj[]>([]);
-	const [state, setState] = useState({ value: '' });
+	const [newGenre, setNewGenre] = useState({
+		name: '',
+	});
 
 	const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setState({ value: event.target.value });
+		setGenreId((values: genreObj) => ({
+			...values,
+			id: event.target.selectedOptions[0].id,
+			name: event.target.value,
+		}));
 	};
 
 	const handleChangeValues = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,11 +39,16 @@ const ManageGenre = () => {
 		}));
 	};
 
+	const handleChangeValues2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setNewGenre((values: genreObj) => ({
+			...values,
+			[event.target.name]: event.target.value,
+		}));
+	};
+
 	const createGenre = async (event: React.SyntheticEvent) => {
 		event.preventDefault();
 		const response = await createService.createGenre(genre);
-
-		console.log('genero criado', response);
 
 		if (response.status === 201) {
 			exibeAlerta('Genero criado com sucesso!', 'success', 'Sucesso!');
@@ -51,17 +69,61 @@ const ManageGenre = () => {
 			icon: icon,
 			timer: 7000,
 		});
+		updateGeneros(true);
 	};
 
 	useEffect(() => {
+		const getGenreById = async () => {
+			const response = await findByIdService.findGenreById(genreId.id);
+			console.log('Genero Listado', response.data);
+		};
 		findAllGenres();
-	}, []);
+		getGenreById();
+	}, [genre, refreshGeneros]);
+
+	const updateGeneros = (refreshProf: boolean) => {
+		setRefreshGeneros(refreshProf);
+		setTimeout(() => {
+			setRefreshGeneros(false);
+		}, 100);
+	};
 
 	const findAllGenres = async () => {
 		const response = await findAllService.allGenres();
 
 		setListGenre(response.data);
-		console.log('listando generos', response.data);
+		console.log('Lista Generos', response.data);
+	};
+
+	const editGenre = async () => {
+		const valores = {
+			name: newGenre.name,
+		};
+		const response = await updateService.updateGenre(genreId.id, valores);
+
+		if (response.status === 200) {
+			exibeAlerta('Genero Atualizado com sucesso!', 'success', 'Sucesso!');
+		}
+	};
+
+	const deleteGenre = async () => {
+		const response = await deleteService.deleteGenre(genreId.id);
+		console.log(response);
+
+		exibeAlerta('Genero apagado com sucesso!', 'success', 'sucesso');
+	};
+
+	const deleteModalOpen = () => {
+		swal({
+			title: 'Deseja apagar o genero ?',
+			icon: 'error',
+			buttons: ['Não', 'Sim'],
+		}).then((resp) => {
+			console.log(resp);
+			if (resp) {
+				deleteGenre();
+			}
+		});
 	};
 
 	return (
@@ -83,22 +145,30 @@ const ManageGenre = () => {
 			<h2>Atualizar Genero</h2>
 			<S.BoxUpdateGenre>
 				<S.BoxUpdateGenreForm>
-					<select onChange={handleChange}>
+					<select onChange={handleChange} id="genre">
 						<optgroup label="Generos">
-							{listGenre.map((genre, index) => (
-								<option key={index}>{genre.name}</option>
+							<option>Escolha</option>
+							{listGenre.map((genre) => (
+								<option key={genre.id} id={genre.id}>
+									{genre.name}
+								</option>
 							))}
 						</optgroup>
 					</select>
-
 					<input
 						type="text"
 						placeholder="Novo nome do genero..."
-						value={state.value}
+						name="name"
+						id="newName"
+						onChange={handleChangeValues2}
 					/>
 					<S.BoxUpdateGenreDiv>
-						<ButtonDelete value="Deletar" type="button" />
-						<ButtonUpdate value="Atualizar" type="button" />
+						<ButtonDelete
+							value="Deletar"
+							type="button"
+							onClick={deleteModalOpen}
+						/>
+						<ButtonUpdate value="Atualizar" type="button" onClick={editGenre} />
 					</S.BoxUpdateGenreDiv>
 				</S.BoxUpdateGenreForm>
 			</S.BoxUpdateGenre>

@@ -22,10 +22,7 @@ const findAllService = {
 				return response;
 			})
 			.catch((error: any) => console.log(error)),
-};
-
-const findOneService = {
-	findUser: () =>
+	allUsers: () =>
 		api
 			.get('/user')
 			.then((response: any) => {
@@ -39,7 +36,6 @@ const findByIdService = {
 		api
 			.get(`/profile/${id}`)
 			.then((response: any) => response)
-			.then((response: any) => response)
 			.catch((error: any) => console.log(error)),
 	findUserById: (id: string | undefined) =>
 		api
@@ -52,8 +48,17 @@ const findByIdService = {
 		api
 			.get(`/homepage/${id}`)
 			.then((response: any) => response)
+			.catch((error: any) => console.log(error)),
+	findGenreById: (id: string) =>
+		api
+			.get(`/genre/${id}`)
+			.then((response: any) => response)
+			.catch((error: any) => console.log(error)),
+	findGameById: (id: string) =>
+		api
+			.get(`/game/${id}`)
 			.then((response: any) => response)
 			.catch((error: any) => console.log(error)),
 };
 
-export { findAllService, findOneService, findByIdService };
+export { findAllService, findByIdService };

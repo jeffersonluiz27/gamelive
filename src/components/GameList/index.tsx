@@ -5,19 +5,32 @@ import { findByIdService } from 'services/findServices';
 import { useEffect, useState } from 'react';
 import { gameObj } from 'types/api/Game';
 import { homepageObj } from 'types/api/Homepage';
+import { useLocation } from 'react-router';
 
-const GameList = () => {
+const GameList = (id: any) => {
 	const [favoritos, setFavoritos] = useState<gameObj[]>([]);
 	const [homepage, setHomepage] = useState<homepageObj[]>([]);
-	const profileId = localStorage.getItem('profileId');
+	const [homeRefresh, sethomeRefresh] = useState(false);
+	const location = useLocation();
 
 	useEffect(() => {
 		getAllGamesFavoritos();
 		getAllGamesGenres();
-	}, []);
+	}, [location.key, homeRefresh]);
+
+	const onFav = () => {
+		homeRf(true);
+	};
+
+	const homeRf = (refreshProf: boolean) => {
+		sethomeRefresh(refreshProf);
+		setTimeout(() => {
+			sethomeRefresh(false);
+		}, 100);
+	};
 
 	const getAllGamesGenres = async () => {
-		const response = await findByIdService.findHomeProfile(`${profileId}`);
+		const response = await findByIdService.findHomeProfile(id.id);
 
 		if (response.status === 204) {
 			swall({
@@ -33,7 +46,7 @@ const GameList = () => {
 	};
 
 	const getAllGamesFavoritos = async () => {
-		const response = await findByIdService.findHomeProfile(`${profileId}`);
+		const response = await findByIdService.findHomeProfile(id.id);
 
 		console.log('favoritos exibidos', response.data.favorites.games);
 		setFavoritos(response.data.favorites.games);
@@ -45,7 +58,13 @@ const GameList = () => {
 				<h2>Favoritos</h2>
 				<S.GameListFavoritos>
 					{favoritos.map((favorito, index) => (
-						<Card game={favorito} key={index} />
+						<Card
+							game={favorito}
+							key={index}
+							id={id.id}
+							onChanges={onFav}
+							favIcon="favOn"
+						/>
 					))}
 				</S.GameListFavoritos>
 				<h2>Generos</h2>
@@ -56,7 +75,13 @@ const GameList = () => {
 						<S.GameListGenders>
 							<section className="genderSection">
 								{home.title.map((homegame: gameObj, index) => (
-									<Card game={homegame} key={index} />
+									<Card
+										game={homegame}
+										key={index}
+										id={id.id}
+										onChanges={onFav}
+										favIcon="favOff"
+									/>
 								))}
 							</section>
 						</S.GameListGenders>

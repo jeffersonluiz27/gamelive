@@ -3,12 +3,22 @@ import {AiOutlineHeart as Heart} from 'react-icons/ai'
 import {AiFillStar as Star} from 'react-icons/ai'
 import { Link } from 'react-router-dom';
 import { gameObj } from 'types/api/Game';
+import { updateService } from 'services/updateService';
 
 interface CardProps {
-	game: gameObj,
+	game: gameObj;
+	id: string;
+	onChanges: any;
+	favIcon: string;
 }
 
-const Card = ({ game }: CardProps) => {
+const Card = ({ game, id, onChanges, favIcon }: CardProps) => {
+	const favoritos = async () => {
+		const favGame = { favoriteGameId: `${game.id}` };
+		const response = await updateService.updateFavorito(id, favGame);
+		onChanges(response);
+	};
+
 	return (
 		<S.Card>
 			<Link to={`/gamedetail/${game.id}`}>
@@ -17,12 +27,13 @@ const Card = ({ game }: CardProps) => {
 			<section>
 				<S.CardTitle>{game.title}</S.CardTitle>
 				<S.CardBotton>
-					<Heart className='fav' />
-					<div className='imdb'> <p>IMDB</p> {
-						 [...Array(game.imdbScore)].map((e, i) =>(
-							<Star key={i} className='star'/>
-						 ))
-						} </div>
+					<Heart className={favIcon} onClick={favoritos} />
+					<div className="imdb">
+						<p>IMDB</p>
+						{[...Array(game.imdbScore)].map((e, i) => (
+							<Star key={i} className="star" />
+						))}
+					</div>
 				</S.CardBotton>
 			</section>
 		</S.Card>

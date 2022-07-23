@@ -1,19 +1,18 @@
+import * as S from './style';
 import Menu from 'components/Menu';
+import GameList from 'components/GameList';
 import { navigationItems } from 'data/navigation';
 import { RoutePath } from 'types/routes';
-import * as S from './style';
 import { useNavigate, useParams } from 'react-router-dom';
-import GameList from 'components/GameList';
 import { useEffect, useState } from 'react';
 import { profileObj } from 'types/api/Profile';
 import { findAllService } from 'services/findServices';
 
 const Homepage = () => {
 	const navigate = useNavigate();
-	const handleNavigation = (path: RoutePath) => navigate(path);
-
-	const [profiles, setProfiles] = useState<profileObj[]>([]);
 	const { id } = useParams();
+	const handleNavigation = (path: RoutePath) => navigate(path);
+	const [profiles, setProfiles] = useState<profileObj[]>([]);
 
 	useEffect(() => {
 		getAllProfiles();
@@ -24,12 +23,13 @@ const Homepage = () => {
 		setProfiles(response.data);
 	};
 
-	let prof = profiles.filter((e) => e.id == id);
+	let prof = profiles.filter((e) => e.id === id);
 
 	prof.map((p) => {
 		localStorage.setItem('profileImage', p.imageUrl);
 		localStorage.setItem('profileTitle', p.title);
 		localStorage.setItem('profileId', `${p.id}`);
+		return console.log('profile setado no localStorage');
 	});
 
 	return (
@@ -44,7 +44,7 @@ const Homepage = () => {
 			/>
 			<S.HomeContent>
 				<S.HomeGameList>
-					<GameList />
+					<GameList id={`${id}`} />
 				</S.HomeGameList>
 			</S.HomeContent>
 		</S.Home>

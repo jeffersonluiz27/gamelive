@@ -4,4 +4,9 @@ export interface profileObj {
 	imageUrl: string;
 	userId: string;
 	games?: string;
+	favoriteGameId?: string;
+}
+
+export interface profilefavoriteObj {
+	favoriteGameId: string;
 }

@@ -1,21 +1,20 @@
 import * as S from './style';
 import logo from 'assets/img/logo.png';
+import swal from 'sweetalert';
 import ButtonLogin from 'components/ButtonPurple';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginService } from 'services/authService';
 import { RoutePath } from 'types/routes';
-import swal from 'sweetalert';
 import { userLoginObj } from 'types/api/User';
 
-
 const BoxLogin = (props: any) => {
+	let navigate = useNavigate();
+
 	const [values, setValues] = useState({
 		email: '',
 		password: '',
 	});
-
-	let navigate = useNavigate();
 
 	const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setValues((values: userLoginObj) => ({

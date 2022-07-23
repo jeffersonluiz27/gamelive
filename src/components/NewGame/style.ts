@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const NewGame = styled.section`
-	${({ theme }) => css`
+	${() => css`
 		width: 90%;
 		display: flex;
 		justify-content: center;
@@ -112,5 +112,16 @@ export const BoxNewGameImg = styled.div`
 		width: 150px;
 		height: 150px;
 		object-fit: fill;
+	}
+	#thumbnail input {
+		display: none;
+	}
+
+	#thumbnail.has-thumbnail {
+		border: none;
+	}
+
+	#thumbnail.has-thumbnail img {
+		display: none;
 	}
 `;

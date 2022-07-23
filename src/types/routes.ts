@@ -6,6 +6,5 @@ export enum RoutePath {
 	USEREDIT = '/useredit',
 	SINGUP = '/singup',
 	PROFILE = '/profile',
-	MANAGEGAME = '/managegame/:id',
 	GAMEDETAIL = 'gamedetail/:id',
 }

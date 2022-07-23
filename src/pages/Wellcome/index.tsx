@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
-import ButtonEnter from 'components/ButtonPurple';
 import * as S from './style';
 import Logo from 'components/Logo';
+import ButtonEnter from 'components/ButtonPurple';
 import banner from '../../assets/img/wellcomeBanner.png';
+import { Link } from 'react-router-dom';
 
 const Wellcome = () => {
 	return (

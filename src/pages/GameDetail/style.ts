@@ -13,7 +13,6 @@ export const GameDetail = styled.section`
 export const GameDetailContent = styled.main`
 	${() => css`
 		width: 100%;
-		height: 70%;
 		display: flex;
 		grid-row: auto;
 		flex-direction: column;
@@ -22,22 +21,75 @@ export const GameDetailContent = styled.main`
 `;
 
 export const GameDetailTop = styled.section`
-	${() => css`
-		width: auto;
-		border: #fff solid 1px;
-		height: 10%;
+	${({ theme }) => css`
+		width: 100%;
+		top: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		position: absolute;
+
+		section {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+
+		section div.atrib {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 20px;
+		}
+
+		svg.star {
+			fill: ${theme.colors.buttonGold};
+			font-size: 16px;
+		}
 	`}
 `;
 
 export const GameDetailTrailers = styled.section`
 	${() => css`
 		width: auto;
-		height: 70%;
-		border: #fff solid 1px;
+		height: 80%;
 		display: flex;
 		flex-wrap: wrap;
 		box-sizing: border-box;
+		align-items: center;
+		justify-content: space-evenly;
 	`}
+
+	div.yt {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	div.edit {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: center;
+		width: auto;
+		box-sizing: border-box;
+	}
+	div.edit {
+		padding: 5px;
+	}
+
+	div.edit button {
+		background-color: #dddddd;
+		color: #000;
+		margin: 10px;
+	}
+
+	div.edit button:hover {
+		background-color: #d2d2e3;
+	}
 `;
 
 export const GameDetailDesc = styled.section`
@@ -49,6 +101,7 @@ export const GameDetailDesc = styled.section`
 		text-align: center;
 		justify-content: center;
 		align-items: center;
+		margin-top: 10px;
 
 		article {
 			width: 50%;

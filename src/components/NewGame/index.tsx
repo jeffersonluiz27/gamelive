@@ -1,15 +1,17 @@
 import * as S from './style';
+import swal from 'sweetalert';
+import capa from 'assets/icons/interrogacao.svg';
 import ButtonCriar from 'components/ButtonPurple';
 import ManageGenre from 'components/ManageGenre';
 import { useEffect, useState } from 'react';
 import { genreObj } from 'types/api/Genres';
 import { findAllService } from 'services/findServices';
-import swal from 'sweetalert';
 import { gameDescObj } from 'types/api/Game';
 import { createService } from 'services/createService';
-import capa from 'assets/icons/interrogacao.svg';
+import { useNavigate } from 'react-router-dom';
 
 const BoxNewGame = () => {
+	const navigate = useNavigate();
 	const [listGenre, setListGenre] = useState<genreObj[]>([]);
 	const [game, setGame] = useState({
 		title: '',
@@ -57,18 +59,20 @@ const BoxNewGame = () => {
 	const handleChangeOption2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setGame((values: gameDescObj) => ({
 			...values,
-			[event.target.name]: Number(event.target.value),
+			[event.target.name]: parseInt(event.target.value),
 		}));
 	};
 
 	const createGame = async (event: React.SyntheticEvent) => {
+		console.log(game);
 		event.preventDefault();
 		const response = await createService.createGame(game);
 
-		console.log('game criado', response);
+		console.log('Game criado', response);
 
 		if (response.status === 201) {
 			exibeAlerta('Game criado com sucesso!', 'success', 'Sucesso!');
+			navigate(-1);
 		}
 		if (response.status === 422) {
 			exibeAlerta(
@@ -76,6 +80,9 @@ const BoxNewGame = () => {
 				'error',
 				'Já existe!'
 			);
+		}
+		if (response.status === 400) {
+			exibeAlerta('Algo deu errado!', 'error', 'Ishi!');
 		}
 	};
 
@@ -89,15 +96,12 @@ const BoxNewGame = () => {
 	};
 
 	useEffect(() => {
+		const findAllGenres = async () => {
+			const response = await findAllService.allGenres();
+			setListGenre(response.data);
+		};
 		findAllGenres();
 	}, []);
-
-	const findAllGenres = async () => {
-		const response = await findAllService.allGenres();
-
-		setListGenre(response.data);
-		console.log('listando generos', response.data);
-	};
 
 	return (
 		<S.NewGame>
@@ -108,7 +112,10 @@ const BoxNewGame = () => {
 						<S.BoxNewGameImgArea>
 							<S.BoxNewGameImg>
 								<label id="thumbnail" className="thumbnail">
-									<img src={capa} alt="Logo que representa uma interrogação" />
+									<img
+										src={game.coverImageUrl ? game.coverImageUrl : capa}
+										alt="Logo que representa uma interrogação"
+									/>
 								</label>
 								<input
 									type="link"
@@ -145,15 +152,17 @@ const BoxNewGame = () => {
 								id="imdbScore"
 							>
 								<optgroup label="IMDB Score">
-									<option value="default">1</option>
-									<option value="default">2</option>
-									<option value="default">3</option>
-									<option value="default">4</option>
-									<option value="default">5</option>
+									<option>Escolha</option>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
 								</optgroup>
 							</select>
 							<select onChange={handleChangeOption} name="genres" id="genres">
 								<optgroup label="Genero">
+									<option>Escolha</option>
 									{listGenre.map((genre, index) => (
 										<option value={genre.id} key={index}>
 											{genre.name}

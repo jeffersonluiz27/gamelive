@@ -1,14 +1,13 @@
 import * as S from './style';
-import Elipse from 'assets/img/hankElipse.png';
+import swall from 'sweetalert';
 import MiniLogo from 'assets/img/logo2.png';
 import { IoIosArrowDropleft as Back } from 'react-icons/io';
 import { HiOutlineLogout as Logout } from 'react-icons/hi';
 import { RoutePath } from 'types/routes';
 import { NavItem } from './types';
 import { DateTime } from 'luxon';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import swall from 'sweetalert';
 
 interface MenuProps {
 	navItems: NavItem[];
@@ -21,12 +20,30 @@ const Menu = ({ navItems, onNavigate, onLogout }: MenuProps) => {
 		...DateTime.TIME_24_SIMPLE,
 	});
 	const navigate = useNavigate();
+	let location = useLocation();
+	const { id } = useParams();
 	const jwt = localStorage.getItem('jwtLocalStorage');
 	const imgP = `${localStorage.getItem('profileImage')}`;
 	const titleP = localStorage.getItem('profileTitle');
+	const profileId = localStorage.getItem('profileId');
+
+	const redirect = () => {
+		if (location.pathname === `/home/${id}`) {
+			return navigate(RoutePath.PROFILE);
+		} else if (location.pathname === `/useredit`) {
+			return navigate(`/home/${profileId}`);
+		} else if (location.pathname === `/newgame`) {
+			return navigate(`/home/${profileId}`);
+		} else if (location.pathname === `/gamedetail/${id}`) {
+			return navigate(`/home/${profileId}`);
+		} else {
+			return navigate(-1);
+		}
+	};
 
 	useEffect(() => {
 		UserAuth();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const UserAuth = async () => {
@@ -50,8 +67,8 @@ const Menu = ({ navItems, onNavigate, onLogout }: MenuProps) => {
 					<br />
 					<span>20562</span>
 				</div>
-				<S.MenuItemButton onClick={() => navigate(-1)}>
-					<Back />
+				<S.MenuItemButton>
+					<Back onClick={redirect} />
 				</S.MenuItemButton>
 			</S.MenuLeft>
 			<S.MenuRight>

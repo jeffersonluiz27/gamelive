@@ -1,9 +1,9 @@
-import BoxEditUser from 'components/BoxEditUser';
+import * as S from './style';
 import Menu from 'components/Menu';
+import BoxEditUser from 'components/BoxEditUser';
 import { navigationItemsVazio } from 'data/navigation';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'types/routes';
-import * as S from './style';
 
 const UserEdit = () => {
 	const navigate = useNavigate();

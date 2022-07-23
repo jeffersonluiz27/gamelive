@@ -4,6 +4,7 @@ export interface userLoginObj {
 }
 
 export interface userObj {
+	id?: string;
 	name: string;
 	cpf: string;
 	email: string;
@@ -17,4 +18,10 @@ export interface userHomeObj{
   name: string,
   email: string,
   cpf: string,
+}
+
+export interface userEditObj {
+	name: string;
+	email: string;
+	isAdmin: boolean;
 }
