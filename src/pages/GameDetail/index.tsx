@@ -19,12 +19,13 @@ const GameDetail = () => {
 	const handleNavigation = (path: RoutePath) => navigate(path);
 	const [game, setGame] = useState<gameDetailObj>();
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [refreshGames, setRefreshGames] = useState(false);
 
 	useEffect(() => {
 		getGameById();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [refreshGames]);
 
 	const openModal = () => {
 		setIsModalOpen(true);
@@ -32,12 +33,21 @@ const GameDetail = () => {
 
 	function closeModal() {
 		setIsModalOpen(false);
+		updateGames(true);
 	}
 
 	const getGameById = async () => {
 		const response = await findByIdService.findGameById(`${id}`);
 		setGame(response.data);
 	};
+
+	const updateGames = (refreshProf: boolean) => {
+		setRefreshGames(refreshProf);
+		setTimeout(() => {
+			setRefreshGames(false);
+		}, 100);
+	};
+
 	return (
 		<S.GameDetail>
 			<Menu

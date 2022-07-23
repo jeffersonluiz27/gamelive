@@ -99,10 +99,21 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 	};
 
 	const editGame = async () => {
-		/* const response = await updateService.updateProfile(`${id}`); */
-		/* if (response.status === 200) {
+		const values = {
+			title: game.title,
+			coverImageUrl: game.coverImageUrl,
+			imdbScore: game.imdbScore,
+			description: game.description,
+			year: game.year,
+			trailerYouTubeUrl: game.trailerYouTubeUrl,
+			gameplayYouTubeUrl: game.gameplayYouTubeUrl,
+			genres: atualGenre.id,
+		};
+		const response = await updateService.updateGame(`${id}`, values);
+		if (response.status === 200) {
 			exibeAlerta('Jogo Atualizado com sucesso!', 'success', 'Sucesso!');
-		} */
+			closeModal();
+		}
 	};
 
 	const deleteModalOpen = () => {

@@ -16,7 +16,7 @@ const BoxEditUser = () => {
 	const navigate = useNavigate();
 	const userIdStorage = localStorage.getItem('userIdStorage');
 	const [users, setUsers] = useState<userObj[]>([]);
-	const [refreshProfiles, setRefreshProfiles] = useState(false);
+	const [refreshUsers, setRefreshUsers] = useState(false);
 	const [userId, setUserId] = useState({
 		id: '',
 	});
@@ -68,7 +68,7 @@ const BoxEditUser = () => {
 		getUserById();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [userId, refreshProfiles]);
+	}, [userId, refreshUsers]);
 
 	const updateUser = async () => {
 		console.log(userId.id, user);
@@ -116,9 +116,9 @@ const BoxEditUser = () => {
 	};
 
 	const updateUsers = (refreshProf: boolean) => {
-		setRefreshProfiles(refreshProf);
+		setRefreshUsers(refreshProf);
 		setTimeout(() => {
-			setRefreshProfiles(false);
+			setRefreshUsers(false);
 		}, 100);
 	};
 
