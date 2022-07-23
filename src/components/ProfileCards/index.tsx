@@ -88,6 +88,11 @@ const ProfileCards = () => {
 	};
 
 	let resulta = profiles.filter((e) => e.userId === LocalUseId);
+	let limitProfile = '';
+
+	if (profiles.length >= 5) {
+		limitProfile = 'disabled';
+	}
 
 	return (
 		<>
@@ -103,7 +108,7 @@ const ProfileCards = () => {
 				))}
 			</S.ProfileCards>
 			<S.ProfileCardsPlus>
-				<Plus onClick={createProfile} />
+				<Plus onClick={createProfile} className={limitProfile} />
 			</S.ProfileCardsPlus>
 			<ModalPerfil
 				isOpen={isModalOpen}
