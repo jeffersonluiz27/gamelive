@@ -1,5 +1,4 @@
 import * as S from './style';
-import swal from 'sweetalert';
 import logo from 'assets/img/logo.png';
 import ButtonCriar from 'components/ButtonPurple';
 import { useState } from 'react';
@@ -7,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { registerService } from 'services/authService';
 import { RoutePath } from 'types/routes';
 import { userObj } from 'types/api/User';
+import { alertaErro, alertaSucesso } from 'utils/alertas';
 
 const BoxSingup = () => {
 	let navigate = useNavigate();
@@ -34,19 +34,10 @@ const BoxSingup = () => {
 
 		if (jwt) {
 			localStorage.setItem('jwt', jwt);
-			swal({
-				title: 'Usuário cadastrado com sucesso !',
-				icon: 'success',
-				timer: 7000,
-			});
+			alertaSucesso.alerta('Usuário cadastrado com sucesso !');
 			navigate(RoutePath.LOGIN);
 		} else {
-			swal({
-				title: 'Erro!',
-				text: `${response.data.message}`,
-				icon: 'error',
-				timer: 7000,
-			});
+			alertaErro.alerta(`${response.data.message}`);
 		}
 		console.log(response.data);
 	};

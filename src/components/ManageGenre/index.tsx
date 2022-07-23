@@ -1,5 +1,4 @@
 import * as S from './style';
-import swal from 'sweetalert';
 import ButtonCriar from 'components/ButtonPurple';
 import ButtonUpdate from 'components/ButtonPurple';
 import ButtonDelete from 'components/ButtonRed';
@@ -9,6 +8,7 @@ import { genreObj } from 'types/api/Genres';
 import { findAllService, findByIdService } from 'services/findServices';
 import { deleteService } from 'services/deleteService';
 import { updateService } from 'services/updateService';
+import { alertaDelete, alertaErro, alertaSucesso } from 'utils/alertas';
 
 const ManageGenre = () => {
 	const [listGenre, setListGenre] = useState<genreObj[]>([]);
@@ -51,24 +51,11 @@ const ManageGenre = () => {
 		const response = await createService.createGenre(genre);
 
 		if (response.status === 201) {
-			exibeAlerta('Genero criado com sucesso!', 'success', 'Sucesso!');
+			alertaSucesso.alerta('Genero criado com sucesso!');
 		}
 		if (response.status === 422) {
-			exibeAlerta(
-				'Não é possivel criar genero. Genero já existe!',
-				'error',
-				'Já existe!'
-			);
+			alertaErro.alerta('Não é possivel criar genero. Genero já existe!');
 		}
-	};
-
-	const exibeAlerta = (text: string, icon: string, title: string) => {
-		swal({
-			title: title,
-			text: text,
-			icon: icon,
-			timer: 7000,
-		});
 		updateGeneros(true);
 	};
 
@@ -79,6 +66,8 @@ const ManageGenre = () => {
 		};
 		findAllGenres();
 		getGenreById();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [genre, refreshGeneros]);
 
 	const updateGeneros = (refreshProf: boolean) => {
@@ -102,23 +91,21 @@ const ManageGenre = () => {
 		const response = await updateService.updateGenre(genreId.id, valores);
 
 		if (response.status === 200) {
-			exibeAlerta('Genero Atualizado com sucesso!', 'success', 'Sucesso!');
+			alertaSucesso.alerta('Genero Atualizado com sucesso!');
 		}
+		updateGeneros(true);
 	};
 
 	const deleteGenre = async () => {
 		const response = await deleteService.deleteGenre(genreId.id);
 		console.log(response);
 
-		exibeAlerta('Genero apagado com sucesso!', 'success', 'sucesso');
+		alertaSucesso.alerta('Genero apagado com sucesso!');
+		updateGeneros(true);
 	};
 
 	const deleteModalOpen = () => {
-		swal({
-			title: 'Deseja apagar o genero ?',
-			icon: 'error',
-			buttons: ['Não', 'Sim'],
-		}).then((resp) => {
+		alertaDelete.deleteGenre().then((resp) => {
 			console.log(resp);
 			if (resp) {
 				deleteGenre();

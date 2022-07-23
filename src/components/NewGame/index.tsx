@@ -1,5 +1,4 @@
 import * as S from './style';
-import swal from 'sweetalert';
 import capa from 'assets/icons/interrogacao.svg';
 import ButtonCriar from 'components/ButtonPurple';
 import ManageGenre from 'components/ManageGenre';
@@ -9,6 +8,7 @@ import { findAllService } from 'services/findServices';
 import { gameDescObj } from 'types/api/Game';
 import { createService } from 'services/createService';
 import { useNavigate } from 'react-router-dom';
+import { alertaErro, alertaSucesso } from 'utils/alertas';
 
 const BoxNewGame = () => {
 	const navigate = useNavigate();
@@ -71,28 +71,15 @@ const BoxNewGame = () => {
 		console.log('Game criado', response);
 
 		if (response.status === 201) {
-			exibeAlerta('Game criado com sucesso!', 'success', 'Sucesso!');
+			alertaSucesso.alerta('Game criado com sucesso!');
 			navigate(-1);
 		}
 		if (response.status === 422) {
-			exibeAlerta(
-				'Não é possivel criar Game. Game já existe!',
-				'error',
-				'Já existe!'
-			);
+			alertaErro.alerta('Não é possivel criar Game. Game já existe!');
 		}
 		if (response.status === 400) {
-			exibeAlerta('Algo deu errado!', 'error', 'Ishi!');
+			alertaErro.alerta(`${response.data.message}`);
 		}
-	};
-
-	const exibeAlerta = (text: string, icon: string, title: string) => {
-		swal({
-			title: title,
-			text: text,
-			icon: icon,
-			timer: 7000,
-		});
 	};
 
 	useEffect(() => {

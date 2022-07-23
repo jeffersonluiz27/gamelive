@@ -1,5 +1,4 @@
 import * as S from './style';
-import swall from 'sweetalert';
 import MiniLogo from 'assets/img/logo2.png';
 import { IoIosArrowDropleft as Back } from 'react-icons/io';
 import { HiOutlineLogout as Logout } from 'react-icons/hi';
@@ -8,6 +7,7 @@ import { NavItem } from './types';
 import { DateTime } from 'luxon';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { alertaErro } from 'utils/alertas';
 
 interface MenuProps {
 	navItems: NavItem[];
@@ -48,12 +48,7 @@ const Menu = ({ navItems, onNavigate, onLogout }: MenuProps) => {
 
 	const UserAuth = async () => {
 		if (!jwt) {
-			swall({
-				title: 'ERRO!',
-				text: 'Faça o login antes de entrar nesta pagina',
-				icon: 'error',
-				timer: 7000,
-			});
+			alertaErro.alerta('Faça o login antes de entrar nesta pagina');
 			navigate(RoutePath.LOGIN);
 		}
 	};

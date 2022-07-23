@@ -1,14 +1,14 @@
 import * as S from './style';
 import logo from 'assets/img/logo.png';
-import swal from 'sweetalert';
 import ButtonLogin from 'components/ButtonPurple';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginService } from 'services/authService';
 import { RoutePath } from 'types/routes';
 import { userLoginObj } from 'types/api/User';
+import { alertaErro } from 'utils/alertas';
 
-const BoxLogin = (props: any) => {
+const BoxLogin = () => {
 	let navigate = useNavigate();
 
 	const [values, setValues] = useState({
@@ -29,20 +29,17 @@ const BoxLogin = (props: any) => {
 			const response = await loginService.login(values);
 			const jwt = response.data.token;
 			const user = response.data.user.id;
+			const admin = response.data.user.isAdmin;
 
 			if (jwt) {
 				localStorage.setItem('jwtLocalStorage', jwt);
 				localStorage.setItem('userIdStorage', user);
+				localStorage.setItem('userAdminStorage', admin);
 				navigate(RoutePath.PROFILE);
 			}
 			console.log(`Login`, response.data);
 		} catch (err) {
-			swal({
-				title: 'Erro!',
-				text: `Usuario ou Senha Invalidos`,
-				icon: 'error',
-				timer: 7000,
-			});
+			alertaErro.alerta(`Usuario ou Senha Invalidos`);
 		}
 	};
 

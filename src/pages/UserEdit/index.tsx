@@ -15,7 +15,9 @@ const UserEdit = () => {
 				navItems={navigationItemsVazio}
 				onNavigate={handleNavigation}
 				onLogout={() => {
-					localStorage.setItem('jwtLocalStorage', '');
+					localStorage.removeItem('jwtLocalStorage');
+					localStorage.removeItem('userIdStorage');
+					localStorage.removeItem('profileId');
 					navigate(RoutePath.LOGIN);
 				}}
 			/>

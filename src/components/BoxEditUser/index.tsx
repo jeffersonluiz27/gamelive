@@ -1,6 +1,5 @@
 import * as S from './style';
 import logo from 'assets/img/logo.png';
-import swal from 'sweetalert';
 import ButtonAtualizar from 'components/ButtonPurple';
 import ButtonDeletar from 'components/ButtonRed';
 import ButtonResetSenha from 'components/ButtonRed';
@@ -11,6 +10,11 @@ import { deleteService } from 'services/deleteService';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'types/routes';
 import { updateService } from 'services/updateService';
+import {
+	alertaDelete,
+	alertaDeleteOtherUser,
+	alertaSucesso,
+} from 'utils/alertas';
 
 const BoxEditUser = () => {
 	const navigate = useNavigate();
@@ -81,24 +85,16 @@ const BoxEditUser = () => {
 		console.log(response);
 
 		if (response.status === 200) {
-			exibeAlerta('Genero Atualizado com sucesso!', 'success', 'Sucesso!');
+			alertaSucesso.alerta('Usuario Atualizado com sucesso!');
 			updateUsers(true);
 		}
 	};
 
 	const deleteModalOpen = () => {
 		if (userId.id !== userIdStorage) {
-			swal({
-				title: 'Ops! Você não pode apagar outros Usuarios !',
-				icon: 'error',
-				buttons: ['Cancelar', 'OK'],
-			});
+			alertaDeleteOtherUser();
 		} else {
-			swal({
-				title: 'Deseja apagar o Usuario ? Você perderá todos os seus dados!',
-				icon: 'error',
-				buttons: ['Não', 'Sim'],
-			}).then((resp) => {
+			alertaDelete.deleteUser().then((resp) => {
 				console.log(resp);
 				if (resp) {
 					deleteUser();
@@ -110,25 +106,18 @@ const BoxEditUser = () => {
 	const deleteUser = async () => {
 		const response = await deleteService.deleteUser(`${userId.id}`);
 		console.log(response);
-		exibeAlerta('Usuario apagado com sucesso!', 'success', 'sucesso');
-		localStorage.setItem('jwtLocalStorage', '');
+		alertaSucesso.alerta('Usuario deletado com sucesso!');
+		localStorage.removeItem('jwtLocalStorage');
+		localStorage.removeItem('userIdStorage');
+		localStorage.removeItem('profileId');
 		navigate(RoutePath.LOGIN);
 	};
 
-	const updateUsers = (refreshProf: boolean) => {
-		setRefreshUsers(refreshProf);
+	const updateUsers = (refresh: boolean) => {
+		setRefreshUsers(refresh);
 		setTimeout(() => {
 			setRefreshUsers(false);
 		}, 100);
-	};
-
-	const exibeAlerta = (text: string, icon: string, title: string) => {
-		swal({
-			title: title,
-			text: text,
-			icon: icon,
-			timer: 7000,
-		});
 	};
 
 	return (
