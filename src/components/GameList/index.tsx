@@ -1,11 +1,11 @@
 import * as S from './style';
 import Card from 'components/Card';
-import swall from 'sweetalert';
 import { findByIdService } from 'services/findServices';
 import { useEffect, useState } from 'react';
 import { gameObj } from 'types/api/Game';
 import { homepageObj } from 'types/api/Homepage';
 import { useLocation } from 'react-router';
+import { alertaInfo } from 'utils/alertas';
 
 const GameList = (id: any) => {
 	const [favoritos, setFavoritos] = useState<gameObj[]>([]);
@@ -16,6 +16,8 @@ const GameList = (id: any) => {
 	useEffect(() => {
 		getAllGamesFavoritos();
 		getAllGamesGenres();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [location.key, homeRefresh]);
 
 	const onFav = () => {
@@ -33,12 +35,7 @@ const GameList = (id: any) => {
 		const response = await findByIdService.findHomeProfile(id.id);
 
 		if (response.status === 204) {
-			swall({
-				title: 'Info',
-				text: 'Não existe game cadastrado!',
-				icon: 'info',
-				timer: 7000,
-			});
+			alertaInfo.alerta('Não existe game cadastrado!');
 		} else {
 			console.log('games por genero exibidos', response.data.games);
 			setHomepage(response.data.games);

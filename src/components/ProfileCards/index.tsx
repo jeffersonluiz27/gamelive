@@ -1,5 +1,4 @@
 import * as S from './style';
-import swall from 'sweetalert';
 import ModalPerfil from 'components/ModalPerfil';
 import { FaRegEdit as Edit } from 'react-icons/fa';
 import { AiOutlinePlusCircle as Plus } from 'react-icons/ai';
@@ -8,6 +7,7 @@ import { RoutePath } from 'types/routes';
 import { useEffect, useState } from 'react';
 import { findAllService } from 'services/findServices';
 import { profileObj } from 'types/api/Profile';
+import { alertaErro, alertaInfo } from 'utils/alertas';
 
 const ProfileCards = () => {
 	const navigate = useNavigate();
@@ -64,22 +64,12 @@ const ProfileCards = () => {
 
 	const getAllProfiles = async () => {
 		if (!jwt) {
-			swall({
-				title: 'ERRO!',
-				text: 'Faça o login antes de entrar na página de perfis',
-				icon: 'error',
-				timer: 7000,
-			});
+			alertaErro.alerta('Faça o login antes de entrar na página de perfis');
 			navigate(RoutePath.LOGIN);
 		} else {
 			const response = await findAllService.allProfiles();
 			if (response.status === 204) {
-				swall({
-					title: 'Info',
-					text: 'Cadastre um perfil',
-					icon: 'info',
-					timer: 7000,
-				});
+				alertaInfo.alerta('Cadastre um perfil');
 			} else {
 				console.log('perfis exibidos', response.data);
 				setProfiles(response.data);

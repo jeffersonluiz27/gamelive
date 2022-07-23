@@ -1,6 +1,5 @@
 import * as S from './style';
 import Modal from 'react-modal';
-import swal from 'sweetalert';
 import ButtonCriarProfile from 'components/ButtonPurple';
 import ButtonDeleteProfile from 'components/ButtonRed';
 import interrogacao from 'assets/icons/interrogacao.svg';
@@ -11,6 +10,7 @@ import { createService } from 'services/createService';
 import { findByIdService } from 'services/findServices';
 import { updateService } from 'services/updateService';
 import { deleteService } from 'services/deleteService';
+import { alertaDelete, alertaErro, alertaSucesso } from 'utils/alertas';
 
 Modal.setAppElement('#root');
 
@@ -88,11 +88,11 @@ const ModalPerfil = ({
 		const response = await createService.createProfile(perfil);
 
 		if (response.status === 400) {
-			exibeAlerta('Preencha corretamente!', 'error', 'Algo deu errado!');
+			alertaErro.alerta(`${response.data.message}`);
 		}
 
 		if (response.status === 201) {
-			exibeAlerta('Perfil criado com sucesso!', 'success', 'Sucesso!');
+			alertaSucesso.alerta('Perfil criado com sucesso!');
 			onChanges(response);
 			closeModal();
 		}
@@ -107,18 +107,14 @@ const ModalPerfil = ({
 		const response = await updateService.updateProfile(id, valores);
 
 		if (response.status === 200) {
-			exibeAlerta('Perfil Atualizado com sucesso!', 'success', 'Sucesso!');
+			alertaSucesso.alerta('Perfil Atualizado com sucesso!');
 			onChanges(response);
 			closeModal();
 		}
 	};
 
 	const deleteModalOpen = () => {
-		swal({
-			title: 'Deseja apagar o perfil ?',
-			icon: 'error',
-			buttons: ['Não', 'Sim'],
-		}).then((resp) => {
+		alertaDelete.deleteProfile().then((resp) => {
 			console.log(resp);
 			if (resp) {
 				deleteProfile();
@@ -128,7 +124,7 @@ const ModalPerfil = ({
 
 	const deleteProfile = async () => {
 		const response = await deleteService.deleteProfile(id);
-		exibeAlerta('Perfil apagado com sucesso!', 'success', 'sucesso');
+		alertaSucesso.alerta('Perfil apagado com sucesso!');
 		onChanges(response);
 		closeModal();
 	};
@@ -143,15 +139,6 @@ const ModalPerfil = ({
 				editProfile();
 				break;
 		}
-	};
-
-	const exibeAlerta = (text: string, icon: string, title: string) => {
-		swal({
-			title: title,
-			text: text,
-			icon: icon,
-			timer: 7000,
-		});
 	};
 
 	return (

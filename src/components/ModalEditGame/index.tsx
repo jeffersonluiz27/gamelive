@@ -1,6 +1,5 @@
 import * as S from './style';
 import Modal from 'react-modal';
-import swal from 'sweetalert';
 import capa from 'assets/icons/interrogacao.svg';
 import ButtonUpdate from 'components/ButtonPurple';
 import ButtonDelete from 'components/ButtonRed';
@@ -12,7 +11,7 @@ import { gameDescObj } from 'types/api/Game';
 import { genreObj } from 'types/api/Genres';
 import { deleteService } from 'services/deleteService';
 import { updateService } from 'services/updateService';
-import { RoutePath } from 'types/routes';
+import { alertaDelete, alertaSucesso } from 'utils/alertas';
 
 interface modalProps {
 	isOpen: boolean; // define se o modal vai ser aberto
@@ -111,17 +110,13 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 		};
 		const response = await updateService.updateGame(`${id}`, values);
 		if (response.status === 200) {
-			exibeAlerta('Jogo Atualizado com sucesso!', 'success', 'Sucesso!');
+			alertaSucesso.alerta('Jogo Atualizado com sucesso!');
 			closeModal();
 		}
 	};
 
 	const deleteModalOpen = () => {
-		swal({
-			title: 'Deseja apagar o Jogo ?',
-			icon: 'error',
-			buttons: ['Não', 'Sim'],
-		}).then((resp) => {
+		alertaDelete.deleteGame().then((resp) => {
 			console.log(resp);
 			if (resp) {
 				deleteGame();
@@ -132,7 +127,7 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 	const deleteGame = async () => {
 		const response = await deleteService.deleteGame(`${id}`);
 		console.log(response);
-		exibeAlerta('Jogo apagado com sucesso!', 'success', 'sucesso');
+		alertaSucesso.alerta('Jogo apagado com sucesso!');
 		closeModal();
 		navigate(`/home/${profileId}`);
 	};
@@ -147,15 +142,6 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	const exibeAlerta = (text: string, icon: string, title: string) => {
-		swal({
-			title: title,
-			text: text,
-			icon: icon,
-			timer: 7000,
-		});
-	};
 
 	return (
 		<div>
