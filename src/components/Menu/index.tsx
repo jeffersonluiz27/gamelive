@@ -31,7 +31,8 @@ const Menu = ({ navItems, onNavigate, onLogout }: MenuProps) => {
 		if (location.pathname === `/home/${id}`) {
 			return navigate(RoutePath.PROFILE);
 		} else if (location.pathname === `/useredit`) {
-			return navigate(`/home/${profileId}`);
+			/* return navigate(`/home/${profileId}`); */
+			return navigate(-1);
 		} else if (location.pathname === `/newgame`) {
 			return navigate(`/home/${profileId}`);
 		} else if (location.pathname === `/gamedetail/${id}`) {
