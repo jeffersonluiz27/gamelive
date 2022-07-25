@@ -15,12 +15,14 @@ import {
 	alertaDeleteOtherUser,
 	alertaSucesso,
 } from 'utils/alertas';
+import ModalPassword from 'components/ModalPassword';
 
 const BoxEditUser = () => {
 	const navigate = useNavigate();
 	const userIdStorage = localStorage.getItem('userIdStorage');
 	const [users, setUsers] = useState<userObj[]>([]);
 	const [refreshUsers, setRefreshUsers] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [userId, setUserId] = useState({
 		id: '',
 	});
@@ -81,7 +83,7 @@ const BoxEditUser = () => {
 			email: user.email,
 			isAdmin: user.isAdmin,
 		};
-		const response = await updateService.updateUser2(userId.id, values);
+		const response = await updateService.updateUserEdit(userId.id, values);
 		console.log(response);
 
 		if (response.status === 200) {
@@ -120,66 +122,86 @@ const BoxEditUser = () => {
 		}, 100);
 	};
 
+	const openModal = () => {
+		setIsModalOpen(true);
+	};
+
+	function closeModal() {
+		setIsModalOpen(false);
+	}
+
 	return (
-		<S.BoxEditUser>
-			<S.BoxEditUserLogo>
-				<S.BoxEditUserLogoImage
-					src={logo}
-					alt="Image do logo com um desenho de um controle de video game"
-				/>
-			</S.BoxEditUserLogo>
-			<S.BoxEditUserForm>
-				<S.BoxEditUserSearch>
-					<select onChange={handleChangeOption} name="name" id="name">
-						<optgroup label="Usuarios">
-							<option>Escolha</option>
-							{users.map((user, index) => (
-								<option value={user.id} key={index}>
-									{user.name}
-								</option>
-							))}
-						</optgroup>
-					</select>
-				</S.BoxEditUserSearch>
-				<input
-					type="text"
-					name="name"
-					id="name"
-					placeholder="Nome..."
-					onChange={handleChangeValues}
-					defaultValue={user.name}
-				/>
-				<input
-					type="email"
-					name="email"
-					id="email"
-					placeholder="Email..."
-					onChange={handleChangeValues}
-					defaultValue={user.email}
-				/>
-				<S.BoxEditUserSearch>
-					<select onChange={handleChangeOption2} name="isAdmin" id="isAdmin">
-						<optgroup label="Tipo">
-							<option value="true">Admin</option>
-							<option value="false">User</option>
-						</optgroup>
-					</select>
-				</S.BoxEditUserSearch>
-				<ButtonResetSenha value="Resetar Senha" type="button" id="resetSenha" />
-				<div id="buttons">
-					<ButtonDeletar
-						value="Deletar"
-						type="button"
-						onClick={deleteModalOpen}
+		<>
+			<S.BoxEditUser>
+				<S.BoxEditUserLogo>
+					<S.BoxEditUserLogoImage
+						src={logo}
+						alt="Image do logo com um desenho de um controle de video game"
 					/>
-					<ButtonAtualizar
-						value="Atualizar"
-						type="button"
-						onClick={updateUser}
+				</S.BoxEditUserLogo>
+				<S.BoxEditUserForm>
+					<S.BoxEditUserSearch>
+						<select onChange={handleChangeOption} name="name" id="nameSelect">
+							<optgroup label="Usuarios">
+								<option>Escolha</option>
+								{users.map((user, index) => (
+									<option value={user.id} key={index}>
+										{user.name}
+									</option>
+								))}
+							</optgroup>
+						</select>
+					</S.BoxEditUserSearch>
+					<input
+						type="text"
+						name="name"
+						id="name"
+						placeholder="Nome..."
+						onChange={handleChangeValues}
+						defaultValue={user.name}
 					/>
-				</div>
-			</S.BoxEditUserForm>
-		</S.BoxEditUser>
+					<input
+						type="email"
+						name="email"
+						id="email"
+						placeholder="Email..."
+						onChange={handleChangeValues}
+						defaultValue={user.email}
+					/>
+					<S.BoxEditUserSearch>
+						<select onChange={handleChangeOption2} name="isAdmin" id="isAdmin">
+							<optgroup label="Tipo">
+								<option value="true">Admin</option>
+								<option value="false">User</option>
+							</optgroup>
+						</select>
+					</S.BoxEditUserSearch>
+					<ButtonResetSenha
+						value="Resetar Senha"
+						type="button"
+						id="resetSenha"
+						onClick={openModal}
+					/>
+					<div id="buttons">
+						<ButtonDeletar
+							value="Deletar"
+							type="button"
+							onClick={deleteModalOpen}
+						/>
+						<ButtonAtualizar
+							value="Atualizar"
+							type="button"
+							onClick={updateUser}
+						/>
+					</div>
+				</S.BoxEditUserForm>
+			</S.BoxEditUser>
+			<ModalPassword
+				isOpen={isModalOpen}
+				closeModal={closeModal}
+				userId={userId.id}
+			/>
+		</>
 	);
 };
 

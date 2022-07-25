@@ -25,3 +25,8 @@ export interface userEditObj {
 	email: string;
 	isAdmin: boolean;
 }
+
+export interface userPassObj {
+	password: string;
+	confirmPassword: string;
+}

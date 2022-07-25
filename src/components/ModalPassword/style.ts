@@ -15,3 +15,18 @@ export const ModalPassword = styled.section`
 		box-shadow: 3px 3px 6px 3px ${theme.colors.shadowColor};
 	`}
 `;
+
+export const ModalPasswordForm = styled.form`
+	${({ theme }) => css`
+		display: flex;
+		flex-direction: column;
+		gap: 25px;
+		align-items: center;
+
+		input {
+			${theme.mixins.input};
+			align-self: center;
+			width: 80%;
+		}
+	`}
+`;
