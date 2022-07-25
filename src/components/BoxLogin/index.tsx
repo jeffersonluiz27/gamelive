@@ -7,6 +7,8 @@ import { loginService } from 'services/authService';
 import { RoutePath } from 'types/routes';
 import { userLoginObj } from 'types/api/User';
 import { alertaErro } from 'utils/alertas';
+import { findAllService } from 'services/findServices';
+import { createService } from 'services/createService';
 
 const BoxLogin = () => {
 	let navigate = useNavigate();
@@ -30,11 +32,25 @@ const BoxLogin = () => {
 			const jwt = response.data.token;
 			const user = response.data.user.id;
 			const admin = response.data.user.isAdmin;
+			const name = response.data.user.name;
 
 			if (jwt) {
 				localStorage.setItem('jwtLocalStorage', jwt);
 				localStorage.setItem('userIdStorage', user);
 				localStorage.setItem('userAdminStorage', admin);
+
+				const profile = await findAllService.allProfiles();
+
+				const existe = profile.data.filter((e: any) => e.userId === user);
+				if (existe.length === 0) {
+					const perfil = {
+						title: name,
+						imageUrl: 'https://picsum.photos/200/300',
+						userId: user,
+					};
+					const response2 = await createService.createProfile(perfil);
+					console.log(response2);
+				}
 				navigate(RoutePath.PROFILE);
 			}
 			console.log(`Login`, response.data);
