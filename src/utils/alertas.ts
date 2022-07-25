@@ -1,13 +1,5 @@
 import swal from 'sweetalert';
 
-const exibeAlertaButtons = (title: string, icon: string, buttons: string[]) => {
-	swal({
-		title: title,
-		icon: icon,
-		buttons: buttons,
-	});
-};
-
 const exibeAlerta = (text: string, icon: string, title: string) => {
 	swal({
 		title: title,
@@ -54,19 +46,17 @@ const alertaDelete = {
 			icon: 'error',
 			buttons: ['Não', 'Sim'],
 		}).then((resp) => resp),
+	deleteAdmin: () =>
+		exibeAlerta('Ops! Você não pode apagar esse usuario !', 'error', 'Erro!'),
 };
 
-const alertaDeleteOtherUser = () => {
-	exibeAlertaButtons('Ops! Você não pode apagar outros Usuarios !', 'error', [
-		'Cancelar',
-		'OK',
-	]);
+const alertaUpdate = {
+	updateUser: () =>
+		exibeAlerta(
+			'Ops! Você não pode atualizar esse usuario !',
+			'error',
+			'Erro!'
+		),
 };
 
-export {
-	alertaDelete,
-	alertaDeleteOtherUser,
-	alertaSucesso,
-	alertaErro,
-	alertaInfo,
-};
+export { alertaDelete, alertaSucesso, alertaErro, alertaInfo, alertaUpdate };

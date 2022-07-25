@@ -12,8 +12,9 @@ import { RoutePath } from 'types/routes';
 import { updateService } from 'services/updateService';
 import {
 	alertaDelete,
-	alertaDeleteOtherUser,
+	alertaErro,
 	alertaSucesso,
+	alertaUpdate,
 } from 'utils/alertas';
 import ModalPassword from 'components/ModalPassword';
 
@@ -76,6 +77,8 @@ const BoxEditUser = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userId, refreshUsers]);
 
+	const admin = users.filter((e) => e.name === 'Administrador');
+
 	const updateUser = async () => {
 		console.log(userId.id, user);
 		const values = {
@@ -83,18 +86,23 @@ const BoxEditUser = () => {
 			email: user.email,
 			isAdmin: user.isAdmin,
 		};
-		const response = await updateService.updateUserEdit(userId.id, values);
-		console.log(response);
 
-		if (response.status === 200) {
-			alertaSucesso.alerta('Usuario Atualizado com sucesso!');
-			updateUsers(true);
+		if (admin[0].id !== userIdStorage) {
+			alertaUpdate.updateUser();
+		} else {
+			const response = await updateService.updateUserEdit(userId.id, values);
+			console.log(response);
+
+			if (response.status === 200) {
+				alertaSucesso.alerta('Usuario Atualizado com sucesso!');
+				updateUsers(true);
+			}
 		}
 	};
 
 	const deleteModalOpen = () => {
-		if (userId.id !== userIdStorage) {
-			alertaDeleteOtherUser();
+		if (admin[0].id !== userIdStorage) {
+			alertaDelete.deleteAdmin();
 		} else {
 			alertaDelete.deleteUser().then((resp) => {
 				console.log(resp);
@@ -106,13 +114,23 @@ const BoxEditUser = () => {
 	};
 
 	const deleteUser = async () => {
-		const response = await deleteService.deleteUser(`${userId.id}`);
-		console.log(response);
-		alertaSucesso.alerta('Usuario deletado com sucesso!');
-		localStorage.removeItem('jwtLocalStorage');
-		localStorage.removeItem('userIdStorage');
-		localStorage.removeItem('profileId');
-		navigate(RoutePath.LOGIN);
+		if (admin[0].id === userIdStorage) {
+			if (userId.id !== userIdStorage) {
+				const response = await deleteService.deleteUser(`${userId.id}`);
+				console.log(response);
+				alertaSucesso.alerta('Usuario deletado com sucesso!');
+			} else {
+				alertaErro.alerta('Esse usuario não pode ser deletado!');
+			}
+		} else {
+			const response = await deleteService.deleteUser(`${userId.id}`);
+			console.log(response);
+			alertaSucesso.alerta('Usuario deletado com sucesso!');
+			localStorage.removeItem('jwtLocalStorage');
+			localStorage.removeItem('userIdStorage');
+			localStorage.removeItem('profileId');
+			navigate(RoutePath.LOGIN);
+		}
 	};
 
 	const updateUsers = (refresh: boolean) => {
@@ -171,8 +189,8 @@ const BoxEditUser = () => {
 					<S.BoxEditUserSearch>
 						<select onChange={handleChangeOption2} name="isAdmin" id="isAdmin">
 							<optgroup label="Tipo">
-								<option value="true">Admin</option>
 								<option value="false">User</option>
+								<option value="true">Admin</option>
 							</optgroup>
 						</select>
 					</S.BoxEditUserSearch>
@@ -203,6 +221,6 @@ const BoxEditUser = () => {
 			/>
 		</>
 	);
-};
+};;
 
 export default BoxEditUser;
