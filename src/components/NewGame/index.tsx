@@ -3,7 +3,7 @@ import capa from 'assets/icons/interrogacao.svg';
 import ButtonCriar from 'components/ButtonPurple';
 import ManageGenre from 'components/ManageGenre';
 import { useEffect, useState } from 'react';
-import { genreObj } from 'types/api/Genres';
+import { genreGameObj, genreObj } from 'types/api/Genres';
 import { findAllService } from 'services/findServices';
 import { gameDescObj } from 'types/api/Game';
 import { createService } from 'services/createService';
@@ -21,7 +21,7 @@ const BoxNewGame = () => {
 		year: 2000,
 		trailerYouTubeUrl: '',
 		gameplayYouTubeUrl: '',
-		genres: '',
+		genres: [''],
 	});
 
 	const handleChangeValues = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +52,7 @@ const BoxNewGame = () => {
 	const handleChangeOption = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setGame((values: gameDescObj) => ({
 			...values,
-			[event.target.name]: event.target.value,
+			[event.target.name]: [event.target.value],
 		}));
 	};
 

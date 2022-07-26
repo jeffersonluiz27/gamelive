@@ -78,6 +78,7 @@ const BoxEditUser = () => {
 	}, [userId, refreshUsers]);
 
 	const admin = users.filter((e) => e.name === 'Administrador');
+	console.log(admin);
 
 	const updateUser = async () => {
 		console.log(userId.id, user);
@@ -88,7 +89,17 @@ const BoxEditUser = () => {
 		};
 
 		if (admin[0].id !== userIdStorage) {
-			alertaUpdate.updateUser();
+			if (userId.id === admin[0].id) {
+				alertaUpdate.updateUser();
+			} else {
+				const response = await updateService.updateUserEdit(userId.id, values);
+				console.log(response);
+
+				if (response.status === 200) {
+					alertaSucesso.alerta('Usuario Atualizado com sucesso!');
+					updateUsers(true);
+				}
+			}
 		} else {
 			const response = await updateService.updateUserEdit(userId.id, values);
 			console.log(response);
@@ -102,7 +113,16 @@ const BoxEditUser = () => {
 
 	const deleteModalOpen = () => {
 		if (admin[0].id !== userIdStorage) {
-			alertaDelete.deleteAdmin();
+			if (userId.id === admin[0].id) {
+				alertaDelete.deleteAdmin();
+			} else {
+				alertaDelete.deleteUser().then((resp) => {
+					console.log(resp);
+					if (resp) {
+						deleteUser();
+					}
+				});
+			}
 		} else {
 			alertaDelete.deleteUser().then((resp) => {
 				console.log(resp);
@@ -114,11 +134,15 @@ const BoxEditUser = () => {
 	};
 
 	const deleteUser = async () => {
-		if (admin[0].id === userIdStorage) {
-			if (userId.id !== userIdStorage) {
+		if (admin[0].id !== userIdStorage) {
+			if (userId.id !== admin[0].id) {
 				const response = await deleteService.deleteUser(`${userId.id}`);
 				console.log(response);
 				alertaSucesso.alerta('Usuario deletado com sucesso!');
+				localStorage.removeItem('jwtLocalStorage');
+				localStorage.removeItem('userIdStorage');
+				localStorage.removeItem('profileId');
+				navigate(RoutePath.LOGIN);
 			} else {
 				alertaErro.alerta('Esse usuario não pode ser deletado!');
 			}

@@ -40,6 +40,7 @@ const GameDetail = () => {
 
 	const getGameById = async () => {
 		const response = await findByIdService.findGameById(`${id}`);
+		console.log(response);
 		setGame(response.data);
 	};
 
@@ -73,12 +74,18 @@ const GameDetail = () => {
 						<div>
 							<h2>{game?.title}</h2>
 						</div>
-						<div className="atrib">
-							<h3>{game?.genres.name}</h3>
-							{game?.year}
-							<div>
-								{[...Array(game?.imdbScore)].map((e, i) => (
-									<Star key={i} className="star" />
+						<div className="mainAtrib">
+							<div className="atrib">
+								{game?.year}
+								<div>
+									{[...Array(game?.imdbScore)].map((e, i) => (
+										<Star key={i} className="star" />
+									))}
+								</div>
+							</div>
+							<div className="atribh3">
+								{game?.genres.map((genre) => (
+									<h3>{genre.name}</h3>
 								))}
 							</div>
 						</div>

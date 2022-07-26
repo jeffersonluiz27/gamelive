@@ -34,12 +34,18 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 		year: 2000,
 		trailerYouTubeUrl: '',
 		gameplayYouTubeUrl: '',
-		genres: '',
+		genres: [''],
 	});
 	const [atualGenre, setAtualGenre] = useState({
 		id: '',
 		name: '',
 	});
+	const [genres, setGenres] = useState([
+		{
+			id: '',
+			name: '',
+		},
+	]);
 	const [listGenre, setListGenre] = useState<genreObj[]>([]);
 
 	const navigate = useNavigate();
@@ -87,7 +93,7 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 	const getGameById = async () => {
 		const response = await findByIdService.findGameById(`${id}`);
 		setGame(response.data);
-		setAtualGenre(response.data.genres);
+		setGenres(response.data.genres.map((genre: any) => genre.id));
 	};
 
 	const findAllGenres = async () => {
@@ -96,6 +102,8 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 		setListGenre(response.data);
 		console.log('listando generos', response.data);
 	};
+
+	console.log('Aqui', genres);
 
 	const editGame = async () => {
 		const values = {
@@ -106,7 +114,7 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 			year: game.year,
 			trailerYouTubeUrl: game.trailerYouTubeUrl,
 			gameplayYouTubeUrl: game.gameplayYouTubeUrl,
-			genres: atualGenre.id,
+			genres: genres.map((value) => value.id),
 		};
 		const response = await updateService.updateGame(`${id}`, values);
 		if (response.status === 200) {

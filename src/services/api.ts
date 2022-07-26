@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-	baseURL: 'https://api-game-live.herokuapp.com',
+	baseURL: 'http://localhost:3333',
 });
 
 api.interceptors.request.use((config: any) => {

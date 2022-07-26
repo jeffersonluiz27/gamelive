@@ -45,8 +45,10 @@ const GameList = (id: any) => {
 	const getAllGamesFavoritos = async () => {
 		const response = await findByIdService.findHomeProfile(id.id);
 
-		console.log('favoritos exibidos', response.data.favorites.games);
-		setFavoritos(response.data.favorites.games);
+		if (response.data.favorites) {
+			console.log('favoritos exibidos', response.data.favorites.games);
+			setFavoritos(response.data.favorites.games);
+		}
 	};
 
 	return (
