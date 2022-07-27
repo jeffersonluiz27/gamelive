@@ -79,7 +79,7 @@ const ProfileCards = () => {
 	let resulta = profiles.filter((e) => e.userId === LocalUseId);
 	let limitProfile = '';
 
-	if (profiles.length >= 5) {
+	if (resulta.length >= 5) {
 		limitProfile = 'disabled';
 	}
 
