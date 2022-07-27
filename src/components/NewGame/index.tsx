@@ -71,7 +71,7 @@ const BoxNewGame = () => {
 		console.log(genreId);
 		setGame((values: gameDescObj) => ({
 			...values,
-			/* [event.target.name]: [event.target.value], */
+			genres: genreId,
 		}));
 	};
 
