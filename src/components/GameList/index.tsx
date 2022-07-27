@@ -54,15 +54,17 @@ const GameList = (id: any) => {
 			<S.GameList>
 				<h2>Favoritos</h2>
 				<S.GameListFavoritos>
-					{favoritos.map((favorito, index) => (
-						<Card
-							game={favorito}
-							key={index}
-							id={id.id}
-							onChanges={onFav}
-							favIcon="favOn"
-						/>
-					))}
+					<section className="favSection">
+						{favoritos.map((favorito, index) => (
+							<Card
+								game={favorito}
+								key={index}
+								id={id.id}
+								onChanges={onFav}
+								favIcon="favOn"
+							/>
+						))}
+					</section>
 				</S.GameListFavoritos>
 				<h2>Generos</h2>
 

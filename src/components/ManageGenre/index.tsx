@@ -55,8 +55,6 @@ const ManageGenre = () => {
 		}
 		if (response.status === 422) {
 			alertaErro.alerta('Não é possivel criar genero. Genero já existe!');
-		} else {
-			alertaErro.alerta(`${response.data.message}`);
 		}
 		updateGeneros(true);
 	};

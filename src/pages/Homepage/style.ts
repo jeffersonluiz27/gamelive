@@ -23,9 +23,8 @@ export const HomeContent = styled.main`
 export const HomeGameList = styled.div`
 	${() => css`
 		display: flex;
-		width: 100%;
+		width: 98%;
 		margin-top: 25px;
 		padding-bottom: 25px;
-		margin-left: 5%;
 	`}
 `;
