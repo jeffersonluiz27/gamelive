@@ -1,5 +1,6 @@
 import * as S from './style';
 import Modal from 'react-modal';
+import Select from 'react-select';
 import capa from 'assets/icons/interrogacao.svg';
 import ButtonUpdate from 'components/ButtonPurple';
 import ButtonDelete from 'components/ButtonRed';
@@ -11,7 +12,7 @@ import { gameDescObj } from 'types/api/Game';
 import { genreObj } from 'types/api/Genres';
 import { deleteService } from 'services/deleteService';
 import { updateService } from 'services/updateService';
-import { alertaDelete, alertaSucesso } from 'utils/alertas';
+import { alertaDelete, alertaErro, alertaSucesso } from 'utils/alertas';
 
 interface modalProps {
 	isOpen: boolean; // define se o modal vai ser aberto
@@ -26,7 +27,7 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 		title,
 	});
 
-	const [game, setGame] = useState({
+	const [game, setGame] = useState<gameDescObj>({
 		title: '',
 		coverImageUrl: '',
 		imdbScore: 1,
@@ -34,13 +35,16 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 		year: 2000,
 		trailerYouTubeUrl: '',
 		gameplayYouTubeUrl: '',
-		genres: '',
+		genres: [],
 	});
-	const [atualGenre, setAtualGenre] = useState({
-		id: '',
-		name: '',
-	});
-	const [listGenre, setListGenre] = useState<genreObj[]>([]);
+	const [genreOptions, setGenreOptions] = useState<genreObj[] | any>([]);
+	const optionsImdb = [
+		{ value: 1, label: '1' },
+		{ value: 2, label: '2' },
+		{ value: 3, label: '3' },
+		{ value: 4, label: '4' },
+		{ value: 5, label: '5' },
+	];
 
 	const navigate = useNavigate();
 	const profileId = localStorage.getItem('profileId');
@@ -70,54 +74,52 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 		}));
 	};
 
-	const handleChangeOption = (event: React.ChangeEvent<HTMLSelectElement>) => {
+	const handleChangeImdb = (event: any) => {
 		setGame((values: gameDescObj) => ({
 			...values,
-			[event.target.name]: event.target.value,
+			imdbScore: parseInt(event.value),
 		}));
 	};
 
-	const handleChangeOption2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
+	const handleChangeGenre = (genres: any) => {
+		const genreId = genres.map((genre: any) => genre.value);
 		setGame((values: gameDescObj) => ({
 			...values,
-			[event.target.name]: parseInt(event.target.value),
+			genres: genreId,
 		}));
 	};
 
 	const getGameById = async () => {
 		const response = await findByIdService.findGameById(`${id}`);
 		setGame(response.data);
-		setAtualGenre(response.data.genres);
 	};
 
 	const findAllGenres = async () => {
 		const response = await findAllService.allGenres();
 
-		setListGenre(response.data);
-		console.log('listando generos', response.data);
+		if (response.data) {
+			const genreOptionss = response.data.map((genre: any) => {
+				return {
+					value: genre.id,
+					label: genre.name,
+				};
+			});
+			setGenreOptions(genreOptionss);
+		}
 	};
 
 	const editGame = async () => {
-		const values = {
-			title: game.title,
-			coverImageUrl: game.coverImageUrl,
-			imdbScore: game.imdbScore,
-			description: game.description,
-			year: game.year,
-			trailerYouTubeUrl: game.trailerYouTubeUrl,
-			gameplayYouTubeUrl: game.gameplayYouTubeUrl,
-			genres: atualGenre.id,
-		};
-		const response = await updateService.updateGame(`${id}`, values);
+		const response = await updateService.updateGame(`${id}`, game);
 		if (response.status === 200) {
 			alertaSucesso.alerta('Jogo Atualizado com sucesso!');
 			closeModal();
+		} else {
+			alertaErro.alerta(`${response.data.message}`);
 		}
 	};
 
 	const deleteModalOpen = () => {
 		alertaDelete.deleteGame().then((resp) => {
-			console.log(resp);
 			if (resp) {
 				deleteGame();
 			}
@@ -201,30 +203,21 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 							/>
 						</S.BoxManageGameDiv>
 						<S.BoxManageGameDiv>
-							<select
-								onChange={handleChangeOption2}
+							<Select
 								name="imdbScore"
-								id="imdbScore"
-							>
-								<optgroup label="IMDB Score">
-									<option>{game.imdbScore}</option>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
-								</optgroup>
-							</select>
-							<select onChange={handleChangeOption} name="genres" id="genres">
-								<optgroup label="Genero">
-									<option value={atualGenre.id}>{atualGenre.name}</option>
-									{listGenre.map((genre, index) => (
-										<option value={genre.id} key={index}>
-											{genre.name}
-										</option>
-									))}
-								</optgroup>
-							</select>
+								options={optionsImdb}
+								onChange={handleChangeImdb}
+								className={'basic-multi-select'}
+								defaultValue={[optionsImdb[0]]}
+							/>
+							<Select
+								name="genres"
+								isMulti
+								options={genreOptions}
+								onChange={handleChangeGenre}
+								className={'selectOption basic-multi-select'}
+								defaultValue={[genreOptions[0]]}
+							/>
 						</S.BoxManageGameDiv>
 						<S.BoxManageGameDiv>
 							<input

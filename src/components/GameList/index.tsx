@@ -37,7 +37,6 @@ const GameList = (id: any) => {
 		if (response.status === 204) {
 			alertaInfo.alerta('Não existe game cadastrado!');
 		} else {
-			console.log('games por genero exibidos', response.data.games);
 			setHomepage(response.data.games);
 		}
 	};
@@ -45,8 +44,9 @@ const GameList = (id: any) => {
 	const getAllGamesFavoritos = async () => {
 		const response = await findByIdService.findHomeProfile(id.id);
 
-		console.log('favoritos exibidos', response.data.favorites.games);
-		setFavoritos(response.data.favorites.games);
+		if (response.data.favorites) {
+			setFavoritos(response.data.favorites.games);
+		}
 	};
 
 	return (
@@ -54,15 +54,17 @@ const GameList = (id: any) => {
 			<S.GameList>
 				<h2>Favoritos</h2>
 				<S.GameListFavoritos>
-					{favoritos.map((favorito, index) => (
-						<Card
-							game={favorito}
-							key={index}
-							id={id.id}
-							onChanges={onFav}
-							favIcon="favOn"
-						/>
-					))}
+					<section className="favSection">
+						{favoritos.map((favorito, index) => (
+							<Card
+								game={favorito}
+								key={index}
+								id={id.id}
+								onChanges={onFav}
+								favIcon="favOn"
+							/>
+						))}
+					</section>
 				</S.GameListFavoritos>
 				<h2>Generos</h2>
 

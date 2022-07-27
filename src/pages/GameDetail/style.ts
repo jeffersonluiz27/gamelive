@@ -37,7 +37,24 @@ export const GameDetailTop = styled.section`
 			justify-content: center;
 		}
 
-		section div.atrib {
+		div.mainAtrib {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+		}
+
+		div.atribh3 {
+			display: flex;
+			gap: 10px;
+		}
+
+		div.atribh3 h3 {
+			margin: 0;
+			margin-top: 0.5rem;
+		}
+
+		div.atrib {
 			display: flex;
 			align-items: center;
 			justify-content: center;

@@ -43,9 +43,24 @@ export const BoxNewGame = styled.div`
 `;
 
 export const BoxNewGameDiv = styled.div`
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+	${({ theme }) => css`
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+
+		.basic-multi-select {
+			background-color: ${theme.colors.baseInput};
+			color: ${theme.colors.textInput};
+			border-radius: 7px;
+			font-size: 18px;
+			width: 232px;
+		}
+
+		.basic-multi-select > div {
+			background-color: ${theme.colors.baseInput};
+			color: ${theme.colors.textInput};
+		}
+	`}
 `;
 
 export const BoxNewGameForm = styled.form`

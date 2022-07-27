@@ -78,19 +78,21 @@ export const BoxEditUserSearch = styled.div`
 		align-self: center;
 		display: flex;
 		align-items: center;
-		${theme.mixins.input()};
-		width: 70%;
-		gap: 10px;
+		border-radius: 7px;
+		width: 75%;
 		border: solid 1px #ddd;
 
-		select {
-			background: transparent;
-			border: none;
-			height: 70%;
-			width: 100%;
+		.basic-multi-select {
 			background-color: ${theme.colors.baseInput};
 			color: ${theme.colors.textInput};
+			border-radius: 7px;
 			font-size: 18px;
+			width: 100%;
+		}
+		.basic-multi-select > div {
+			background-color: ${theme.colors.baseInput};
+			color: ${theme.colors.textInput};
+			border-radius: 7px;
 		}
 	`}
 `;

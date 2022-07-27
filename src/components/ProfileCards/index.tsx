@@ -71,7 +71,6 @@ const ProfileCards = () => {
 			if (response.status === 204) {
 				alertaInfo.alerta('Cadastre um perfil');
 			} else {
-				console.log('perfis exibidos', response.data);
 				setProfiles(response.data);
 			}
 		}

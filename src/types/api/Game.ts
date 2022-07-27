@@ -1,4 +1,4 @@
-import { genreObj } from './Genres';
+import { genreGameObj, genreObj } from './Genres';
 
 export interface gameObj {
 	id?: string;
@@ -16,7 +16,7 @@ export interface gameDescObj {
 	year: number;
 	trailerYouTubeUrl: string;
 	gameplayYouTubeUrl: string;
-	genres: string;
+	genres: [];
 }
 
 export interface gameDetailObj {
@@ -28,5 +28,5 @@ export interface gameDetailObj {
 	year: number;
 	trailerYouTubeUrl: string;
 	gameplayYouTubeUrl: string;
-	genres: genreObj;
+	genres: genreObj[];
 }
