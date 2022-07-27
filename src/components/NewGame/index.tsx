@@ -2,8 +2,9 @@ import * as S from './style';
 import capa from 'assets/icons/interrogacao.svg';
 import ButtonCriar from 'components/ButtonPurple';
 import ManageGenre from 'components/ManageGenre';
+import Select from 'react-select';
 import { useEffect, useState } from 'react';
-import { genreGameObj, genreObj } from 'types/api/Genres';
+import { genreObj } from 'types/api/Genres';
 import { findAllService } from 'services/findServices';
 import { gameDescObj } from 'types/api/Game';
 import { createService } from 'services/createService';
@@ -13,7 +14,8 @@ import { alertaErro, alertaSucesso } from 'utils/alertas';
 const BoxNewGame = () => {
 	const navigate = useNavigate();
 	const [listGenre, setListGenre] = useState<genreObj[]>([]);
-	const [game, setGame] = useState({
+	const [genreOptions, setGenreOptions] = useState<any>([]);
+	const [game, setGame] = useState<gameDescObj>({
 		title: '',
 		coverImageUrl: '',
 		imdbScore: 1,
@@ -21,7 +23,7 @@ const BoxNewGame = () => {
 		year: 2000,
 		trailerYouTubeUrl: '',
 		gameplayYouTubeUrl: '',
-		genres: [''],
+		genres: [],
 	});
 
 	const handleChangeValues = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,16 +52,26 @@ const BoxNewGame = () => {
 	};
 
 	const handleChangeOption = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setGame((values: gameDescObj) => ({
-			...values,
-			[event.target.name]: [event.target.value],
-		}));
+		if (event.target.name === 'genres') {
+			setGame((values: gameDescObj) => ({
+				...values,
+				[event.target.name]: [event.target.value],
+			}));
+		} else {
+			setGame((values: gameDescObj) => ({
+				...values,
+				[event.target.name]: parseInt(event.target.value),
+			}));
+		}
 	};
 
-	const handleChangeOption2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
+	const handleChangeOption2 = (genres: any) => {
+		console.log(genres);
+		const genreId = genres.map((genre: any) => genre.values);
+		console.log(genreId);
 		setGame((values: gameDescObj) => ({
 			...values,
-			[event.target.name]: parseInt(event.target.value),
+			/* [event.target.name]: [event.target.value], */
 		}));
 	};
 
@@ -85,7 +97,17 @@ const BoxNewGame = () => {
 	useEffect(() => {
 		const findAllGenres = async () => {
 			const response = await findAllService.allGenres();
+			if (response.data) {
+				const genreOptionss = response.data.map((genre: any) => {
+					return {
+						values: genre.id,
+						label: genre.name,
+					};
+				});
+				setGenreOptions(genreOptionss);
+			}
 			setListGenre(response.data);
+			console.log('Aqui', genreOptions);
 		};
 		findAllGenres();
 	}, []);
@@ -134,7 +156,7 @@ const BoxNewGame = () => {
 						</S.BoxNewGameDiv>
 						<S.BoxNewGameDiv>
 							<select
-								onChange={handleChangeOption2}
+								onChange={handleChangeOption}
 								name="imdbScore"
 								id="imdbScore"
 							>
@@ -147,7 +169,13 @@ const BoxNewGame = () => {
 									<option>5</option>
 								</optgroup>
 							</select>
-							<select onChange={handleChangeOption} name="genres" id="genres">
+							<Select
+								name="genres"
+								isMulti
+								options={genreOptions}
+								onChange={handleChangeOption2}
+							/>
+							{/* <select onChange={handleChangeOption} name="genres" id="genres">
 								<optgroup label="Genero">
 									<option>Escolha</option>
 									{listGenre.map((genre, index) => (
@@ -156,7 +184,7 @@ const BoxNewGame = () => {
 										</option>
 									))}
 								</optgroup>
-							</select>
+							</select> */}
 						</S.BoxNewGameDiv>
 						<S.BoxNewGameDiv>
 							<input

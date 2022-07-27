@@ -85,7 +85,7 @@ const GameDetail = () => {
 							</div>
 							<div className="atribh3">
 								{game?.genres.map((genre) => (
-									<h3>{genre.name}</h3>
+									<h3 key={genre.id}>{genre.name}</h3>
 								))}
 							</div>
 						</div>

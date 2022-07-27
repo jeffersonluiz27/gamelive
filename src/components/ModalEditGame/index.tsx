@@ -26,7 +26,7 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 		title,
 	});
 
-	const [game, setGame] = useState({
+	const [game, setGame] = useState<gameDescObj>({
 		title: '',
 		coverImageUrl: '',
 		imdbScore: 1,
@@ -34,18 +34,13 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 		year: 2000,
 		trailerYouTubeUrl: '',
 		gameplayYouTubeUrl: '',
-		genres: [''],
+		genres: [],
 	});
 	const [atualGenre, setAtualGenre] = useState({
 		id: '',
 		name: '',
 	});
-	const [genres, setGenres] = useState([
-		{
-			id: '',
-			name: '',
-		},
-	]);
+	const [genres, setGenres] = useState([]);
 	const [listGenre, setListGenre] = useState<genreObj[]>([]);
 
 	const navigate = useNavigate();
@@ -77,17 +72,17 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 	};
 
 	const handleChangeOption = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setGame((values: gameDescObj) => ({
-			...values,
-			[event.target.name]: event.target.value,
-		}));
-	};
-
-	const handleChangeOption2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setGame((values: gameDescObj) => ({
-			...values,
-			[event.target.name]: parseInt(event.target.value),
-		}));
+		if (event.target.name === 'genres') {
+			setGame((values: gameDescObj) => ({
+				...values,
+				[event.target.name]: [event.target.value],
+			}));
+		} else {
+			setGame((values: gameDescObj) => ({
+				...values,
+				[event.target.name]: parseInt(event.target.value),
+			}));
+		}
 	};
 
 	const getGameById = async () => {
@@ -107,16 +102,10 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 
 	const editGame = async () => {
 		const values = {
-			title: game.title,
-			coverImageUrl: game.coverImageUrl,
-			imdbScore: game.imdbScore,
-			description: game.description,
-			year: game.year,
-			trailerYouTubeUrl: game.trailerYouTubeUrl,
-			gameplayYouTubeUrl: game.gameplayYouTubeUrl,
-			genres: genres.map((value) => value.id),
+			...game,
+			genres: genres,
 		};
-		const response = await updateService.updateGame(`${id}`, values);
+		const response = await updateService.updateGame(`${id}`, game);
 		if (response.status === 200) {
 			alertaSucesso.alerta('Jogo Atualizado com sucesso!');
 			closeModal();
@@ -210,7 +199,7 @@ const ModalEditGame = ({ isOpen, closeModal, title, id }: modalProps) => {
 						</S.BoxManageGameDiv>
 						<S.BoxManageGameDiv>
 							<select
-								onChange={handleChangeOption2}
+								onChange={handleChangeOption}
 								name="imdbScore"
 								id="imdbScore"
 							>
