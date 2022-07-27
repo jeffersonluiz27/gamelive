@@ -37,7 +37,6 @@ const GameList = (id: any) => {
 		if (response.status === 204) {
 			alertaInfo.alerta('Não existe game cadastrado!');
 		} else {
-			console.log('games por genero exibidos', response.data.games);
 			setHomepage(response.data.games);
 		}
 	};
@@ -46,7 +45,6 @@ const GameList = (id: any) => {
 		const response = await findByIdService.findHomeProfile(id.id);
 
 		if (response.data.favorites) {
-			console.log('favoritos exibidos', response.data.favorites.games);
 			setFavoritos(response.data.favorites.games);
 		}
 	};
