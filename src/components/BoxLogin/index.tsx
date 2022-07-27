@@ -50,6 +50,7 @@ const BoxLogin = () => {
 						userId: user,
 					};
 					const response2 = await createService.createProfile(perfil);
+					console.log('Usuario criado automaticamente', response2);
 				}
 				navigate(RoutePath.PROFILE);
 			}

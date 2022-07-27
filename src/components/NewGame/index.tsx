@@ -13,7 +13,6 @@ import { alertaErro, alertaSucesso } from 'utils/alertas';
 
 const BoxNewGame = () => {
 	const navigate = useNavigate();
-	const [listGenre, setListGenre] = useState<genreObj[]>([]);
 	const [genreOptions, setGenreOptions] = useState<genreObj[] | any>([]);
 	const [game, setGame] = useState<gameDescObj>({
 		title: '',
@@ -102,7 +101,6 @@ const BoxNewGame = () => {
 				});
 				setGenreOptions(genreOptionss);
 			}
-			setListGenre(response.data);
 		};
 		findAllGenres();
 	}, []);

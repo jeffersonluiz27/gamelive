@@ -5,7 +5,7 @@ import ButtonAtualizar from 'components/ButtonPurple';
 import ButtonDeletar from 'components/ButtonRed';
 import ButtonResetSenha from 'components/ButtonRed';
 import React, { useEffect, useState } from 'react';
-import { userEditObj, userObj } from 'types/api/User';
+import { userEditObj } from 'types/api/User';
 import { findAllService, findByIdService } from 'services/findServices';
 import { deleteService } from 'services/deleteService';
 import { useNavigate } from 'react-router-dom';
