@@ -62,7 +62,7 @@ const ManageGenre = () => {
 	useEffect(() => {
 		const getGenreById = async () => {
 			const response = await findByIdService.findGenreById(genreId.id);
-			console.log('Genero Listado', response.data);
+			console.log(response);
 		};
 		findAllGenres();
 		getGenreById();
@@ -81,7 +81,6 @@ const ManageGenre = () => {
 		const response = await findAllService.allGenres();
 
 		setListGenre(response.data);
-		console.log('Lista Generos', response.data);
 	};
 
 	const editGenre = async () => {
