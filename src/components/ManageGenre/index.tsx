@@ -55,6 +55,8 @@ const ManageGenre = () => {
 		}
 		if (response.status === 422) {
 			alertaErro.alerta('Não é possivel criar genero. Genero já existe!');
+		} else {
+			alertaErro.alerta(`${response.data.message}`);
 		}
 		updateGeneros(true);
 	};
@@ -92,6 +94,8 @@ const ManageGenre = () => {
 
 		if (response.status === 200) {
 			alertaSucesso.alerta('Genero Atualizado com sucesso!');
+		} else {
+			alertaErro.alerta(`${response.data.message}`);
 		}
 		updateGeneros(true);
 	};
@@ -106,7 +110,6 @@ const ManageGenre = () => {
 
 	const deleteModalOpen = () => {
 		alertaDelete.deleteGenre().then((resp) => {
-			console.log(resp);
 			if (resp) {
 				deleteGenre();
 			}

@@ -1,9 +1,10 @@
 import * as S from './style';
 import logo from 'assets/img/logo.png';
+import Select from 'react-select';
 import ButtonAtualizar from 'components/ButtonPurple';
 import ButtonDeletar from 'components/ButtonRed';
 import ButtonResetSenha from 'components/ButtonRed';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { userEditObj, userObj } from 'types/api/User';
 import { findAllService, findByIdService } from 'services/findServices';
 import { deleteService } from 'services/deleteService';
@@ -21,7 +22,7 @@ import ModalPassword from 'components/ModalPassword';
 const BoxEditUser = () => {
 	const navigate = useNavigate();
 	const userIdStorage = localStorage.getItem('userIdStorage');
-	const [users, setUsers] = useState<userObj[]>([]);
+	const [users, setUsers] = useState([{ value: '', label: '' }]);
 	const [refreshUsers, setRefreshUsers] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [userId, setUserId] = useState({
@@ -32,17 +33,20 @@ const BoxEditUser = () => {
 		email: '',
 		isAdmin: true,
 	});
+	const isAdmin = [
+		{ value: false, label: 'User' },
+		{ value: true, label: 'Admin' },
+	];
 
-	const handleChangeOption = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setUserId((values) => ({
-			...values,
-			id: event.target.value,
-		}));
+	const handleChangeOption = (event: userEditObj | any) => {
+		setUserId({
+			id: event.value,
+		});
 	};
 
-	const handleChangeOption2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
+	const handleChangeAdmin = (newValue: userEditObj | any) => {
 		let isTrue = false;
-		if (event.target.value === 'true') {
+		if (newValue.value === true) {
 			isTrue = true;
 		}
 		setUser((values: userEditObj) => ({
@@ -58,62 +62,83 @@ const BoxEditUser = () => {
 		}));
 	};
 
-	const getAllUser = async () => {
-		const response = await findAllService.allUsers();
-		setUsers(response.data);
-		console.log('Listando Usuarios', response.data);
+	const updateUsers = (refresh: boolean) => {
+		setRefreshUsers(refresh);
+		setTimeout(() => {
+			setRefreshUsers(false);
+		}, 100);
 	};
 
-	const getUserById = async () => {
-		const response = await findByIdService.findUserById(userId.id);
-		console.log(response.data);
-		setUser(response.data);
+	const openModal = () => {
+		setIsModalOpen(true);
+	};
+
+	function closeModal() {
+		setIsModalOpen(false);
+	}
+
+	const getAllUser = async () => {
+		const response = await findAllService.allUsers();
+		if (response.data) {
+			const allUsers = response.data.map((user: any) => {
+				return {
+					value: user.id,
+					label: user.name,
+				};
+			});
+			setUsers(allUsers);
+		}
 	};
 
 	useEffect(() => {
 		getAllUser();
+
+		const getUserById = async () => {
+			const response = await findByIdService.findUserById(userId.id);
+			setUser(response.data);
+		};
 		getUserById();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userId, refreshUsers]);
 
-	const admin = users.filter((e) => e.name === 'Administrador');
-	console.log(admin);
+	const admin = users.filter((e: any) => e.label === 'Administrador');
 
 	const updateUser = async () => {
-		console.log(userId.id, user);
 		const values = {
 			name: user.name,
 			email: user.email,
 			isAdmin: user.isAdmin,
 		};
 
-		if (admin[0].id !== userIdStorage) {
-			if (userId.id === admin[0].id) {
+		if (admin[0].value !== userIdStorage) {
+			if (userId.id === admin[0].value) {
 				alertaUpdate.updateUser();
 			} else {
 				const response = await updateService.updateUserEdit(userId.id, values);
-				console.log(response);
 
 				if (response.status === 200) {
 					alertaSucesso.alerta('Usuario Atualizado com sucesso!');
 					updateUsers(true);
+				} else {
+					alertaErro.alerta(`${response.data.message}`);
 				}
 			}
 		} else {
 			const response = await updateService.updateUserEdit(userId.id, values);
-			console.log(response);
 
 			if (response.status === 200) {
 				alertaSucesso.alerta('Usuario Atualizado com sucesso!');
 				updateUsers(true);
+			} else {
+				alertaErro.alerta(`${response.data.message}`);
 			}
 		}
 	};
 
 	const deleteModalOpen = () => {
-		if (admin[0].id !== userIdStorage) {
-			if (userId.id === admin[0].id) {
+		if (admin[0].value !== userIdStorage) {
+			if (userId.id === admin[0].value) {
 				alertaDelete.deleteAdmin();
 			} else {
 				alertaDelete.deleteUser().then((resp) => {
@@ -134,8 +159,8 @@ const BoxEditUser = () => {
 	};
 
 	const deleteUser = async () => {
-		if (admin[0].id !== userIdStorage) {
-			if (userId.id !== admin[0].id) {
+		if (admin[0].value !== userIdStorage) {
+			if (userId.id !== admin[0].value) {
 				const response = await deleteService.deleteUser(`${userId.id}`);
 				console.log(response);
 				alertaSucesso.alerta('Usuario deletado com sucesso!');
@@ -157,21 +182,6 @@ const BoxEditUser = () => {
 		}
 	};
 
-	const updateUsers = (refresh: boolean) => {
-		setRefreshUsers(refresh);
-		setTimeout(() => {
-			setRefreshUsers(false);
-		}, 100);
-	};
-
-	const openModal = () => {
-		setIsModalOpen(true);
-	};
-
-	function closeModal() {
-		setIsModalOpen(false);
-	}
-
 	return (
 		<>
 			<S.BoxEditUser>
@@ -183,21 +193,16 @@ const BoxEditUser = () => {
 				</S.BoxEditUserLogo>
 				<S.BoxEditUserForm>
 					<S.BoxEditUserSearch>
-						<select onChange={handleChangeOption} name="name" id="nameSelect">
-							<optgroup label="Usuarios">
-								<option>Escolha</option>
-								{users.map((user, index) => (
-									<option value={user.id} key={index}>
-										{user.name}
-									</option>
-								))}
-							</optgroup>
-						</select>
+						<Select
+							name="names"
+							options={users}
+							onChange={handleChangeOption}
+							className={'basic-multi-select'}
+						/>
 					</S.BoxEditUserSearch>
 					<input
 						type="text"
 						name="name"
-						id="name"
 						placeholder="Nome..."
 						onChange={handleChangeValues}
 						defaultValue={user.name}
@@ -211,12 +216,13 @@ const BoxEditUser = () => {
 						defaultValue={user.email}
 					/>
 					<S.BoxEditUserSearch>
-						<select onChange={handleChangeOption2} name="isAdmin" id="isAdmin">
-							<optgroup label="Tipo">
-								<option value="false">User</option>
-								<option value="true">Admin</option>
-							</optgroup>
-						</select>
+						<Select
+							name="isAdmin"
+							options={isAdmin}
+							onChange={handleChangeAdmin}
+							className={'basic-multi-select'}
+							defaultValue={[isAdmin[1]]}
+						/>
 					</S.BoxEditUserSearch>
 					<ButtonResetSenha
 						value="Resetar Senha"

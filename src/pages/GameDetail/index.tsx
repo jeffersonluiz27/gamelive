@@ -40,7 +40,6 @@ const GameDetail = () => {
 
 	const getGameById = async () => {
 		const response = await findByIdService.findGameById(`${id}`);
-		console.log(response);
 		setGame(response.data);
 	};
 

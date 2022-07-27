@@ -50,10 +50,7 @@ const ModalPassword = ({ isOpen, closeModal, userId }: modalProps) => {
 		};
 		const response = await updateService.updateUserPass(`${userId}`, valores);
 
-		console.log(response);
-
 		if (response.status === 200) {
-			console.log('aqui');
 			alertaSucesso.alerta(
 				'Senha Atualizada com sucesso! Faça login novamente!'
 			);

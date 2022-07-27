@@ -39,7 +39,6 @@ const BoxSingup = () => {
 		} else {
 			alertaErro.alerta(`${response.data.message}`);
 		}
-		console.log(response.data);
 	};
 
 	return (
